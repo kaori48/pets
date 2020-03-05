@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   end
 
   def show
+  	#ユーザー情報編集
   end
 
   def edit
