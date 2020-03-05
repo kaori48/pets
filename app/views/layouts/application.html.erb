@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pet</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    <nav class="nav navbar-nav navbar-left">
+    <span>Bookers</span>
+  </nav>
+  <div>
+      <nav class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right">
+      <%if user_signed_in? %><!-- ログイン -->
+        <%= link_to destroy_user_session_path, :method => :delete do %>
+        <span class="glyphicon glyphicon-log-out" aria-hidden="true">ログアウト</span>
+        <% end %>
+      <% else %>
+          <%= link_to root_path do %>
+          <span class="glyphicon glyphicon-home" aria-hidden="true">Home</span>
+        <% end %>
+          <%= link_to home_about_path do %>
+          <span class="glyphicon glyphicon-link" aria-hidden="true">このサイトについて</span>
+          <% end %>
+          <%= link_to new_user_registration_path do %>
+          <span class="glyphicon glyphicon-edit" aria-hidden="true">新規登録</span>
+          <% end %>
+          <%= link_to new_user_session_path do %>
+          <span class="glyphicon glyphicon-log-in" aria-hidden="true">ログイン</span>
+          <% end %>
+       <% end %>
+        </ul>
+       </nav>
+    </div>
+  </div>
+</header>
+    <%= yield %>
+  </body>
+</html>
