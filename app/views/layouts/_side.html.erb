@@ -1,0 +1,15 @@
+
+ <!--画像表示するようにする-->
+
+  <div>
+    <%= attachment_image_tag user, :icon, size: "150x150", fallback: "no_image.jpg"%>
+     <table class="table">
+   	   <tbody>
+   	    <tr><th>name</th><td><%= user.name %></td></tr><!--railsなので％-->
+   	    <tr><th>introduction</th><td><%= user.introduction %></td></tr>
+       </tbody>
+     </table>
+     <!--フォローつける-->
+     <!--フォローの数？？-->
+  </div>
+  <div>

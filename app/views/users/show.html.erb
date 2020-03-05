@@ -1,6 +1,18 @@
-
-<!-- サイドバー -->
+<!-- サイドバー部分テンプレ -->
+<%= render 'layouts/side', user: current_user %>
 <!--プロフィール編集-->
+<div>
+	<h3>プロフィール編集</h3>
+	<%= form_for(@user)do |f|%>
+	 <%= attachment_image_tag @user, :icon, size: "150x150", fallback: "no_image.jpg"%>
+	 <%= f.attachment_field :icon %><!-- icon_idだがrefileの仕様でidなし --><!-- サイズについての表記を書く -->
+	<h4>name</h4>
+	<%= f.text_field :name %>
+	<h4>introduction</h4>
+	<%= f.text_area :introduction %>
+	<%= f.submit '登録' %>
+	<% end %>
+</div>
 <!--お世話申請一覧-->
 
 <h1>Users#show</h1>
