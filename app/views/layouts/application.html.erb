@@ -13,12 +13,15 @@
     <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
     <nav class="nav navbar-nav navbar-left">
-    <span>Bookers</span>
+    <span>Pets</span>
   </nav>
   <div>
       <nav class="nav navbar-nav navbar-right">
         <ul class="nav navbar-nav navbar-right">
-      <%if user_signed_in? %><!-- ログイン -->
+      <%if user_signed_in? %><!-- ログインしているか -->
+        <%= link_to user_path(current_user) do %><!-- ページごとに記述する -->
+        <span class="glyphicon glyphicon-log-out" aria-hidden="true">マイページ</span>
+        <% end %>
         <%= link_to destroy_user_session_path, :method => :delete do %>
         <span class="glyphicon glyphicon-log-out" aria-hidden="true">ログアウト</span>
         <% end %>
