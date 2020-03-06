@@ -10,7 +10,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_05_071703) do
+ActiveRecord::Schema.define(version: 2020_03_06_021907) do
+
+  create_table "blog_comments", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "blog_id"
+    t.string "blog_comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id_id"
+    t.integer "blog_id_id"
+    t.index ["blog_id_id"], name: "index_blog_comments_on_blog_id_id"
+    t.index ["user_id_id"], name: "index_blog_comments_on_user_id_id"
+  end
+
+  create_table "blogs", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "genre_id"
+    t.string "title"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "genres", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
