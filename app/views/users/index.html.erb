@@ -1,2 +1,24 @@
+<%= render 'layouts/side', user: current_user %><!--ヘッダー-->
+<div>
+ <div>
+	<table>
+		<thead>
+           <tr>
+           	 	<th>image</th>
+           	 	<th>name</th>
+           </tr>
+		</thead>
+		<tbody><!--全ユーザー一覧-->
+			<% @users.each do |user|%><!--ユーザーのイメージ, その人の投稿一覧-->
+			<tr>
+				<td><%= attachment_image_tag user, :icon, size: "40x40", fallback: "no_image.jpg" %></td>
+				<td><p class="text-left"><%= user.name %></p></td><!--name -->
+				<!--showボタンで(そのidの投稿一覧 -->
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+  </div>
+ </div>
 <h1>Users#index</h1>
 <p>Find me in app/views/users/index.html.erb</p>

@@ -1,16 +1,20 @@
 class UsersController < ApplicationController
   def index
+    @users = User.all
   end
 
   def show#ユーザー情報
-  	@user = User.find(params[:id])
+  	@user = current_user
   end
   def update
-  	@user = User.find(params[:id])
+  	@user = current_user
   	@user.update(user_params)
   	redirect_to user_path
   end
-  def delete
+  def destroy#削除できない
+    @user = current_user
+    @user.destroy
+    redirect_to root_path
   end
   def edit
   end
