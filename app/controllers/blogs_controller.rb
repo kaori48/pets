@@ -1,6 +1,6 @@
 class BlogsController < ApplicationController
 	def index
-		@blogs =Blog.all
+		@blogs =Blog.all.order(created_at: :desc)
     @blog = Blog.new#新規投稿用
 	end
 
