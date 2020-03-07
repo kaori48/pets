@@ -6,7 +6,7 @@
 	<!--削除ボタン-->
 	<%= link_to "削除", user_path(@user) %><!--削除できない-->
 	<%= form_for(@user)do |f|%>
-	 <%= attachment_image_tag @user, :icon, size: "150x150", fallback: "no_image.jpg" %>
+	 <%= attachment_image_tag @user, :icon, size: "150x150", fallback: "no_image.jpg" %><!-- サイズ後で -->
 	 <%= f.attachment_field :icon %><!-- icon_idだがrefileの仕様でidなし --><!-- サイズについての表記を書く -->
 	<h4>name</h4>
 	<%= f.text_field :name %>
