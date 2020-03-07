@@ -5,15 +5,48 @@
 <%= attachment_image_tag @blog, :blog_image, size: "220x170",fallback: "no_image.jpg" %><br>
 
 <% @blog.genres.each do |genre|%><!--登録されているジャンル一覧-->
-<%= genre.name %>
+    <%= genre.name %>
 <% end %><br>
 <%= @blog.body %><br>
+コメント数：<%= @blog.blog_comments.count %><!--コメント数-->
+
+<!--いいね-->
+<% if @blog.favorited_by?(current_user) %>
+    <!--いいねあり、削除リンク-->
+    <%= link_to blog_favorites_path(@blog), method: :delete do %>
+        <%= @blog.favorites.count %>いいね<!--いいねボタン、いいね数-->
+    <% end %>
+<% else %>
+    <!--いいねなし、追加リンク-->
+    <%= link_to blog_favorites_path(@blog), method: :post do %>
+        <%= @blog.favorites.count %>いいね<!--いいねボタン、いいね数-->
+    <% end %>
+<% end %>
+
+
 <!--ブログ削除、編集,後で成功、確認メッセとかもいれる-->
 <% if @blog.user == current_user %><!--後々管理者もできるようにする-->
-<%= link_to"編集", edit_blog_path(@blog.id) %>
-<%= link_to"削除", blog_path(@blog.id),method: :delete, data: {confirm: "本当に消しますか？"} %>
-<% end %>
-<!--コメント-->
+    <%= link_to"編集", edit_blog_path(@blog.id) %>
+        <%= link_to"削除", blog_path(@blog.id),method: :delete, data: {confirm: "本当に消しますか？"} %>
+    <% end %>
 <%= link_to "index", blogs_path %>
+
+<!--コメント投稿、後でログイン時にだけ出すようにする-->
+<%= form_for [@blog,@comment] do |f| %><!--後々マイページに飛ばす-->
+    <%= f.text_area :comment,placeholder: "comment" %>
+<%= f.submit"送信" %>
+<% end %>
+
+<!--コメント一覧-->
+<% @comments.each do |comment| %>
+   <%= attachment_image_tag comment.user, :icon, size: "40x40", fallback: "no_image.jpg" %><br>
+   <%= comment.user.name %>
+   <%= comment.comment %>
+   <% if comment.user_id == current_user.id %><!--後々管理者も削除できるように-->
+   	  <%= link_to "削除", blog_blog_comments_path(comment.id), method: :delete, data: {confirm: "本当に消しますか？"} %>
+   <% end %><br>
+<% end %>
+
+
 <h1>Blogs#show</h1>
 <p>Find me in app/views/blogs/show.html.erb</p>

@@ -10,6 +10,8 @@
   <% blog.genres.each do |genre|%><!--登録されているジャンル一覧-->
       <%= genre.name %>
   <% end %>
+  <%= blog.favorites.count %>いいね
+  コメント数：<%= blog.blog_comments.count %><br>
   <% if blog.user == current_user %><!--後々管理者もできるようにする-->
     <%= link_to"編集", edit_blog_path(blog.id) %>
     <%= link_to"削除", blog_path(blog.id),method: :delete, data: {confirm: "本当に消しますか？"} %>
