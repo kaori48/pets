@@ -1,2 +1,9 @@
+<% @blogs.each do |blog| %><!--ブログ一覧-->
+<%= attachment_image_tag @blog, :blog_image, size: "220x170",fallback: "no_image.jpg" %><br>
+<%= blog.title %>
+<%= blog.created_at %><!--JSTに後々変更-->
+<% end %>
+
+
 <h1>Blogs#index</h1>
 <p>Find me in app/views/blogs/index.html.erb</p>
