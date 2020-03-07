@@ -1,2 +1,19 @@
+<!--部分テンプレいれる-->
+<!--ブログ詳細-->
+<%= @blog.title %><br>
+<%= @blog.created_at %><!--JSTに後々変更--><br>
+<%= attachment_image_tag @blog, :blog_image, size: "220x170",fallback: "no_image.jpg" %><br>
+
+<% @blog.genres.each do |genre|%><!--登録されているジャンル一覧-->
+<%= genre.name %>
+<% end %><br>
+<%= @blog.body %><br>
+<!--ブログ削除、編集,後で成功、確認メッセとかもいれる-->
+<% if @blog.user == current_user %><!--後々管理者もできるようにする-->
+<%= link_to"編集", edit_blog_path(@blog.id) %>
+<%= link_to"削除", blog_path(@blog.id),method: :delete, data: {confirm: "本当に消しますか？"} %>
+<% end %>
+<!--コメント-->
+<%= link_to "index", blogs_path %>
 <h1>Blogs#show</h1>
 <p>Find me in app/views/blogs/show.html.erb</p>
