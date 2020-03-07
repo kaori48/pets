@@ -7,7 +7,7 @@ class BlogsController < ApplicationController
 	def show
     @blog = Blog.find(params[:id])
     @comment = BlogComment.new#新規コメント空
-    @comments = @blog.blog_comments
+    @comments = @blog.blog_comments#アソシエーションhas_manyのため
 	end
 
   def edit
