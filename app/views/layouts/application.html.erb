@@ -19,8 +19,11 @@
       <nav class="nav navbar-nav navbar-right">
         <ul class="nav navbar-nav navbar-right">
       <%if user_signed_in? %><!-- ログインしているか -->
-        <%= link_to user_path(current_user) do %><!-- ページごとに記述する -->
+        <%= link_to user_path(current_user) do %>
         <span class="glyphicon glyphicon-log-out" aria-hidden="true">マイページ</span>
+        <% end %>
+        <%= link_to blogs_path do %>
+        <span class="glyphicon glyphicon-log-out" aria-hidden="true">ブログ</span>
         <% end %>
         <%= link_to destroy_user_session_path, :method => :delete do %>
         <span class="glyphicon glyphicon-log-out" aria-hidden="true">ログアウト</span>
