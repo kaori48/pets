@@ -4,7 +4,13 @@ Rails.application.routes.draw do
   get 'home/about' => 'homes#about'
   get 'users/mypage' => 'users#mypage'
   get '/blog_genre/:id' => 'blogs#genre',as:'blog_genre'#ジャンル検索でidが必要
-  resources :users
+
+  resources :users do
+    get 'follows' => 'relationships#follows', as: 'follows'#フォロー一覧
+    get 'followers' => 'relationships#followers', as: 'followers'#フォロワー一覧
+    resource :relationships, only: [:create, :destroy]
+  end
+
   resources :blogs do
   	resource :blog_comments, only: [:create, :destroy]
   	resource :favorites, only: [:create, :destroy]
