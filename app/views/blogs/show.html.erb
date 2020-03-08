@@ -1,11 +1,14 @@
 <!--部分テンプレいれる-->
+<%= render 'layouts/sidegenre', genres: @genres %>
 <!--ブログ詳細-->
 <%= @blog.title %><br>
 <%= @blog.created_at %><!--JSTに後々変更--><br>
 <%= attachment_image_tag @blog, :blog_image, size: "220x170",fallback: "no_image.jpg" %><br>
 
 <% @blog.genres.each do |genre|%><!--登録されているジャンル一覧-->
-    <%= genre.name %>
+      <%= link_to blog_genre_path(genre.id) do %>
+        <%= genre.name %>
+      <% end %>
 <% end %><br>
 <%= @blog.body %><br>
 コメント数：<%= @blog.blog_comments.count %><!--コメント数-->
