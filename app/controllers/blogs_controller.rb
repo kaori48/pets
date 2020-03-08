@@ -8,11 +8,12 @@ class BlogsController < ApplicationController
   def genre
     @genres =  Genre.all#ジャンルサイドバー一覧
     @genre = Genre.find(params[:id])# Genreのデータベースのテーブルから一致するidを取得
-    @blogs = @genre.blogs.where(id: params[:id])# Genreのデータベースのテーブルから取得条件に合致するオブジェクトを配列として取り出す
+    @blogs = @genre.blogs# Genreのデータベースのテーブルから取得条件に合致するオブジェクトを配列として取り出す
     @blog = Blog.new#新規投稿用
   end
 
 	def show
+    @genres =  Genre.all#ジャンルサイドバー一覧
     @blog = Blog.find(params[:id])
     @comment = BlogComment.new#新規コメント空
     @comments = @blog.blog_comments#アソシエーションhas_manyのため
