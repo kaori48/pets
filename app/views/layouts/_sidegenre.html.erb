@@ -1,0 +1,6 @@
+<th>ジャンル検索</th><br>
+<% genres.each do |genre| %><!--ジャンル一覧、ジャンルテーブルからとってくる-->
+              	<span style="font-size:1.1em;"><%= link_to blog_genre_path(genre.id) do %><!-- 投稿一覧リンク（ジャンルidに紐づいてる）-->
+                  <%= genre.name %></span><!--ジャンル名-->
+                <% end %><br>
+		  <% end %>
