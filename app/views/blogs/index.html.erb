@@ -8,9 +8,12 @@
 <%= link_to blog_path(blog.id) do %>
   <%= attachment_image_tag blog, :blog_image, size: "220x170",fallback: "no_image.jpg" %><br>
   <%= blog.title %>
+  <% end %>
   <%= blog.created_at %><!--JSTに後々変更-->
   <% blog.genres.each do |genre|%><!--登録されているジャンル一覧-->
-      <%= genre.name %>
+      <%= link_to blog_genre_path(genre.id) do %>
+        <%= genre.name %>
+      <% end %>/
   <% end %>
   <%= blog.favorites.count %>いいね
   コメント数：<%= blog.blog_comments.count %><br>
@@ -20,7 +23,7 @@
     <%= link_to"削除", blog_path(blog.id),method: :delete, data: {confirm: "本当に消しますか？"} %>
   <% end %>
 <% end %><br>
-<% end %>
+
 
 
 <h1>Blogs#index</h1>
