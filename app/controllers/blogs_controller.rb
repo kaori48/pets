@@ -2,7 +2,15 @@ class BlogsController < ApplicationController
 	def index
 		@blogs =Blog.all.order(created_at: :desc)
     @blog = Blog.new#新規投稿用
+    @genres =  Genre.all#ジャンルサイドバー一覧
 	end
+
+  def genre
+    @genres =  Genre.all#ジャンルサイドバー一覧
+    @genre = Genre.find(params[:id])# Genreのデータベースのテーブルから一致するidを取得
+    @blogs = @genre.blogs.where(id: params[:id])# Genreのデータベースのテーブルから取得条件に合致するオブジェクトを配列として取り出す
+    @blog = Blog.new#新規投稿用
+  end
 
 	def show
     @blog = Blog.find(params[:id])
