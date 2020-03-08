@@ -1,19 +1,32 @@
 <!-- サイドバー部分テンプレ -->
-<%= render 'layouts/side', user: current_user %>
+<%= render 'layouts/side', user: @user %>
 <!--プロフィール編集-->
 <div>
-	<h3>プロフィール編集</h3>
-	<!--削除ボタン-->
-	<%= link_to "削除", user_path(@user) %><!--削除できない-->
-	<%= form_for(@user)do |f|%>
-	 <%= attachment_image_tag @user, :icon, size: "150x150", fallback: "no_image.jpg" %><!-- サイズ後で -->
-	 <%= f.attachment_field :icon %><!-- icon_idだがrefileの仕様でidなし --><!-- サイズについての表記を書く -->
-	<h4>name</h4>
-	<%= f.text_field :name %>
-	<h4>introduction</h4>
-	<%= f.text_area :introduction %>
-	<%= f.submit '登録' %>
-	<% end %>
+	<%= render 'layouts/sidegenre', genres: @genres %>
+
+<!--新規投稿-->
+<%= link_to"投稿", new_blog_path %><br>
+<!--ブログ一覧、投稿順に並べる-->
+<% @user.blogs.each do |blog| %>
+<%= link_to blog_path(blog.id) do %>
+  <%= attachment_image_tag blog, :blog_image, size: "220x170",fallback: "no_image.jpg" %><br>
+  <%= blog.title %>
+  <% end %>
+  <%= blog.created_at %><!--JSTに後々変更-->
+  <% blog.genres.each do |genre|%><!--登録されているジャンル一覧-->
+      <%= link_to blog_genre_path(genre.id) do %>
+        <%= genre.name %>
+      <% end %>/
+  <% end %>
+  <%= blog.favorites.count %>いいね
+  コメント数：<%= blog.blog_comments.count %><br>
+
+  <% if blog.user == current_user %><!--後々管理者もできるようにする-->
+    <%= link_to"編集", edit_blog_path(blog.id) %>
+    <%= link_to"削除", blog_path(blog.id),method: :delete, data: {confirm: "本当に消しますか？"} %>
+  <% end %>
+<% end %><br>
+
 </div>
 <!--お世話申請一覧-->
 
