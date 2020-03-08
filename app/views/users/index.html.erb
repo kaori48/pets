@@ -9,11 +9,12 @@
            </tr>
 		</thead>
 		<tbody><!--全ユーザー一覧-->
-			<% @users.each do |user|%><!--ユーザーのイメージ, その人の投稿一覧-->
+			<% @users.each do |user|%>
 			<tr>
+				<%= link_to user_path(user.id) do %><!--リンク飛べない-->
 				<td><%= attachment_image_tag user, :icon, size: "40x40", fallback: "no_image.jpg" %></td>
-				<td><p class="text-left"><%= user.name %></p></td><!--name -->
-				<!--showボタンで(そのidの投稿一覧 -->
+				<td><p><%= user.name %></p></td><!--name -->
+				<% end %><!--showボタンで(そのidの投稿一覧 -->
 			</tr>
 			<% end %>
 		</tbody>
