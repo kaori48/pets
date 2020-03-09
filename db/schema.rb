@@ -26,16 +26,6 @@ ActiveRecord::Schema.define(version: 2020_03_08_124112) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "blog_comments", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "blog_id"
-    t.string "comment"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["blog_id"], name: "index_blog_comments_on_blog_id"
-    t.index ["user_id"], name: "index_blog_comments_on_user_id"
-  end
-
   create_table "blog_genre_relations", force: :cascade do |t|
     t.integer "blog_id"
     t.integer "genre_id"
@@ -44,12 +34,12 @@ ActiveRecord::Schema.define(version: 2020_03_08_124112) do
   end
 
   create_table "blogs", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "genre_id"
     t.string "title"
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "blog_image_id"
-    t.integer "user_id"
   end
 
   create_table "favorites", force: :cascade do |t|

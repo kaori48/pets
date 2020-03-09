@@ -14,6 +14,8 @@ class User < ApplicationRecord
   has_many :following_user, through: :follower, source: :followed #自分がフォローしている人
   has_many :follower_user, through: :followed, source: :follower #自分をフォローしている人
 
+  has_many :animals, dependent: :destroy
+
   #フォローする・フォロー外す・フォローしているか確認を行うメソッドを作成
 	# ユーザーをフォローする
 	def follow(user_id)
