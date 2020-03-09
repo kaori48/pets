@@ -1,2 +1,29 @@
+<%= form_for(@animal) do |f| %>
+    <%= attachment_image_tag @animal, :animal_image, size: "710x520", fallback: "no_image.jpg" %><br>
+    <table>
+    	<tr>
+    		<th>名前</th><td><%= f.text_field :name %></td>
+    	</tr>
+    	<tr>
+    		<th>birth</th><td>dousuru、データセレクト？（カラムも変更かも、年齢出す？）</td>
+    	</tr>
+    	<tr>
+    		<th>food</th><td><%= f.text_area :food %></td>
+    	</tr>
+    	<tr>
+    		<th>toilet</th><td><%= f.text_area :toilet %></td>
+    	</tr>
+    	<tr>
+    		<th>water</th><td><%= f.text_area :water %></td>
+    	</tr>
+    	<tr>
+    		<th>hospital</th><td><%= f.text_area :hospital %></td>
+    	</tr>
+    	<tr>
+    		<th>other</th><td><%= f.text_area :other %></td>
+    	</tr>
+    </table>
+    <%= f.submit '登録' %>
+<% end %>
 <h1>Animals#new</h1>
 <p>Find me in app/views/animals/new.html.erb</p>
