@@ -1,7 +1,10 @@
 class ApplicationController < ActionController::Base
 	before_action :configure_permitted_parameters, if: :devise_controller?
     def after_sign_in_path_for(resource)
-       user_path # ログイン後の行先、ブログ一覧
+       blogs_path # ログイン後の行先、ブログ一覧
+    end
+    def after_sign_up_path_for(resouce)#新規登録ででどこに飛ぶか
+       blogs_path
     end
 
     def after_sign_out_path_for(resource)

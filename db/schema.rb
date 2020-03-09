@@ -10,18 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_08_124112) do
+ActiveRecord::Schema.define(version: 2020_03_09_052825) do
 
   create_table "animals", force: :cascade do |t|
     t.integer "user_id"
     t.string "animal_id"
     t.string "name"
-    t.string "birth"
     t.text "food"
     t.text "toilet"
     t.text "water"
     t.text "hospital"
     t.text "other"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.date "birth"
+  end
+
+  create_table "blog_comments", force: :cascade do |t|
+    t.text "comment"
+    t.integer "user_id"
+    t.integer "blog_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -35,11 +43,11 @@ ActiveRecord::Schema.define(version: 2020_03_08_124112) do
 
   create_table "blogs", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "genre_id"
     t.string "title"
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "blog_image_id"
   end
 
   create_table "favorites", force: :cascade do |t|
