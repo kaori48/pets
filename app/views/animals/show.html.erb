@@ -30,6 +30,21 @@
         <%= link_to "削除", animal_path(@animal.id),method: :delete, data: {confirm: "本当に消しますか？"}  %>
     <% end %>
 
+<!--コメント登録-->
+<%= form_for [@animal,@comment] do |f| %>
+    <%= f.text_area :comment, placeholder:"comment" %>
+    <%= f.submit "送信" %>
+<% end %>
 <!--コメント一覧-->
+<% @animal.animal_comments.each do |animal_comment| %>
+    <%= link_to user_path(animal_comment.user.id) do %><!--ユーザーのshowへ-->
+        <%= attachment_image_tag animal_comment.user , :icon, size: "80x80",fallback: "no_image.jpg" %>
+        <%= animal_comment.user.name %>
+    <% end %>
+    <%= animal_comment.comment %>
+    <% if animal_comment.user == current_user %>
+        <%= link_to "削除", animal_animal_comments_path(animal_comment.id),method: :delete, data: {confirm: "本当に消しますか？"}  %>
+    <% end %><br>
+<% end %>
 <h1>Animals#show</h1>
 <p>Find me in app/views/animals/show.html.erb</p>
