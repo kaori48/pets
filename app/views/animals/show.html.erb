@@ -1,12 +1,12 @@
 <!--ペット詳細-->
 
-<%= attachment_image_tag @animal, :animal_image, size: "220x170",fallback: "no_image.jpg" %><br>
+<%= attachment_image_tag @animal, :animal_image, size: "250x250",fallback: "no_image.jpg" %><br>
 <table>
     	<tr>
     		<th>名前</th><td><%= @animal.name %></td>
     	</tr>
     	<tr>
-    		<th>birth</th><td></td><!--書き方考える-->
+    		<th>birth</th><td><%= @animal.birth.strftime("%Y年%m月%d日") %></td><!--書き方考える-->
     	</tr>
     	<tr>
     		<th>food</th><td><%= @animal.food %></td>
