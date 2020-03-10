@@ -5,9 +5,12 @@ class UsersController < ApplicationController
 
   def show#ユーザー情報
     @genres =  Genre.all#ジャンルサイドバー一覧
-  	@user = User.find(params[:id])#ユーザのデータを1件取得してuserの説明.一覧に送る
+  	@user = User.find(params[:id])
   end
-  def mypage
+  def edit
+    @user == current_user
+  end
+  def mypage#使うか不明
     @user = current_user
   end
   def update
@@ -20,7 +23,8 @@ class UsersController < ApplicationController
     @user.destroy
     redirect_to root_path
   end
-  def edit
+  def animal
+    @user = User.find(params[:id])
   end
 
   private

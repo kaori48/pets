@@ -1,2 +1,50 @@
+<!--ペット詳細-->
+
+<%= attachment_image_tag @animal, :animal_image, size: "250x250",fallback: "no_image.jpg" %><br>
+<table>
+    	<tr>
+    		<th>名前</th><td><%= @animal.name %></td>
+    	</tr>
+    	<tr>
+    		<th>birth</th><td><%= @animal.birth.strftime("%Y年%m月%d日") %></td><!--書き方考える-->
+    	</tr>
+    	<tr>
+    		<th>food</th><td><%= @animal.food %></td>
+    	</tr>
+    	<tr>
+    		<th>toilet</th><td><%= @animal.toilet %></td>
+    	</tr>
+    	<tr>
+    		<th>water</th><td><%= @animal.water %></td>
+    	</tr>
+    	<tr>
+    		<th>hospital</th><td><%= @animal.hospital %></td>
+    	</tr>
+    	<tr>
+    		<th>other</th><td><%= @animal.other %></td>
+    	</tr>
+    </table>
+
+    <% if @animal.user == current_user %><!--外部キーの扱い方わからん,外部キーのuser_idをとりたい????-->
+        <%= link_to "編集", edit_animal_path(@animal.id) %>
+        <%= link_to "削除", animal_path(@animal.id),method: :delete, data: {confirm: "本当に消しますか？"}  %>
+    <% end %>
+
+<!--コメント登録-->
+<%= form_for [@animal,@comment] do |f| %>
+    <%= f.text_area :comment, placeholder:"comment" %>
+    <%= f.submit "送信" %>
+<% end %>
+<!--コメント一覧-->
+<% @animal.animal_comments.each do |animal_comment| %>
+    <%= link_to user_path(animal_comment.user.id) do %><!--ユーザーのshowへ-->
+        <%= attachment_image_tag animal_comment.user , :icon, size: "80x80",fallback: "no_image.jpg" %>
+        <%= animal_comment.user.name %>
+    <% end %>
+    <%= animal_comment.comment %>
+    <% if animal_comment.user == current_user %>
+        <%= link_to "削除", animal_animal_comments_path(animal_comment.id),method: :delete, data: {confirm: "本当に消しますか？"}  %>
+    <% end %><br>
+<% end %>
 <h1>Animals#show</h1>
 <p>Find me in app/views/animals/show.html.erb</p>
