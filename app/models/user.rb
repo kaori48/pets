@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :follower_user, through: :followed, source: :follower #自分をフォローしている人
 
   has_many :animals, dependent: :destroy
+  has_many :animal_comments, dependent: :destroy#ペットのコメント
 
   #フォローする・フォロー外す・フォローしているか確認を行うメソッドを作成
 	# ユーザーをフォローする

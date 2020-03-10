@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   	resource :blog_comments, only: [:create, :destroy]
   	resource :favorites, only: [:create, :destroy]
   end
-  resources :animals
+  resources :animals do
+    resource :animal_comments, only: [:create, :destroy]
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
