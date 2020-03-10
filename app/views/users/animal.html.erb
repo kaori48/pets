@@ -1,0 +1,18 @@
+<!--ペット一覧のユーザー-->
+<%= render 'layouts/side', user: @user %>
+
+<!--ペット一覧閲覧許可ユーザー-->
+
+
+<!--本人のみ投稿ボタン-->
+<% if @user == current_user %><!--animalを投稿した人＝＝ログインしている人だが飛ばない。外部きーのとりかた-->
+     <%= link_to"投稿", new_animal_path %><br>
+<% end %>
+
+<!--ユーザー一人のペット一覧-->
+<% @user.animals.each do |animal| %>
+    <%= link_to animal_path(animal.id) do %>
+        <%= attachment_image_tag animal, :animal_image, size: "250x250",fallback: "no_image.jpg" %><br>
+        <%= animal.name %><br>
+    <% end %>
+<% end %>

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: 'homes#top'#localhosst3000する
   get 'home/about' => 'homes#about'
   get 'users/mypage' => 'users#mypage'
+  get 'users/animal/:id' => 'users#animal', as: 'user_animal'
   get '/blog_genre/:id' => 'blogs#genre',as:'blog_genre'#ジャンル検索でidが必要
 
   resources :users do
@@ -15,6 +16,8 @@ Rails.application.routes.draw do
   	resource :blog_comments, only: [:create, :destroy]
   	resource :favorites, only: [:create, :destroy]
   end
-  resources :animals
+  resources :animals do
+    resource :animal_comments, only: [:create, :destroy]
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
