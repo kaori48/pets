@@ -1,2 +1,30 @@
+<%= form_for(@animal) do |f| %>
+    <%= attachment_image_tag @animal, :animal_image, size: "710x520", fallback: "no_image.jpg" %><br>
+    <%= f.attachment_field :animal_image %><!-- blog_image_idだがrefileの仕様でidなし --><!-- サイズについての表記を書く -->
+    <table>
+    	<tr>
+    		<th>名前</th><td><%= f.text_field :name %></td>
+    	</tr>
+    	<tr>
+    		<th>birth</th><td><%= f.date_select :birth, start_year: 1980, end_year: Date.today.year %></td>
+    	</tr>
+    	<tr>
+    		<th>food</th><td><%= f.text_area :food %></td>
+    	</tr>
+    	<tr>
+    		<th>toilet</th><td><%= f.text_area :toilet %></td>
+    	</tr>
+    	<tr>
+    		<th>water</th><td><%= f.text_area :water %></td>
+    	</tr>
+    	<tr>
+    		<th>hospital</th><td><%= f.text_area :hospital %></td>
+    	</tr>
+    	<tr>
+    		<th>other</th><td><%= f.text_area :other %></td>
+    	</tr>
+    </table>
+    <%= f.submit '登録' %>
+<% end %>
 <h1>Animals#edit</h1>
 <p>Find me in app/views/animals/edit.html.erb</p>

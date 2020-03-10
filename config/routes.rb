@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: 'homes#top'#localhosst3000する
   get 'home/about' => 'homes#about'
   get 'users/mypage' => 'users#mypage'
+  get 'users/animal/:id' => 'users#animal', as: 'user_animal'
   get '/blog_genre/:id' => 'blogs#genre',as:'blog_genre'#ジャンル検索でidが必要
 
   resources :users do
