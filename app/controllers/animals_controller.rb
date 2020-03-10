@@ -5,6 +5,8 @@ class AnimalsController < ApplicationController
 
   def show
   	@animal = Animal.find(params[:id])
+  	@comment = AnimalComment.new#コメント機能新規
+  	@comments = @animal.animal_comments#コメント一覧
   end
 
   def new
