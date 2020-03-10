@@ -1,12 +1,12 @@
 <%= form_for(@animal) do |f| %>
-    <%= attachment_image_tag @animal, :animal_image, size: "710x520", fallback: "no_image.jpg" %><br>
+    <%= attachment_image_tag @animal, :animal_image, size: "250x250", fallback: "no_image.jpg" %><br>
     <%= f.attachment_field :animal_image %><!-- blog_image_idだがrefileの仕様でidなし --><!-- サイズについての表記を書く -->
     <table>
     	<tr>
     		<th>名前</th><td><%= f.text_field :name %></td>
     	</tr>
     	<tr>
-    		<th>birth</th><td><%= f.date_select :birth, start_year: 1980, end_year: Date.today.year %></td>
+    		<th>birth</th><td><%= raw sprintf(f.date_select(:birth,use_month_numbers: true, start_year: 1950, end_year: Date.today.year,date_separator: '%s'),'年','月')+'日' %></td>
     	</tr>
     	<tr>
     		<th>food</th><td><%= f.text_area :food %></td>
