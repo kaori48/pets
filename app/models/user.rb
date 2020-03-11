@@ -16,6 +16,9 @@ class User < ApplicationRecord
   has_many :following_user, through: :active_relationships, source: :followed #データ先指定
   has_many :follow_user, through: :passive_relationships, source: :follower #データ先指定
 
+#ペット登録
+  has_many :animals, dependent: :destroy
+  has_many :animal_comments, dependent: :destroy#ペットのコメント
 # ペット閲覧申請
   #ユーザーとフォローする人の関連づけ
   has_many :active_animal_permits, class_name: "Animal_permit", foreign_key: "permitter_id", dependent: :destroy # 誰かを許可している人取得
@@ -24,22 +27,31 @@ class User < ApplicationRecord
   has_many :permitting_user, through: :active_animal_permits, source: :permitter #データ先指定
   has_many :permitted_user, through: :passive_animal_permits, source: :permitted #データ先指定
 
-#ペット登録
-  has_many :animals, dependent: :destroy
-  has_many :animal_comments, dependent: :destroy#ペットのコメント
 
 #フォローする・フォロー外す・フォローしているか確認を行うメソッドを作成
 	# ユーザーをフォローする
 	def follow(user_id)
-		follower.create(followed_id: user_id)
+    Relationship.create(follower_id: self.id, followed_id: user_id)#follower_id自分、followerd_idにuser_idをいれる
 	end
 	#ユーザーのフォローを外す
 	def unfollow(user_id)
-		follower.find_by(followed_id: user_id).destroy
+		Relationship.find_by(follower_id: self.id,followed_id: user_id).destroy
 	end
 	#フォローしていればtrueを返す
 	def following?(user)
 		following_user.include?(user)#include配列が val と == で等しい要素を持つ時に真を返します。
 	end
-
+#ペット登録
+  #許可申請または許可しているか
+  def permit(user_id)
+    Animal_permit.create(permitter_id: self.id, permitted_id: user_id)
+  end
+  #許可申請、許可を外す
+  def unpermit(user_id)
+    Animal_permit.find_by(permitter_id: self.id, petmitted_id: user_id)
+  end
+  #閲覧許可申請または閲覧許可していればtrue
+  def permitting?(user)
+    permitting_user.include?(user)
+  end
 end
