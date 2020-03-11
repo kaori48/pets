@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_10_103033) do
+ActiveRecord::Schema.define(version: 2020_03_11_030826) do
 
   create_table "animal_comments", force: :cascade do |t|
     t.text "comment"
@@ -18,6 +18,18 @@ ActiveRecord::Schema.define(version: 2020_03_10_103033) do
     t.integer "animal_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "animal_permits", force: :cascade do |t|
+    t.integer "permitter_id"  #誰かを許可している人
+    t.integer "permitted_id"  #誰かが許可した人
+    t.boolean "is_permit", default: false  #閲覧許可しているかどうか（false 承認待ち、true 承認）
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["is_permit"], name: "index_animal_permits_on_is_permit"
+    t.index ["permitted_id"], name: "index_animal_permits_on_permitted_id"
+    t.index ["permitter_id", "permitted_id"], name: "index_animal_permits_on_permitter_id_and_permitted_id", unique: true
+    t.index ["permitter_id"], name: "index_animal_permits_on_permitter_id"
   end
 
   create_table "animals", force: :cascade do |t|
