@@ -11,19 +11,19 @@
      </table>
      <!--フォローつける-->
      <tr><th>follows</th>
-      <th><%= link_to user.follower.count, user_follows_path(user) %><!--(user）にユーザー入れてる-->
+      <th><%= link_to user.active_relationships.count, user_follows_path(user) %><!--(user）にユーザー入れてる-->
       </th></tr>
-    <tr><th>followers</th><th><%= link_to user.followed.count, user_followers_path(user) %></th></tr>
+    <tr><th>followers</th><th><%= link_to user.passive_relationships.count, user_followers_path(user) %></th></tr>
   </tbody>
 </table>
 </div>
 <div><!--フォローボタン-->
   <% if current_user != user %>
   　<% if current_user.following?(user) %>
-  　　　<%= link_to 'フォロー外す', user_relationships_path(user_id: user.id), method: :delete %>
+       <%= link_to 'フォロー外す', user_relationships_path(user_id: user.id), method: :delete %>
   　<% else %>
-  　　　<%= link_to 'フォローする', user_relationships_path(user_id: user.id), method: :post %>
-  　　　<% end %>
+  　　  <%= link_to 'フォローする', user_relationships_path(user_id: user.id), method: :post %>
+   <% end %>
   <% end %>
 </div>
      <!--フォローの数？？-->
