@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   devise_for :users
   root to: 'homes#top'#localhosst3000する
   get 'home/about' => 'homes#about'
@@ -10,6 +11,9 @@ Rails.application.routes.draw do
     get 'follows' => 'relationships#follows', as: 'follows'#フォロー一覧
     get 'followers' => 'relationships#followers', as: 'followers'#フォロワー一覧
     resource :relationships, only: [:create, :destroy]
+    resource :animal_permits, only: [:create, :destroy] do
+      patch :status_change#ステータスを変更、animal_permit.rbで指示
+    end
   end
 
   resources :blogs do
