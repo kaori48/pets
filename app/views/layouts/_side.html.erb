@@ -26,6 +26,23 @@
    <% end %>
   <% end %>
 </div>
-     <!--フォローの数？？-->
+<!--お世話記録-->
+     <!--本人-->
+     <% if current_user == user %>
+         <%= link_to "お世話記録",user_animal_path(user.id) %><!--本人の場合-->
+     <% end %><!--本人以外-->
+     <% if current_user != user %>
+        <% if current_user.permitting?(user) %><!--申請していてステータス０-->
+              <% if AnimalPermit.where(permitter_id: current_user.id ,status:0) %><!--レコードあり、ステータす０-->
+                  <p>お世話パートナー申請中</p>
+                  <%= link_to "申請解除", user_animal_permits_path(user_id: user.id),method: :delete, data: {confirm: "本当に解除しますか？"} %>
+              <% elsif AnimalPermit.where(permitter_id: current_user.id ,status:1) %>
+                  <%= link_to "お世話記録",user_animal_path(user.id) %>
+                  <%= link_to "パートナー解除", user_animal_permits_path(user_id: user.id),method: :delete, data: {confirm: "本当に解除しますか？"} %>
+              <% end %>
+        <% else %><!--申請していてステータス１-->
+                  <%= link_to "お世話パートナー申請", user_animal_permits_path(user_id: user.id),method: :post %>
+        <% end %>
+     <% end %>
   </div>
   <div>
