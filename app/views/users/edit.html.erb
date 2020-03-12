@@ -27,5 +27,13 @@
   <!--フォローを削除するボタン-->
   <%= link_to "申請拒否", user_animal_permits_path(user_id: user.permitter.id), method: :delete, data: {confirm: "本当に拒否しますか？"} %>
 <% end %>
+<!--自分がフォローして,statusが１のリンク-->
+  <p>お世話パートナー</p>
+<% @permitted_users.each do |user| %>
+  <%= link_to user_path(user.permitted.id) do %>
+      <%= attachment_image_tag user.permitted , :icon, size: "120x120", fallback: "no_image.jpg" %><br>
+      <%= user.permitted.name %>
+  <% end %>
+<% end %>
 <h1>Users#edit</h1>
 <p>Find me in app/views/users/edit.html.erb</p>

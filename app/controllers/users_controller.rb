@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   def edit
     @user = current_user
     @users = AnimalPermit.where(permitted_id: current_user.id, status: 0)#申請した人（０）
+    @permitted_users = AnimalPermit.where(permitter_id: current_user.id, status: 1)#自分をお世話パートナーにしている人
     #サイドバー
     @user = current_user
     @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
@@ -38,7 +39,6 @@ class UsersController < ApplicationController
     #@permit = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: user.id)
     #サイドバー
     @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
-
   end
 
   private
