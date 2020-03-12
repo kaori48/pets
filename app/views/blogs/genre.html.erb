@@ -1,5 +1,5 @@
 <!--部分点プレ-->
-
+<%= render 'layouts/side', user: current_user ,applying: @applying %>
 <%= render 'layouts/sidegenre', genres: @genres %>
 
 <%= link_to"投稿", new_blog_path %><br>

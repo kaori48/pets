@@ -7,6 +7,8 @@ class AnimalsController < ApplicationController
   	@animal = Animal.find(params[:id])
   	@comment = AnimalComment.new#コメント機能新規
   	@comments = @animal.animal_comments#コメント一覧
+    applying = AnimalPermit.where(permitted_id: @animal.user.id , status: 0)
+    permit = AnimalPermit.where(permitted_id: @animal.user.id , status: 1)
   end
 
   def new

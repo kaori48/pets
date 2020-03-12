@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   def show#ユーザー情報
     @genres =  Genre.all#ジャンルサイドバー一覧
   	@user = User.find(params[:id])
+    @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )#サイドバー
   end
   def edit
     @user = current_user
@@ -26,7 +27,12 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
   def animal
+    @users = AnimalPermit.where(permitted_id: @user, status: 1)#お世話パートナーのサイドバー
+    #@permit = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: user.id)
+    #サイドバー
     @user = User.find(params[:id])
+    @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
+
   end
 
   private
