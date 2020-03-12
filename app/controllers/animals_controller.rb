@@ -1,18 +1,24 @@
 class AnimalsController < ApplicationController
   def index
-  	@animals = Animal.all.order(created_at: :desc)
   end
 
   def show
   	@animal = Animal.find(params[:id])
   	@comment = AnimalComment.new#コメント機能新規
   	@comments = @animal.animal_comments#コメント一覧
-    applying = AnimalPermit.where(permitted_id: @animal.user.id , status: 0)
-    permit = AnimalPermit.where(permitted_id: @animal.user.id , status: 1)
+    #サイドバー
+    @user = current_user
+    @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
+    #お世話パートナーサイドバー
+    @pertner = @animal.user.id
+    @users = AnimalPermit.where(permitted_id: @pertner, status: 1)#お世話パートナーのサイドバー
   end
 
   def new
   	@animal = Animal.new
+    #サイドバー
+    @user = current_user
+    @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
   end
   def create
   	animal = Animal.new(animal_params)
@@ -23,6 +29,9 @@ class AnimalsController < ApplicationController
 
   def edit
   	@animal = Animal.find(params[:id])
+    #サイドバー
+    @user = current_user
+    @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
   end
 
   def update
