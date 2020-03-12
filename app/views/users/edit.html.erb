@@ -1,20 +1,39 @@
 <!-- サイドバー部分テンプレ -->
-<%= render 'layouts/side', user: current_user %>
+<%= render 'layouts/side', user: current_user, applying: @applying %>
 <!--プロフィール編集-->
 <div>
 	<h3>プロフィール編集</h3>
 	<!--削除ボタン-->
-	<%= link_to "削除", user_path(@user) %><!--削除できない-->
-	<%= form_for(@user)do |f|%>
-	 <%= attachment_image_tag @user, :icon, size: "150x150", fallback: "no_image.jpg" %><!-- サイズ後で -->
-	 <%= f.attachment_field :icon %><!-- icon_idだがrefileの仕様でidなし --><!-- サイズについての表記を書く -->
+	<!--削除できない-->
+	<%= form_for(@user) do |f|%>
+	   <%= attachment_image_tag @user, :icon, size: "150x150", fallback: "no_image.jpg" %><!-- サイズ後で -->
+	   <%= f.attachment_field :icon %><!-- icon_idだがrefileの仕様でidなし --><!-- サイズについての表記を書く -->
 	<h4>name</h4>
-	<%= f.text_field :name %>
+	  <%= f.text_field :name %>
 	<h4>introduction</h4>
 	<%= f.text_area :introduction %>
 	<%= f.submit '登録' %>
 	<% end %>
 </div>
-<!--お世話申請一覧-->
+<!--お世話申請一覧,自分をフォローしているpermitted_idの人を出す-->
+<h3>お世話パートナー申請</h3>
+<% @users.each do |user| %>
+  <%= link_to user_path(user.permitter.id) do %>
+  <%= attachment_image_tag user.permitter , :icon, size: "150x150", fallback: "no_image.jpg" %>
+  <%= user.permitter.name %>
+  <% end %>
+  <!--statusを１にするボタン-->
+  <%= link_to "申請許可", status_change_user_animal_permits_path(user.id), method: :patch, data: {confirm: "本当にパートナーになりますか？"} %>
+  <!--フォローを削除するボタン-->
+  <%= link_to "申請拒否", user_animal_permits_path(user_id: user.permitter.id), method: :delete, data: {confirm: "本当に拒否しますか？"} %>
+<% end %>
+<!--自分がフォローして,statusが１のリンク-->
+  <p>お世話パートナー</p>
+<% @permitted_users.each do |user| %>
+  <%= link_to user_path(user.permitted.id) do %>
+      <%= attachment_image_tag user.permitted , :icon, size: "120x120", fallback: "no_image.jpg" %><br>
+      <%= user.permitted.name %>
+  <% end %>
+<% end %>
 <h1>Users#edit</h1>
 <p>Find me in app/views/users/edit.html.erb</p>

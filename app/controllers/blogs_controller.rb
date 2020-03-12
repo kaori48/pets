@@ -3,6 +3,9 @@ class BlogsController < ApplicationController
 		@blogs =Blog.all.order(created_at: :desc)
     @blog = Blog.new#新規投稿用
     @genres =  Genre.all#ジャンルサイドバー一覧
+    #サイドバー
+    @user = current_user
+    @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
 	end
 
   def genre
@@ -10,6 +13,9 @@ class BlogsController < ApplicationController
     @genre = Genre.find(params[:id])# Genreのデータベースのテーブルから一致するidを取得
     @blogs = @genre.blogs# Genreのデータベースのテーブルから取得条件に合致するオブジェクトを配列として取り出す
     @blog = Blog.new#新規投稿用
+    #サイドバー
+    @user = current_user
+    @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
   end
 
 	def show
@@ -17,10 +23,18 @@ class BlogsController < ApplicationController
     @blog = Blog.find(params[:id])
     @comment = BlogComment.new#新規コメント空
     @comments = @blog.blog_comments#アソシエーションhas_manyのため
+    #サイドバー
+    @user = User.find(params[:id])
+    @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
 	end
 
   def edit
     @blog = Blog.find(params[:id])
+     #サイドバー
+    @user = current_user
+    @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
+    #ジャンルサイドバー一覧
+    @genres =  Genre.all
   end
 
   def update
@@ -36,6 +50,11 @@ class BlogsController < ApplicationController
   end
 
 	def new
+     #サイドバー
+    @user = current_user
+    @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
+    #ジャンルサイドバー一覧
+    @genres =  Genre.all
   	@blog = Blog.new#空のオブジェクト
   end
 
