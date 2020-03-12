@@ -8,8 +8,10 @@ class UsersController < ApplicationController
   	@user = User.find(params[:id])
   end
   def edit
-    @user == current_user
+    @user = current_user
+    @users = AnimalPermit.where(permitted_id: current_user.id, status: 0)#申請した人（０）
   end
+
   def mypage#使うか不明
     @user = current_user
   end
