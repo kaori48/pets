@@ -1,3 +1,9 @@
+<!--部分テンプレート-->
+<!--ペット一覧のユーザー-->
+<%= render 'layouts/side', user: current_user, applying: @applying %>
+<!--ジャンル一覧-->
+<%= render 'layouts/sidegenre', genres: @genres %><br>
+<!--ブログ新規投稿-->
 <%= form_for(@blog) do |f| %>
     <%= attachment_image_tag @blog, :blog_image, size: "710x520", fallback: "no_image.jpg" %><br>
 	 <%= f.attachment_field :blog_image %><!-- blog_image_idだがrefileの仕様でidなし --><!-- サイズについての表記を書く -->

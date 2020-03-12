@@ -1,8 +1,7 @@
 <!--ペット一覧のユーザー-->
-<%= render 'layouts/side', user: @user %>
-
+<%= render 'layouts/side', user: @user,applying: @applying %>
 <!--ペット一覧閲覧許可ユーザー-->
-
+<%= render 'layouts/sidepertners', users: @users %><br>
 
 <!--本人のみ投稿ボタン-->
 <% if @user == current_user %><!--animalを投稿した人＝＝ログインしている人だが飛ばない。外部きーのとりかた-->

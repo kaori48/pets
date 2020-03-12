@@ -24,7 +24,7 @@
   <!--statusを１にするボタン-->
   <%= link_to "申請許可", status_change_user_animal_permits_path(user.id), method: :patch, data: {confirm: "本当にパートナーになりますか？"} %>
   <!--フォローを削除するボタン-->
-  <%= link_to "申請拒否", user_animal_permits_path(user_id: user.permitter.id),method: :delete, data: {confirm: "本当に解除しますか？"} %>
+  <%= link_to "申請拒否", user_animal_permits_path(user_id: user.permitter.id), method: :delete, data: {confirm: "本当に拒否しますか？"} %>
 <% end %>
 <h1>Users#edit</h1>
 <p>Find me in app/views/users/edit.html.erb</p>
