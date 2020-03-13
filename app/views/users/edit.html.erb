@@ -27,7 +27,7 @@
   <!--フォローを削除するボタン-->
   <%= link_to "申請拒否", user_animal_permits_path(user_id: user.permitter.id), method: :delete, data: {confirm: "本当に拒否しますか？"} %>
 <% end %>
-<!--自分がフォローして,statusが１のリンク-->
+<!--自分がフォローして,statusが１のリンク,べつページに作る-->
   <p>お世話パートナー</p>
 <% @permitted_users.each do |user| %>
   <%= link_to user_path(user.permitted.id) do %>

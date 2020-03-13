@@ -19,16 +19,19 @@
   </tbody>
 </table>
 </div>
-<div><!--フォローボタン-->
-  <% if current_user != user %>
-  　<% if current_user.following?(user) %>
-       <%= link_to 'フォロー外す', user_relationships_path(user_id: user.id), method: :delete %>
-  　<% else %>
-  　　  <%= link_to 'フォローする', user_relationships_path(user_id: user.id), method: :post %>
-   <% end %>
+<div><!--フォローボタン,ログイン時のみ表示-->
+  <% if user_signed_in? %><!-- ログインしているか -->
+      <% if current_user != user %>
+  　         <% if current_user.following?(user) %>
+                 <%= link_to 'フォロー外す', user_relationships_path(user_id: user.id), method: :delete %>
+  　         <% else %>
+  　　           <%= link_to 'フォローする', user_relationships_path(user_id: user.id), method: :post %>
+            <% end %>
+      <% end %>
   <% end %>
 </div>
-<!--お世話記録-->
+<!--お世話記録、ログイン時のみ表示-->
+<% if user_signed_in? %><!-- ログインしているか -->
      <!--本人-->
      <% if current_user == user %>
          <%= link_to "お世話記録",user_animal_path(user.id) %><!--本人の場合-->
@@ -46,5 +49,6 @@
                   <%= link_to "お世話パートナー申請", user_animal_permits_path(user_id: user.id),method: :post %>
         <% end %>
      <% end %>
+<% end %>
   </div>
   <div>
