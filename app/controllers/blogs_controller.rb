@@ -1,5 +1,5 @@
 class BlogsController < ApplicationController
-before_action :authenticate_customer!, only: [:edit, :update, :destroy, :new, :create]#ログインしていない人をログイン画面へ
+before_action :authenticate_user!, only: [:edit, :update, :destroy, :new, :create]#ログインしていない人をログイン画面へ
 before_action :ensure_correct_user, only: [:edit, :update, :destroy]#本人以外できないようにする
 
 	def index
