@@ -6,7 +6,7 @@ class Blog < ApplicationRecord
 	has_many :favorites, dependent: :destroy
 	attachment :blog_image #refile,id入れない
 	validates :title, presence: true #空欄NG
-	validates :body, presence: true
+	validates :body, presence: true #空欄NG
 	def favorited_by?(user)
 		favorites.where(user_id: user.id).exists?
 	end
