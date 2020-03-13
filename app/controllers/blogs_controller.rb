@@ -3,7 +3,7 @@ before_action :authenticate_user!, only: [:edit, :update, :destroy, :new, :creat
 before_action :ensure_correct_user, only: [:edit, :update, :destroy]#本人以外できないようにする
 
 	def index
-		@blogs =Blog.all.order(created_at: :desc)
+		@blogs =Blog.all.order(created_at: :asc).page(params[:page]).reverse_order
     @blog = Blog.new#新規投稿用
     @genres =  Genre.all#ジャンルサイドバー一覧
     #サイドバー
@@ -14,7 +14,7 @@ before_action :ensure_correct_user, only: [:edit, :update, :destroy]#本人以�
   def genre
     @genres =  Genre.all#ジャンルサイドバー一覧
     @genre = Genre.find(params[:id])# Genreのデータベースのテーブルから一致するidを取得
-    @blogs = @genre.blogs# Genreのデータベースのテーブルから取得条件に合致するオブジェクトを配列として取り出す
+    @blogs = @genre.blogs.order(created_at: :asc).page(params[:page]).reverse_order# Genreのデータベースのテーブルから取得条件に合致するオブジェクトを配列として取り出す
     @blog = Blog.new#新規投稿用
     #サイドバー
     @user = current_user
@@ -25,7 +25,7 @@ before_action :ensure_correct_user, only: [:edit, :update, :destroy]#本人以�
     @genres =  Genre.all#ジャンルサイドバー一覧
     @blog = Blog.find(params[:id])
     @comment = BlogComment.new#新規コメント空
-    @comments = @blog.blog_comments#アソシエーションhas_manyのため
+    @comments = @blog.blog_comments.order(created_at: :asc).page(params[:page]).reverse_order
     #サイドバー
     @user = @blog.user
     @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
