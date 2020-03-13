@@ -3,7 +3,7 @@
 <%= render 'layouts/sidegenre', genres: @genres %>
 <!--ブログ詳細-->
 <%= @blog.title %><br>
-<%= @blog.created_at %><!--JSTに後々変更--><br>
+<%= @blog.created_at.strftime("%Y年%m月%d日") %><br>
 <%= attachment_image_tag @blog, :blog_image, size: "220x170",fallback: "no_image.jpg" %><br>
 <!--登録されているジャンル一覧-->
 <% @blog.genres.each do |genre|%>
@@ -55,6 +55,7 @@
        <%= comment.user.name %>
    <% end %>
    <%= comment.comment %>
+   <%= comment.user.created_at.strftime("%Y年%m月%d日") %>
    <% if comment.user_id == current_user.id %><!--後々管理者も削除できるように-->
    	  <%= link_to "削除", blog_blog_comments_path(comment.id), method: :delete, data: {confirm: "本当に消しますか？"} %>
    <% end %><br>

@@ -1,4 +1,7 @@
 class BlogsController < ApplicationController
+before_action :authenticate_customer!, only: [:edit, :update, :destroy, :new, :create]#ログインしていない人をログイン画面へ
+before_action :ensure_correct_user, only: [:edit, :update, :destroy]#本人以外できないようにする
+
 	def index
 		@blogs =Blog.all.order(created_at: :desc)
     @blog = Blog.new#新規投稿用
@@ -66,6 +69,13 @@ class BlogsController < ApplicationController
   	redirect_to blog_path(@blog.id)#ブログ詳細
   end
 
+  #編集制限
+  def ensure_correct_user
+    @blog = Blog.find(params[:id])
+    if @blog.user != current_user
+      redirect_to action: :index#一覧へ戻す
+    end
+  end
   	private
   	def blog_params
   		params.require(:blog).permit(:title, :body, :blog_image, genre_ids: [])
