@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   def show#ユーザー情報
     @genres =  Genre.all#ジャンルサイドバー一覧
   	@user = User.find(params[:id])
-    @user.blogs = Blogs.order(created_at: :asc).page(params[:page]).reverse_order#うまくいかない
+    @blogs = @user.blogs.order(created_at: :asc).page(params[:page]).reverse_order#うまくいかない
     @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )#サイドバー
   end
   def edit
