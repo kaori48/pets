@@ -2,7 +2,9 @@
 <%= render 'layouts/side', user: current_user ,applying: @applying %>
 <%= render 'layouts/sidegenre', genres: @genres %>
 
+<% if user_signed_in? %><!-- ログインしている場合に投稿できる -->
 <%= link_to"投稿", new_blog_path %><br>
+<% end %>
 
 <!--ブログ一覧、投稿順に並べる-->
 <% @blogs.each do |blog| %>
