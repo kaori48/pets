@@ -5,7 +5,9 @@
 	<%= render 'layouts/sidegenre', genres: @genres %>
 
 <!--新規投稿-->
+<% if blog.user == current_user %><!--本人の場合のみ新規投稿-->
 <%= link_to"投稿", new_blog_path %><br>
+<% end %>
 <!--ブログ一覧、投稿順に並べる-->
 <% @user.blogs.each do |blog| %>
   <%= link_to blog_path(blog.id) do %>
