@@ -1,6 +1,7 @@
 <!--部分テンプレいれる-->
 <%= render 'layouts/side', user: @user ,applying: @applying %>
 <%= render 'layouts/sidegenre', genres: @genres %>
+
 <!--ブログ詳細-->
 <%= @blog.title %><br>
 <%= @blog.created_at.strftime("%Y年%m月%d日") %><br>
@@ -43,7 +44,7 @@
 <!--コメント投稿-->
 <% if user_signed_in? %><!-- ログインしている場合のみコメントできる -->
     <%= form_for [@blog,@comment] do |f| %><!--後々マイページに飛ばす-->
-        <%= f.text_area :comment,placeholder: "comment" %>
+        <%= f.text_area :comment,placeholder: "コメントを入力してください" %>
         <%= f.submit"送信" %>
     <% end %>
 <% end %>

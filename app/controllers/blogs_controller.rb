@@ -27,7 +27,7 @@ before_action :ensure_correct_user, only: [:edit, :update, :destroy]#本人以�
     @comment = BlogComment.new#新規コメント空
     @comments = @blog.blog_comments#アソシエーションhas_manyのため
     #サイドバー
-    @user = User.find(params[:id])
+    @user = @blog.user
     @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
 	end
 
@@ -42,13 +42,18 @@ before_action :ensure_correct_user, only: [:edit, :update, :destroy]#本人以�
 
   def update
     blog = Blog.find(params[:id])
-    blog.update(blog_params)
-    redirect_to blog_path(blog.id)
+    if blog.update(blog_params)
+       flash[:notice] = "更新しました！"#成功メッセ
+       redirect_to blog_path(blog.id)
+    else
+      redirect_to edit_blog_path(blog.id)
+    end
   end
 
   def destroy
     blog = Blog.find(params[:id])
     blog.destroy
+    flash[:notice] = "削除しました"
     redirect_to action: :index
   end
 
@@ -64,9 +69,12 @@ before_action :ensure_correct_user, only: [:edit, :update, :destroy]#本人以�
   def create
   	@blog = Blog.new(blog_params)
   	@blog.user_id = current_user.id #ブログのuser_idカラムにログインしている人のidを送る
-  	@blog.save
-  		#flash[:notice] = "投稿に成功しました！"#成功メッセ、出るとこ決めてない
-  	redirect_to blog_path(@blog.id)#ブログ詳細
+  	if @blog.save
+  		 flash[:notice] = "投稿しました！"#成功メッセ
+  	   redirect_to blog_path(@blog.id)#ブログ詳細
+    else
+       redirect_to new_blog_path
+    end
   end
 
   #編集制限
