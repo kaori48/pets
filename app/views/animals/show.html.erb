@@ -49,5 +49,6 @@
         <%= link_to "削除", animal_animal_comments_path(animal_comment.id),method: :delete, data: {confirm: "本当に消しますか？"}  %>
     <% end %><br>
 <% end %>
+<%= paginate @comments %>
 <h1>Animals#show</h1>
 <p>Find me in app/views/animals/show.html.erb</p>

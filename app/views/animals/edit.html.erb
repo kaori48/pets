@@ -2,24 +2,25 @@
 <%= form_for(@animal) do |f| %>
     <%= attachment_image_tag @animal, :animal_image, size: "300x300", fallback: "no_image.jpg" %><br>
     <%= f.attachment_field :animal_image %><!-- blog_image_idだがrefileの仕様でidなし --><!-- サイズについての表記を書く -->
+    <p>＊印は必ず入力してください</p>
     <table>
     	<tr>
-    		<th>名前</th><td><%= f.text_field :name %></td>
+    		<th>名前＊</th><td><%= f.text_field :name %></td>
     	</tr>
     	<tr>
     		<th>birth</th><td><%= raw sprintf(f.date_select(:birth,use_month_numbers: true, start_year: 1950, end_year: Date.today.year,date_separator: '%s'),'年','月')+'日' %></td>
     	</tr>
     	<tr>
-    		<th>food</th><td><%= f.text_area :food %></td>
+    		<th>food</th><td><%= f.text_area :food,placeholder: "例：朝２０g,夜２５g" %></td>
     	</tr>
     	<tr>
-    		<th>toilet</th><td><%= f.text_area :toilet %></td>
+    		<th>toilet</th><td><%= f.text_area :toilet,placeholder: "例：毎週火曜日" %></td>
     	</tr>
     	<tr>
-    		<th>water</th><td><%= f.text_area :water %></td>
+    		<th>water</th><td><%= f.text_area :water,placeholder: "例：朝に入れ替え" %></td>
     	</tr>
     	<tr>
-    		<th>hospital</th><td><%= f.text_area :hospital %></td>
+    		<th>hospital</th><td><%= f.text_area :hospital,placeholder: "例： ３月に健康診断" %></td>
     	</tr>
     	<tr>
     		<th>other</th><td><%= f.text_area :other %></td>
