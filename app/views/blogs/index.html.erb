@@ -4,7 +4,9 @@
 <%= render 'layouts/sidegenre', genres: @genres %>
 
 <!--新規投稿-->
-<%= link_to"投稿", new_blog_path %><br>
+<% if user_signed_in? %><!-- ログインしている場合に投稿できる -->
+    <%= link_to"投稿", new_blog_path %><br>
+<% end %>
 <!--ブログ一覧、投稿順に並べる-->
 <% @blogs.each do |blog| %>
 <%= link_to blog_path(blog.id) do %>
