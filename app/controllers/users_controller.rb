@@ -1,6 +1,9 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!, only: [:edit,:mypage, :update, :destroy, :new, :create, :animal]#ログインしていない人をログイン画面へ
+  before_action :ensure_correct_user, only: [:edit, :mypage,:update, :destroy]#本人以外できないようにする
+
   def index
-    @users = User.all
+    @users = User.all.order(created_at: :asc).page(params[:page]).reverse_order
     #サイドバー
     @user = current_user
     @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
@@ -9,11 +12,12 @@ class UsersController < ApplicationController
   def show#ユーザー情報
     @genres =  Genre.all#ジャンルサイドバー一覧
   	@user = User.find(params[:id])
+    @user.blogs = Blogs.order(created_at: :asc).page(params[:page]).reverse_order#うまくいかない
     @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )#サイドバー
   end
   def edit
     @user = current_user
-    @users = AnimalPermit.where(permitted_id: current_user.id, status: 0)#申請した人（０）
+    @users = AnimalPermit.where(permitted_id: current_user.id, status: 0).order(created_at: :asc).page(params[:page]).reverse_order#申請した人（０）
     @permitted_users = AnimalPermit.where(permitter_id: current_user.id, status: 1)#自分をお世話パートナーにしている人
     #サイドバー
     @user = current_user
@@ -39,6 +43,14 @@ class UsersController < ApplicationController
     #@permit = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: user.id)
     #サイドバー
     @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
+  end
+
+  #編集制限
+  def ensure_correct_user
+    @blog = Blog.find(params[:id])
+    if @blog.user != current_user
+      redirect_to action: :index#一覧へ戻す
+    end
   end
 
   private

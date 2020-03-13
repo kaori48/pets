@@ -45,6 +45,7 @@
         <%= animal_comment.user.name %>
     <% end %>
     <%= animal_comment.comment %>
+    <%= animal_comment.updated_at.strftime("%Y-%m-%d %H:%M") %>
     <% if animal_comment.user == current_user %>
         <%= link_to "削除", animal_animal_comments_path(animal_comment.id),method: :delete, data: {confirm: "本当に消しますか？"}  %>
     <% end %><br>
