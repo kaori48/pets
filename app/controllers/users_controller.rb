@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:edit,:mypage, :update, :destroy, :new, :create, :animal]#ログインしていない人をログイン画面へ
-  before_action :ensure_correct_user, only: [:edit, :update, :destroy]#投稿した本人以外できないようにする（管理者もつける）
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy,:show]#投稿した本人以外できないようにする（管理者もつける）
   #animalページの閲覧制限、不可の場合blog indexへ飛ばす  ページを本人と、ステータスを持った人のみに出したい。他の人はblog index
   before_action :ensure_animal_user, only: [:animal]#ページを（animalページの場合、URLにIDが入っており、そのIDとcurrent_userが同じ場合に表示）
 
@@ -38,8 +38,8 @@ class UsersController < ApplicationController
   	redirect_to users_mypage_path
   end
   def destroy#削除できない
-    @user = current_user
-    @user.destroy
+    user = current_user
+    user.destroy
     redirect_to root_path
   end
   def animal
@@ -52,8 +52,8 @@ class UsersController < ApplicationController
 
   #編集制限
   def ensure_correct_user
-    @blog = Blog.find(params[:id])
-    if @blog.user != current_user
+    @user = User.find(params[:id])
+    if @user != current_user
       redirect_to action: :index#一覧へ戻す
     end
   end
