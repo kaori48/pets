@@ -1,6 +1,8 @@
 class AnimalsController < ApplicationController
   before_action :authenticate_user!#ログインしていない人をログイン画面へ
-  before_action :ensure_correct_user, only: [:edit, :update, :destroy]#本人以外できないようにする
+  before_action :ensure_correct_user, only: [:destroy]#本人以外できないようにする
+  before_action :ensure_animal_user, #ページを本人と、ステータスを持った人のみに出したい。他の人はblog index
+
   def index
   end
 
@@ -50,11 +52,19 @@ class AnimalsController < ApplicationController
 
   #編集制限
   def ensure_correct_user
-    @blog = Blog.find(params[:id])
-    if @blog.user != current_user
+    @animal = Animal.find(params[:id])
+    if @animal.user_id != current_user.id
       redirect_to action: :index#一覧へ戻す
     end
   end
+
+    def ensure_animal_user
+    @user = Animal.find(params[:id])
+    if @user.user_id != current_user.id && AnimalPermit.find_by(permitter_id: @user.user_id,permitted_id: current_user.id, status: 1).nil?
+      redirect_to blogs_path#一覧へ戻す
+    end
+  end
+
   private
   def animal_params
   	params.require(:animal).permit(:animal_image, :name, :birth, :food, :toilet, :water, :hospital, :other)
