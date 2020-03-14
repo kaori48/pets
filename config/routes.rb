@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'users/mypage' => 'users#mypage'
   get 'users/animal/:id' => 'users#animal', as: 'user_animal'
   get '/blog_genre/:id' => 'blogs#genre',as:'blog_genre'#ジャンル検索でidが必要
+  get 'search' =>'search#search'
 
   resources :users do
     get 'follows' => 'relationships#follows', as: 'follows'#フォロー一覧
