@@ -4,9 +4,19 @@ def search#検索
     @genres =  Genre.all#ジャンルサイドバー一覧
   	@user_or_blog = params[:option]#optionの値を持ってくる
   	if @user_or_blog == "1" #optionの値が１の場合
-  	   @users = User.search(params[:search],@user_or_blog).order(created_at: :asc).page(params[:page]).reverse_order#searchメソッドはモデルへ書く、３つ書くことで３つ持ってける
+  	   @users = User.search(params[:search]).order(created_at: :asc).page(params[:page]).reverse_order#searchメソッドはモデルへ
+  	   @word = params[:search] + "の検索結果です。"
+  		if @users == nil || @users == []
+  			@users = User.all.order(created_at: :asc).page(params[:page]).reverse_order
+  	   @word = params[:search] + "の検索結果はありません。"
+  	    end
   	else #optionの値が１以外の場合
-  	   @blogs = Blog.search(params[:search],@user_or_blog).order(created_at: :asc).page(params[:page]).reverse_order#searchメソッドはモデルへ
+  	   @blogs = Blog.search(params[:search]).order(created_at: :asc).page(params[:page]).reverse_order#searchメソッドはモデルへ
+  	   @word = params[:search] + "の検索結果です。"
+  	   if @blogs == nil || @blogs == []
+  	   	@blogs = Blog.all.order(created_at: :asc).page(params[:page]).reverse_order
+  	   	@word = params[:search] + "の検索結果はありません。"
+  	   end
   	end
   end
 end
