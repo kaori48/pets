@@ -4,6 +4,7 @@
 <div>
 	<h3>プロフィール編集</h3>
 	<!--削除ボタン-->
+  <%= link_to "退会",user_path(current_user), method: :delete, data: {confirm: "本当に退会しますか？"} %>
 	<!--削除できない-->
 	<%= form_for(@user) do |f|%>
 	   <%= attachment_image_tag @user, :icon, size: "150x150", fallback: "no_image.jpg" %><!-- サイズ後で -->
