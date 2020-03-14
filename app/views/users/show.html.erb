@@ -5,7 +5,7 @@
 	<%= render 'layouts/sidegenre', genres: @genres %>
 
 <!--新規投稿-->
-<% if blog.user == current_user %><!--本人の場合のみ新規投稿-->
+<% if @user.id == current_user.id %><!--本人の場合のみ新規投稿-->
 <%= link_to"投稿", new_blog_path %><br>
 <% end %>
 <!--ブログ一覧、投稿順に並べる-->
@@ -14,7 +14,7 @@
       <%= attachment_image_tag blog, :blog_image, size: "220x170",fallback: "no_image.jpg" %><br>
       <%= blog.title %>
   <% end %>
-  <%= blog.created_at %><!--JSTに後々変更-->
+  <%= blog.created_at.strftime("%Y年%m月%d日%H時%M分") %>
   <% blog.genres.each do |genre|%><!--登録されているジャンル一覧-->
       <%= link_to blog_genre_path(genre.id) do %>
           <%= genre.name %>
@@ -30,7 +30,6 @@
 <% end %><br>
 
 </div>
-
-
+ <%= paginate @blogs %><!--kaminari-->
 <h1>Users#show</h1>
 <p>Find me in app/views/users/show.html.erb</p>
