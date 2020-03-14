@@ -1,6 +1,6 @@
 class BlogsController < ApplicationController
 before_action :authenticate_user!, only: [:edit, :update, :destroy, :new, :create]#ログインしていない人をログイン画面へ
-before_action :ensure_correct_user, only: [:edit, :update, :destroy]#本人以外できないようにする
+before_action :ensure_correct_user, only: [:edit, :update, :destroy]#本人とadmin権限の人しかできないようにする
 
 	def index
 		@blogs =Blog.all.order(created_at: :asc).page(params[:page]).reverse_order
@@ -85,15 +85,16 @@ before_action :ensure_correct_user, only: [:edit, :update, :destroy]#本人以�
     @blog = Blog.find(params[:id])
     if @blog.user != current_user && User.where(status:0)
       redirect_to request.referrer#移動まえのURL
-  end
-  def ensure_animal_user
-    @user = User.find(params[:id])
-    p @user.id != current_user.id
-    p AnimalPermit.find_by(permitted_id: current_user.id, status: 1).nil?
-    if @user != current_user && AnimalPermit.find_by(permitter_id: @user.id, permitted_id: current_user.id, status: 1).nil?
-      redirect_to action: :index#一覧へ戻す
     end
   end
+  # def ensure_animal_user
+  #   @user = User.find(params[:id])
+  #   p @user.id != current_user.id
+  #   p AnimalPermit.find_by(permitted_id: current_user.id, status: 1).nil?
+  #   if @user != current_user && AnimalPermit.find_by(permitter_id: @user.id, permitted_id: current_user.id, status: 1).nil?
+  #     redirect_to action: :index#一覧へ戻す
+  #   end
+  #end
   	private
   	def blog_params
   		params.require(:blog).permit(:title, :body, :blog_image, genre_ids: [])
