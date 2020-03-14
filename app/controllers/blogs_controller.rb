@@ -73,7 +73,10 @@ before_action :ensure_correct_user, only: [:edit, :update, :destroy]#本人以�
   		 flash[:notice] = "投稿しました！"#成功メッセ
   	   redirect_to blog_path(@blog.id)#ブログ詳細
     else
-       redirect_to new_blog_path
+       @user = current_user
+       @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
+       @genres =  Genre.all
+       render :new
     end
   end
 
