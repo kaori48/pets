@@ -56,4 +56,12 @@ class User < ApplicationRecord
   def permitting?(user)
     permitting_user.include?(user)
   end
+# 検索
+    def User.search(search, user_or_blog)
+        if user_or_blog == "1"
+           User.where(['name LIKE ?', "%#{search}%"])
+        else
+           User.all
+        end
+end
 end

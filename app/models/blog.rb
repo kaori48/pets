@@ -10,4 +10,12 @@ class Blog < ApplicationRecord
 	def favorited_by?(user)
 		favorites.where(user_id: user.id).exists?
 	end
+
+    def Blog.search(search, user_or_blog)
+        if user_or_blog == "2"
+           Blog.where(['title LIKE ?', "%#{search}%"])
+        else
+           Blog.all
+        end
+    end
 end
