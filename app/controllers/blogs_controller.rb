@@ -83,7 +83,14 @@ before_action :ensure_correct_user, only: [:edit, :update, :destroy]#本人以�
   #編集制限
   def ensure_correct_user
     @blog = Blog.find(params[:id])
-    if @blog.user != current_user
+    if @blog.user != current_user && User.where(status:0)
+      redirect_to request.referrer#移動まえのURL
+  end
+  def ensure_animal_user
+    @user = User.find(params[:id])
+    p @user.id != current_user.id
+    p AnimalPermit.find_by(permitted_id: current_user.id, status: 1).nil?
+    if @user != current_user && AnimalPermit.find_by(permitter_id: @user.id, permitted_id: current_user.id, status: 1).nil?
       redirect_to action: :index#一覧へ戻す
     end
   end
