@@ -37,8 +37,10 @@
 <!--ブログ削除、編集,後で成功、確認メッセとかもいれる-->
 <% if @blog.user == current_user %><!--後々管理者もできるようにする-->
     <%= link_to"編集", edit_blog_path(@blog.id) %>
-        <%= link_to"削除", blog_path(@blog.id),method: :delete, data: {confirm: "本当に消しますか？"} %>
-    <% end %>
+<% end %>
+<% if @blog.user == current_user || current_user.admin? %><!--本人と管理者が可能-->
+    <%= link_to"削除", blog_path(@blog.id),method: :delete, data: {confirm: "本当に消しますか？"} %>
+<% end %>
 <%= link_to "index", blogs_path %>
 
 <!--コメント投稿-->
@@ -57,7 +59,7 @@
    <% end %>
    <%= comment.comment %>
    <%= comment.user.created_at.strftime("%Y年%m月%d日%H時%M分") %>
-   <% if comment.user_id == current_user.id %><!--後々管理者も削除できるように-->
+   <% if comment.user_id == current_user.id || current_user.admin? %><!--後々管理者も削除できるように-->
    	  <%= link_to "削除", blog_blog_comments_path(comment.id), method: :delete, data: {confirm: "本当に消しますか？"} %>
    <% end %><br>
 <% end %>

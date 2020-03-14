@@ -23,8 +23,10 @@
   <%= blog.favorites.count %>いいね
   コメント数：<%= blog.blog_comments.count %><br>
 
-  <% if blog.user == current_user %><!--後々管理者もできるようにする-->
+  <% if blog.user == current_user %><!--本人のみ-->
       <%= link_to"編集", edit_blog_path(blog.id) %>
+  <% end %>
+  <% if blog.user == current_user || current_user.admin? %><!--本人と管理者が可能-->
       <%= link_to"削除", blog_path(blog.id),method: :delete, data: {confirm: "本当に消しますか？"} %>
   <% end %>
 <% end %><br>
