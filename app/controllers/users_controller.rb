@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:edit,:mypage, :update, :destroy, :new, :create, :animal]#ログインしていない人をログイン画面へ
-  before_action :ensure_correct_user, only: [:edit, :mypage,:update, :destroy]#本人以外できないようにする
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]#投稿した本人以外できないようにする（管理者もつける）
+  #animalページの閲覧制限、不可の場合blog indexへ飛ばす  ページを本人と、ステータスを持った人のみに出したい。他の人はblog index
+  before_action :ensure_animal_user, only: [:animal]#ページを（animalページの場合、URLにIDが入っており、そのIDとcurrent_userが同じ場合に表示）
+
+
+
 
   def index
     @users = User.all.order(created_at: :asc).page(params[:page]).reverse_order
@@ -49,6 +54,15 @@ class UsersController < ApplicationController
   def ensure_correct_user
     @blog = Blog.find(params[:id])
     if @blog.user != current_user
+      redirect_to action: :index#一覧へ戻す
+    end
+  end
+
+  def ensure_animal_user
+    @user = User.find(params[:id])
+    p @user.id != current_user.id
+    p AnimalPermit.find_by(permitted_id: current_user.id, status: 1).nil?
+    if @user != current_user && AnimalPermit.find_by(permitter_id: @user.id, permitted_id: current_user.id, status: 1).nil?
       redirect_to action: :index#一覧へ戻す
     end
   end
