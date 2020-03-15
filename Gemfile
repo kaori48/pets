@@ -67,5 +67,6 @@ gem "refile-mini_magick"
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'jquery-rails'
 gem 'kaminari'
+gem 'rails-i18n'
 
 gem 'pry-rails'
