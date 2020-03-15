@@ -27,11 +27,18 @@ class AnimalsController < ApplicationController
     @user = current_user
     @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
   end
-  def create
-  	animal = Animal.new(animal_params)
-  	animal.user_id = current_user.id
-  	animal.save
-  	redirect_to user_animal_path(current_user.id)#userのanimalページに飛ぶ
+  def create  #エラー文で使用するので@つける
+  	@animal = Animal.new(animal_params)
+  	@animal.user_id = current_user.id
+  	if @animal.save
+      flash[:notice] = "登録しました！"#成功メッセ
+  	  redirect_to user_animal_path(current_user.id)#userのanimalページに飛ぶ
+    else
+      #サイドバー
+      @user = current_user
+      @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
+      render :new
+    end
   end
 
   def edit
@@ -41,10 +48,16 @@ class AnimalsController < ApplicationController
     @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
   end
 
-  def update
-  	animal = Animal.find(params[:id])
-  	animal.update(animal_params)
-  	redirect_to action: :show#showへ
+  def update #エラー文で使用するので@つける
+  	@animal = Animal.find(params[:id])
+  	if @animal.update(animal_params)
+  	  redirect_to action: :show#showへ
+    else
+      #サイドバー
+      @user = current_user
+      @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
+      render :edit
+    end
   end
 
   def destroy

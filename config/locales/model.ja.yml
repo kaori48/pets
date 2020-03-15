@@ -1,0 +1,23 @@
+ja:
+  activerecord:
+    models:
+      blog: ブログ
+      animal: ペット
+      animal_comment: コメント
+      blog_comment: コメント
+      user: ユーザー
+    attributes:
+      blog:
+       title: タイトル
+       body: 内容
+      animal:
+       name: 名前
+      animal_comments:
+       comment: コメント
+      blog_comment:
+       comment: コメント
+      user:
+       name: 名前
+       email: メールアドレス
+       password: パスワード
+       password_confirmation: パスワード確認
