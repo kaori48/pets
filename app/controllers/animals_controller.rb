@@ -1,7 +1,7 @@
 class AnimalsController < ApplicationController
   before_action :authenticate_user!#ログインしていない人をログイン画面へ
   before_action :ensure_correct_user, only: [:destroy]#本人以外できないようにする
-  before_action :ensure_animal_user, #ページを本人と、ステータスを持った人のみに出したい。他の人はblog index
+  before_action :ensure_animal_user, only: [:show,:edit,:update,:destroy] #ページを本人と、ステータスを持った人のみに出したい。他の人はblog index
 
   def index
   end
@@ -16,6 +16,9 @@ class AnimalsController < ApplicationController
     #お世話パートナーサイドバー
     @pertner = @animal.user.id
     @users = AnimalPermit.where(permitted_id: @pertner, status: 1)#お世話パートナーのサイドバー
+    #タスク
+    @task = Task.new#タスク新規
+    @tasks = @animal.tasks.order(created_at: :asc)#タスク一覧
   end
 
   def new
