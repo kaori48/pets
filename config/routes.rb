@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   end
   resources :animals do
     resource :animal_comments, only: [:create, :destroy]
+    resource :tasks, only: [:create, :destroy, :update]
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
