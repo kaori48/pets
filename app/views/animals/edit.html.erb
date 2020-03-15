@@ -1,5 +1,6 @@
 <%= render 'layouts/side', user: current_user, applying: @applying %>
 <%= form_for(@animal) do |f| %>
+<%= render 'layouts/error', model: f.object %>
     <%= attachment_image_tag @animal, :animal_image, size: "300x300", fallback: "no_image.jpg" %><br>
     <%= f.attachment_field :animal_image %><!-- blog_image_idだがrefileの仕様でidなし --><!-- サイズについての表記を書く -->
     <p>＊印は必ず入力してください</p>
