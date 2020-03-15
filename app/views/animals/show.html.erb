@@ -51,5 +51,27 @@
     <% end %><br>
 <% end %>
 <%= paginate @comments %>
+
+
+<!--タスク一覧-->
+ <%= form_for [@animal, @task] do |f| %>
+　　　　<%= f.text_field :content %>
+    　　<%= f.submit"投稿" %>
+<% end %>
+<!--タスク一覧-->
+<% @animal.tasks.each do |task|%>
+    <%= check_box_tag '', '', task.done, {'data-id' => task.id, 'animal_id' => task.animal_id} %><%= task.content %><!--id,value必要なし-->
+    <%= link_to "削除", animal_tasks_path(task.id),method: :delete %><br>
+<% end %>
+
+<!-- jqueryの機能を使ってチェックボックスの制御を行う -->
+<script type="text/javascript">
+    $(function() {
+        $("input[type=checkbox]").click(function() {
+            $.post('/animals/'+$(this).data('animal_id')+'/tasks/'+$(this).data('id')+'/change')
+        })
+    })
+</script>
+
 <h1>Animals#show</h1>
 <p>Find me in app/views/animals/show.html.erb</p>

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'users/animal/:id' => 'users#animal', as: 'user_animal'
   get '/blog_genre/:id' => 'blogs#genre',as:'blog_genre'#ジャンル検索でidが必要
   get 'search' =>'search#search'
+  post 'animals/:animal_id/tasks/:id/change' => 'tasks#change',as: 'task_change'
 
   resources :users do
     get 'follows' => 'relationships#follows', as: 'follows'#フォロー一覧
@@ -23,6 +24,7 @@ Rails.application.routes.draw do
   end
   resources :animals do
     resource :animal_comments, only: [:create, :destroy]
+    resource :tasks, only: [:create, :destroy, :update]
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
