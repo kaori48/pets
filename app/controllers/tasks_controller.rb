@@ -1,9 +1,14 @@
 class TasksController < ApplicationController
+	before_action :authenticate_user!#ログインしていない人をログイン画面へ
 	def create
 		animal = Animal.find(params[:animal_id])#animalのidをとってくる
 		task = animal.tasks.new(task_params)
-		task.save
+		if task.save
 		redirect_to request.referer#ひとつ前のURLを返す
+	    else
+	    flash[:notice] = "登録できませんでした"
+	    redirect_to request.referer
+	    end
 	end
 	def update
 	end
