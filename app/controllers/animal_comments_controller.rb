@@ -6,6 +6,7 @@ class AnimalCommentsController < ApplicationController
 		comment.save
 		redirect_to request.referer#ひとつ前のURLを返す
 	end
+
 	def destroy
 		comment = AnimalComment.find(params[:animal_id])
 		comment.destroy
