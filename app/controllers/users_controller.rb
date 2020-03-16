@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, only: [:edit,:mypage, :update, :destroy, :new, :create, :animal]#ログインしていない人をログイン画面へ
-  before_action :ensure_correct_user, only: [:edit, :update, :destroy,:show]#投稿した本人以外できないようにする（管理者もつける）
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]#投稿した本人以外できないようにする（管理者もつける）
   #animalページの閲覧制限、不可の場合blog indexへ飛ばす  ページを本人と、ステータスを持った人のみに出したい。他の人はblog index
   before_action :ensure_animal_user, only: [:animal]#ページを（animalページの場合、URLにIDが入っており、そのIDとcurrent_userが同じ場合に表示）
 
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   def edit
     @user = current_user
     @users = AnimalPermit.where(permitted_id: current_user.id, status: 0).order(created_at: :asc).page(params[:page]).reverse_order#申請した人（０）
-    @permitted_users = AnimalPermit.where(permitter_id: current_user.id, status: 1)#自分をお世話パートナーにしている人
+    @permitted_users = AnimalPermit.where(permitter_id: current_user.id, status: 1).order(created_at: :asc).page(params[:page]).reverse_order#自分をお世話パートナーにしている人
     #サイドバー
     @user = current_user
     @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
