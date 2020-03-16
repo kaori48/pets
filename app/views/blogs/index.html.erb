@@ -1,37 +1,51 @@
+<%= render 'layouts/header' %>
 <!--部分点プレ-->
 <!--ペット一覧のユーザー-->
-<%= render 'layouts/side', user: current_user ,applying: @applying %>
-<%= render 'layouts/sidegenre', genres: @genres %>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-3">
+      <%= render 'layouts/side', user: current_user ,applying: @applying %><br>
+      <%= render 'layouts/sidegenre', genres: @genres %>
+    </div>
 
-<!--新規投稿-->
-<% if user_signed_in? %><!-- ログインしている場合に投稿できる -->
-    <%= link_to"投稿", new_blog_path %><br>
-<% end %>
+    <!--新規投稿-->
+    <div class="col-xs-9">
+      <% if user_signed_in? %><!-- ログインしている場合に投稿できる -->
+      <%= link_to"投稿", new_blog_path %><br>
+      <% end %>
 
-<!--ブログ一覧、投稿順に並べる-->
-<% @blogs.each do |blog| %>
-<%= link_to blog_path(blog.id) do %>
-  <%= attachment_image_tag blog, :blog_image, size: "220x170",fallback: "no_image.jpg" %><br>
-  <%= blog.title %>
-  <% end %>
-  <%= blog.created_at.strftime("%Y年%m月%d日") %>
-  <% blog.genres.each do |genre|%><!--登録されているジャンル一覧-->
-      <%= link_to blog_genre_path(genre.id) do %>
-        <%= genre.name %>
-      <% end %>/
-  <% end %>
-  <%= blog.favorites.count %>いいね
-  コメント数：<%= blog.blog_comments.count %><br>
+      <!--ブログ一覧、投稿順に並べる-->
+      <div class="row">
+        <% @blogs.each do |blog| %>
+        <div class="col-xs-3">
+          <%= link_to blog_path(blog.id) do %>
+          <%= attachment_image_tag blog, :blog_image, size: "220x200",fallback: "no_image.jpg" %><br>
+          <%= blog.title %>
+          <% end %>
+          <%= blog.created_at.strftime("%Y年%m月%d日") %>
+          <% blog.genres.each do |genre|%><!--登録されているジャンル一覧-->
+          <%= link_to blog_genre_path(genre.id) do %>
+          <%= genre.name %>
+          <% end %>/
+          <% end %>
+          <%= blog.favorites.count %>いいね
+          コメント数：<%= blog.blog_comments.count %><br>
 
-  <% if blog.user == current_user %><!--本人のみできる-->
-      <%= link_to"編集", edit_blog_path(blog.id) %>
-  <% end %>
-  <% if blog.user == current_user || current_user.admin? %><!--本人と管理者が可能-->
-      <%= link_to"削除", blog_path(blog.id),method: :delete, data: {confirm: "本当に消しますか？"} %>
-  <% end %><br>
-<% end %>
+          <% if blog.user == current_user %><!--本人のみできる-->
+          <%= link_to"編集", edit_blog_path(blog.id) %>
+          <% end %>
+          <% if blog.user == current_user || current_user.admin? %><!--本人と管理者が可能-->
+          <%= link_to"削除", blog_path(blog.id),method: :delete, data: {confirm: "本当に消しますか？"} %>
+          <% end %><br>
+        </div>
+        <% end %>
+      </div>
+      <div class ="text-center">
+        <%= paginate @blogs %>
+      </div>
+    </div>
+  </div>
+</div>
 
-<%= paginate @blogs %>
-
-<h1>Blogs#index</h1>
-<p>Find me in app/views/blogs/index.html.erb</p>
+  <h1>Blogs#index</h1>
+  <p>Find me in app/views/blogs/index.html.erb</p>
