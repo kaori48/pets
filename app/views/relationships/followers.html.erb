@@ -1,1 +1,47 @@
-フォロワー画面
+<%= render 'layouts/side', user: current_user, applying: @applying %>
+フォロー画面
+<div>
+     <table class="table">
+       <tbody>
+       	<% @follow_users.each do |user|%>
+       	  <tr>
+			<td><!--tdのそとにリンク書けないので中-->
+			  <%= link_to user_path(user.followed.id) do %>
+			    <%= attachment_image_tag user.followed, :icon, size: "200x200", fallback: "no_image.jpg" %>
+              <% end %>
+            </td>
+		    <td>
+				<%= link_to user_path(user.followed.id) do %>
+			      <%= user.followed.name %>
+				<% end %>
+			</td>
+		  </tr>
+		<% end %>
+       </tbody>
+     </table>
+     <%= paginate @follow_users %>
+</div>
+
+フォロワーー画面
+<div>
+     <table class="table">
+       <tbody>
+       	<% @follower_users.each do |user|%>
+       	  <tr>
+			<td><!--tdのそとにリンク書けないので中-->
+			  <%= link_to user_path(user.follower.id) do %>
+			    <%= attachment_image_tag user.follower, :icon, size: "200x200", fallback: "no_image.jpg" %>
+              <% end %>
+            </td>
+		    <td>
+				<%= link_to user_path(user.follower.id) do %>
+			      <%= user.follower.name %>
+				<% end %>
+			</td>
+		  </tr>
+		<% end %>
+       </tbody>
+     </table>
+     <%= paginate @follower_users %>
+</div>
+

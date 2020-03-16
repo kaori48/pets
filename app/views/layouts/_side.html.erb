@@ -13,7 +13,7 @@
      </table>
      <!--フォローつける-->
      <tr><th>follows</th>
-      <th><%= link_to user.active_relationships.count, user_follows_path(user) %><!--(user）にユーザー入れてる-->
+      <th><%= link_to user.active_relationships.count, user_followers_path(user) %><!--(user）にユーザー入れてる-->
       </th></tr>
     <tr><th>followers</th><th><%= link_to user.passive_relationships.count, user_followers_path(user) %></th></tr>
   </tbody>
