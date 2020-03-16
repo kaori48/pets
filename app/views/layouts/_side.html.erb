@@ -33,8 +33,9 @@
 <!--お世話記録、ログイン時のみ表示-->
 <% if user_signed_in? %><!-- ログインしているか -->
      <!--本人-->
-     <% if current_user == user %>
-         <%= link_to "お世話記録",user_animal_path(user.id) %><!--本人の場合-->
+     <% if current_user == user %><!--本人の場合-->
+         <%= link_to "お世話記録",user_animal_path(user.id) %><br>
+         <%= link_to "マイページ",edit_user_path(current_user.id) %>
      <% end %><!--本人以外-->
      <% if current_user != user %>
         <% if current_user.permitting?(user) %><!--申請していてステータス０-->
