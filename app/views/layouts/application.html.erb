@@ -19,7 +19,8 @@
       <nav class="nav navbar-nav navbar-right">
         <ul class="nav navbar-nav navbar-right">
       <%if user_signed_in? %><!-- ログインしているか -->
-        <%= link_to user_path(current_user) do %>
+        <%= link_to"Logo" blogs_path %><!-- ログインした人のトップはblogのindex-->
+        <%= link_to edit_user(current_user) do %>
             <span class="glyphicon glyphicon-log-out" aria-hidden="true">マイページ</span>
         <% end %>
         <%= link_to blogs_path do %>
@@ -34,6 +35,7 @@
              <%= submit_tag "検索" %><!--検索結果表示リンク-->
         <% end %>
       <% else %>
+          <%= link_to"Logo" root_path %>
           <%= link_to root_path do %>
               <span class="glyphicon glyphicon-home" aria-hidden="true">Home</span>
           <% end %>
