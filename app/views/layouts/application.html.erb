@@ -1,61 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Pet</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Pet</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-    <header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="container">
-    <nav class="nav navbar-nav navbar-left">
-    <span>Pets</span>
-  </nav>
-  <div>
-      <nav class="nav navbar-nav navbar-right">
-        <ul class="nav navbar-nav navbar-right">
-      <%if user_signed_in? %><!-- ログインしているか -->
-        <%= link_to"Logo", blogs_path %><!-- ログインした人のトップはblogのindex-->
-        <%= link_to edit_user_path(current_user.id) do %>
-            <span class="glyphicon glyphicon-log-out" aria-hidden="true">マイページ</span>
-        <% end %>
-        <%= link_to blogs_path do %>
-            <span class="glyphicon glyphicon-log-out" aria-hidden="true">ブログ</span>
-        <% end %>
-        <%= link_to destroy_user_session_path, :method => :delete do %>
-            <span class="glyphicon glyphicon-log-out" aria-hidden="true">ログアウト</span><br>
-        <% end %>
-        <%= form_tag(search_path, method: "get") do %>
-            <%= text_field_tag :search %><!--カラム指定？２つある-->
-            <%= select_tag(:option, options_for_select([["User","1"],["Blog","2"]])) %>
-             <%= submit_tag "検索" %><!--検索結果表示リンク-->
-        <% end %>
-      <% else %>
-          <%= link_to"Logo", root_path %>
-          <%= link_to root_path do %>
-              <span class="glyphicon glyphicon-home" aria-hidden="true">Home</span>
-          <% end %>
-          <%= link_to home_about_path do %>
-              <span class="glyphicon glyphicon-link" aria-hidden="true">このサイトについて</span>
-          <% end %>
-          <%= link_to new_user_registration_path do %>
-              <span class="glyphicon glyphicon-edit" aria-hidden="true">新規登録</span>
-          <% end %>
-          <%= link_to new_user_session_path do %>
-              <span class="glyphicon glyphicon-log-in" aria-hidden="true">ログイン</span>
-          <% end %>
-       <% end %>
-        </ul>
-       </nav>
+<body>
+  <%= render 'layouts/header' %>
+  <div class="body">
+    <div class='container'>
+
+      <p id="notice"><%= notice %></p><!--メッセ-->
+
+      <%= yield %>
     </div>
   </div>
-</header>
 
-<p><%= notice %></p><!--ログアウト成功メッセ-->
-    <%= yield %>
-  </body>
+</body>
 </html>
