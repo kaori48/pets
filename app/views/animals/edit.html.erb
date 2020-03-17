@@ -1,33 +1,51 @@
-<%= render 'layouts/side', user: current_user, applying: @applying %>
-<%= form_for(@animal) do |f| %>
-<%= render 'layouts/error', model: f.object %>
-    <%= attachment_image_tag @animal, :animal_image, size: "300x300", fallback: "no_image.jpg" %><br>
-    <%= f.attachment_field :animal_image %><!-- blog_image_idだがrefileの仕様でidなし --><!-- サイズについての表記を書く -->
-    <p>＊印は必ず入力してください</p>
-    <table>
-    	<tr>
-    		<th>名前＊</th><td><%= f.text_field :name %></td>
-    	</tr>
-    	<tr>
-    		<th>birth</th><td><%= raw sprintf(f.date_select(:birth,use_month_numbers: true, start_year: 1950, end_year: Date.today.year,date_separator: '%s'),'年','月')+'日' %></td>
-    	</tr>
-    	<tr>
-    		<th>food</th><td><%= f.text_area :food,placeholder: "例：朝２０g,夜２５g" %></td>
-    	</tr>
-    	<tr>
-    		<th>toilet</th><td><%= f.text_area :toilet,placeholder: "例：毎週火曜日" %></td>
-    	</tr>
-    	<tr>
-    		<th>water</th><td><%= f.text_area :water,placeholder: "例：朝に入れ替え" %></td>
-    	</tr>
-    	<tr>
-    		<th>hospital</th><td><%= f.text_area :hospital,placeholder: "例： ３月に健康診断" %></td>
-    	</tr>
-    	<tr>
-    		<th>other</th><td><%= f.text_area :other %></td>
-    	</tr>
-    </table>
-    <%= f.submit '登録' %>
-<% end %>
-<h1>Animals#edit</h1>
-<p>Find me in app/views/animals/edit.html.erb</p>
+<div class="row">
+    <div class="col-xs-3">
+      <div class="row">
+        <%= render 'layouts/side', user: current_user, applying: @applying %>
+      </div>
+    </div>
+
+        <div class="col-xs-8 col-xs-offset-1">
+            <div class="row">
+              <%= form_for(@animal) do |f| %>
+              <%= render 'layouts/error', model: f.object %>
+              <div class="col-xs-4">
+                  <%= attachment_image_tag @animal, :animal_image, size: "230x230", fallback: "no_image.jpg" %><br>
+                  <%= f.attachment_field :animal_image %><!-- blog_image_idだがrefileの仕様でidなし --><!-- サイズについての表記を書く -->
+                  <p class="text-danger">＊印は必ず入力してください</p>
+              </div>
+              <div class="col-xs-4">
+                <table>
+                   <tr>
+                      <th>名前＊</th><td><%= f.text_field :name,:size=>"40x1" %></td>
+                  </tr>
+                  <tr>
+                      <th>birth</th><td><%= raw sprintf(f.date_select(:birth,use_month_numbers: true, start_year: 1950, end_year: Date.today.year,date_separator: '%s'),'年','月')+'日' %></td>
+                  </tr>
+                  <tr>
+                      <th>food</th><td><%= f.text_area :food,:size=>"39x4",placeholder: "例：朝２０g,夜２５g" %></td>
+                  </tr>
+                  <tr>
+                      <th>toilet</th><td><%= f.text_area :toilet,:size=>"39x4",placeholder: "例：毎週火曜日" %></td>
+                  </tr>
+                  <tr>
+                      <th>water</th><td><%= f.text_area :water,:size=>"39x4",placeholder: "例：朝に入れ替え" %></td>
+                  </tr>
+                  <tr>
+                      <th>hospital</th><td><%= f.text_area :hospital,:size=>"39x4",placeholder: "例： ３月に健康診断" %></td>
+                  </tr>
+                  <tr>
+                      <th>other</th><td><%= f.text_area :other,:size=>"39x4" %></td>
+                  </tr>
+              </table>
+              <div class="row">
+                 <div class="col-xs-4 col-xs-offset-12">
+                   <%= f.submit '登録',class: "btn btn-warning btn-block"%>
+                 </div>
+              </div>
+             </div>
+              <% end %>
+        </div>
+</div>
+    <h1>Animals#edit</h1>
+    <p>Find me in app/views/animals/edit.html.erb</p>
