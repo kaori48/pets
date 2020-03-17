@@ -1,79 +1,103 @@
-<!--ペット一覧閲覧許可ユーザー-->
-<%= render 'layouts/side', user: current_user, applying: @applying %>
-<%= render 'layouts/sidepertners', users: @users %><br>
+<div class="row">
+    <div class="col-xs-3">
+      <div class="row">
+        <!--ペット一覧閲覧許可ユーザー-->
+        <%= render 'layouts/side', user: current_user, applying: @applying %>
+        <%= render 'layouts/sidepertners', users: @users %><br>
+      </div>
+    </div>
 <!--ペット詳細-->
+    <div class="col-xs-6">
+        <div class="row">
+            <div class="col-xs-4">
+               <%= attachment_image_tag @animal, :animal_image, size: "190x190",fallback: "no_image.jpg" %><br>
+            </div>
+        <div class="col-xs-4">
+            <table>
+              <tr>
+                 <th>名前</th><td><%= @animal.name %></td>
+              </tr>
+              <tr>
+                 <th>birth</th><td><%= @animal.birth.strftime("%Y年%m月%d日") %></td><!--書き方考える-->
+              </tr>
+              <tr>
+                 <th>food</th><td><%= @animal.food %></td>
+              </tr>
+              <tr>
+                 <th>toilet</th><td><%= @animal.toilet %></td>
+              </tr>
+              <tr>
+                 <th>water</th><td><%= @animal.water %></td>
+              </tr>
+              <tr>
+                 <th>hospital</th><td><%= @animal.hospital %></td>
+              </tr>
+              <tr>
+                 <th>other</th><td><%= @animal.other %></td>
+              </tr>
+            </table>
+        </div>
+    </div>
 
-<%= attachment_image_tag @animal, :animal_image, size: "250x250",fallback: "no_image.jpg" %><br>
-<table>
-    	<tr>
-    		<th>名前</th><td><%= @animal.name %></td>
-    	</tr>
-    	<tr>
-    		<th>birth</th><td><%= @animal.birth.strftime("%Y年%m月%d日") %></td><!--書き方考える-->
-    	</tr>
-    	<tr>
-    		<th>food</th><td><%= @animal.food %></td>
-    	</tr>
-    	<tr>
-    		<th>toilet</th><td><%= @animal.toilet %></td>
-    	</tr>
-    	<tr>
-    		<th>water</th><td><%= @animal.water %></td>
-    	</tr>
-    	<tr>
-    		<th>hospital</th><td><%= @animal.hospital %></td>
-    	</tr>
-    	<tr>
-    		<th>other</th><td><%= @animal.other %></td>
-    	</tr>
-    </table>
-
-    <% if @animal.user == current_user %><!--外部キーの扱い方わからん,外部キーのuser_idをとりたい????-->
-        <%= link_to "編集", edit_animal_path(@animal.id) %>
+    <% if @animal.user == current_user %>
+      <p class="text-right">
+        <%= link_to "編集", edit_animal_path(@animal.id) %> /
         <%= link_to "削除", animal_path(@animal.id),method: :delete, data: {confirm: "本当に消しますか？"}  %>
+      </p>
     <% end %>
 
-<!--コメント登録-->
-<%= form_for [@animal,@comment] do |f| %>
+    <!--コメント登録-->
+    <%= form_for [@animal,@comment] do |f| %>
     <%= render 'layouts/error', model: f.object %>
-    <%= f.text_area :comment, placeholder:"comment" %>
+    <%= f.text_area :comment, placeholder:"comment", :size=>"30x1" %>
     <%= f.submit "送信" %>
-<% end %>
-<!--コメント一覧-->
-<% @animal.animal_comments.each do |animal_comment| %>
+    <% end %><br>
+
+    <!--コメント一覧-->
+    <% @animal.animal_comments.each do |animal_comment| %>
     <%= link_to user_path(animal_comment.user.id) do %><!--ユーザーのshowへ-->
-        <%= attachment_image_tag animal_comment.user , :icon, size: "80x80",fallback: "no_image.jpg" %>
-        <%= animal_comment.user.name %>
+    <%= attachment_image_tag animal_comment.user , :icon, size: "60x60",fallback: "no_image.jpg" %>
+    <%= animal_comment.user.name %><br>
     <% end %>
-    <%= animal_comment.comment %>
+    <%= animal_comment.comment %><br>
     <%= animal_comment.created_at.strftime("%Y-%m-%d %H:%M") %>
     <% if animal_comment.user == current_user %>
-        <%= link_to "削除", animal_animal_comments_path(animal_comment.id),method: :delete, data: {confirm: "本当に消しますか？"}  %>
+    <%= link_to "削除", animal_animal_comments_path(animal_comment.id),method: :delete, data: {confirm: "本当に消しますか？"}  %>
     <% end %><br>
-<% end %>
-<%= paginate @comments %>
+    <% end %>
+    <div class ="text-center">
+      <%= paginate @comments %>
+    </div>
+    </div>
 
 
-<!--タスク一覧-->
-<h4>To Do List</h4>
- <%= form_for [@animal, @task] do |f| %>
-　　　　<%= f.text_field :content, placeholder:"例：おもちゃを買う" %>
-    　　<%= f.submit"投稿" %>
-<% end %>
-<!--タスク一覧-->
-<% @animal.tasks.each do |task|%>
-    <%= check_box_tag '', '', task.done, {'data-id' => task.id, 'animal_id' => task.animal_id} %><%= task.content %><!--id,value必要なし-->
-    <%= link_to "削除", animal_tasks_path(task.id),method: :delete %><br>
-<% end %>
+    <!--タスク一覧-->
+    <div class="col-xs-3">
+        <h4>To Do List</h4>
+        <%= form_for [@animal, @task] do |f| %>
+        　　<%= f.text_field :content, placeholder:"例：おもちゃを買う" %>
+        　　<%= f.submit"投稿" %>
+        <% end %><br>
+        <!--タスク一覧-->
+        <% @animal.tasks.each do |task|%>
+        <%= check_box_tag '', '', task.done, {'data-id' => task.id, 'animal_id' => task.animal_id} %><%= task.content %><!--id,value必要なし-->
+        <%= link_to animal_tasks_path(task.id),method: :delete do%>
+        　　<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        <% end %>
+        <br>
+        <% end %>
+    </div>
 
-<!-- jqueryの機能を使ってチェックボックスの制御を行う -->
-<script type="text/javascript">
-    $(function() {
-        $("input[type=checkbox]").click(function() {
-            $.post('/animals/'+$(this).data('animal_id')+'/tasks/'+$(this).data('id')+'/change')
+    <!-- jqueryの機能を使ってチェックボックスの制御を行う -->
+    <script type="text/javascript">
+        $(function() {
+            $("input[type=checkbox]").click(function() {
+                $.post('/animals/'+$(this).data('animal_id')+'/tasks/'+$(this).data('id')+'/change')
+            })
         })
-    })
-</script>
+    </script>
+</div>
+</div>
 
-<h1>Animals#show</h1>
-<p>Find me in app/views/animals/show.html.erb</p>
+    <h1>Animals#show</h1>
+    <p>Find me in app/views/animals/show.html.erb</p>
