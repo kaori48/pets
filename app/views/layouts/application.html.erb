@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Pet</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Pet</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-        <p><%= notice %></p><!--メッセ-->
-        <%= yield %>
+<body>
+  <%= render 'layouts/header' %>
+  <div class="body">
+    <div class='container'>
 
-  </body>
+      <p id="notice"><%= notice %></p><!--メッセ-->
+
+      <%= yield %>
+    </div>
+  </div>
+
+</body>
 </html>
