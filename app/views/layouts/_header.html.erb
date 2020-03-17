@@ -2,8 +2,12 @@
   <div class="container">
     <%if user_signed_in? %><!-- ログインしているか -->
       <div class="row">
-          <div class="col-xs-4 col-xs-offset-5">
-             <h1 class=><%= link_to"Logo", blogs_path %></h1><!-- ログインした人のトップはblogのindex-->
+          <div class="col-xs-3 col-xs-offset-4">
+             <h1>
+               <%= link_to blogs_path do%>
+                 <%= image_tag 'logo.png' %>
+               <% end %>
+             </h1>
           </div>
       </div>
       <nav class="navbar">
