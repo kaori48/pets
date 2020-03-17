@@ -65,7 +65,9 @@
       <%= link_to "削除", blog_blog_comments_path(comment.id), method: :delete, data: {confirm: "本当に消しますか？"} %>
       <% end %><br>
       <% end %>
-      <%= paginate @comments %>
+      <div class ="text-center">
+        <%= paginate @comments %>
+      </div>
 </div>
 </div>
 
