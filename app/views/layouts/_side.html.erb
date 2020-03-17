@@ -26,9 +26,9 @@
        <% if current_user != user %>
   　      <% if current_user.following?(user) %>
          <p class="text-center">
-            <%= link_to 'フォロー外す', user_relationships_path(user_id: user.id), method: :delete %>
+            <%= link_to 'フォロー外す', user_relationships_path(user_id: user.id),class: "btn btn-default", method: :delete %>
   　      <% else %>
-  　　       <%= link_to 'フォローする', user_relationships_path(user_id: user.id), method: :post %>
+  　　       <%= link_to 'フォローする', user_relationships_path(user_id: user.id),class: "btn btn-default", method: :post %>
           <% end %>
         </p>
         <% end %>
@@ -49,13 +49,15 @@
         <% if current_user.permitting?(user) %><!--申請していてステータス０-->
               <% if applying.status == "applying" %><!--レコードあり、ステータす０-->
                   <p>お世話パートナー申請中</p>
-                  <%= link_to "申請解除", user_animal_permits_path(user_id: user.id),method: :delete, data: {confirm: "本当に解除しますか？"} %>
+                  <%= link_to "申請解除", user_animal_permits_path(user_id: user.id),class: "btn btn-default",method: :delete, data: {confirm: "本当に解除しますか？"} %>
               <% elsif applying.status == "permit" %>
-                  <%= link_to "お世話記録",user_animal_path(user.id) %>
-                  <%= link_to "パートナー解除",user_animal_permits_path(user_id: user.id),method: :delete, data: {confirm: "本当に解除しますか？"} ,class: "btn" %>
+                <p class="text-center">
+                  <%= link_to "お世話記録",user_animal_path(user.id),class: "btn btn-default" %>
+                  <%= link_to "パートナー解除",user_animal_permits_path(user_id: user.id),class: "btn btn-default",method: :delete, data: {confirm: "本当に解除しますか？"} %>
+                </p>
               <% end %>
         <% else %><!--申請していてステータス１-->
-                  <%= link_to "お世話パートナー申請", user_animal_permits_path(user_id: user.id),method: :post %>
+                  <%= link_to "お世話パートナー申請", user_animal_permits_path(user_id: user.id),class: "btn btn-default",method: :post %>
         <% end %>
      <% end %>
 <% end %>
