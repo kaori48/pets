@@ -35,6 +35,8 @@
          <% @users.each do |user| %>
            <%= link_to user_path(user.permitter.id) do %>
              <%= attachment_image_tag user.permitter , :icon, size: "100x100", fallback: "no_image.jpg" %>
+           <% end %>
+           &emsp;<%= link_to user_path(user.permitter.id) do %>
              <%= user.permitter.name %><br>
            <% end %>
            <!--statusを１にするボタン-->
@@ -53,8 +55,10 @@
          <% @permitted_users.each do |user| %>
            <%= link_to user_path(user.permitted.id) do %>
              <%= attachment_image_tag user.permitted , :icon, size: "100x100", fallback: "no_image.jpg" %>
+            <% end %>
+            &emsp;<%= link_to user_path(user.permitted.id) do %>
              <%= user.permitted.name %>
-           <% end %>
+             <% end %>
          <% end %>
          <div class ="text-center">
            <%= paginate @permitted_users %>
