@@ -17,7 +17,7 @@
     	  <% @user.animals.each do |animal| %>
     	    <div class="col-xs-3">
     	      <%= link_to animal_path(animal.id) do %>
-    	        <%= attachment_image_tag animal, :animal_image, size: "250x250",fallback: "no_image.jpg",class: "img-responsive img-circle" %><br>
+    	        <%= attachment_image_tag animal, :animal_image, size: "250x250",fallback: "no_image.jpg",class: "img-circle" %><br>
     	        <p class="text-center"><%= animal.name %></p><br>
     	      <% end %>
     	    </div>

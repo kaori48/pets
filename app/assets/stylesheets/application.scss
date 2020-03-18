@@ -21,11 +21,38 @@
   height: 120px; /* 高さ120px */
   background-color: red; /* 背景赤色 */
 }
+a {
+  color:#333333;
+  text-decoration:underline;
+}
+a.no-line {
+	text-decoration:none
+}
 
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 1.42857143;
     color: #333333;
-    background-color: #fff;
+    background-image: url("b001.gif");
+}
+
+.todobox{
+	padding: 0.5em 1em;
+    margin: 2em 0;
+    font-weight: normal;
+    color: #666666;/*文字色*/
+    background: rgba(255,255,255,0.3);
+    border: solid 1px #e49e61;/*線*/
+    border-radius: 10px;/*角の丸み*/
+}
+
+.sidebox{
+	padding: 0.5em 1em;
+    margin: 2em 0;
+    font-weight: normal;
+    color: #666666;/*文字色*/
+    background: #FFF;
+    border: solid 1px #e49e61;/*線*/
+    border-radius: 10px;/*角の丸み*/
 }
