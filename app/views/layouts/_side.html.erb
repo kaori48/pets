@@ -1,34 +1,31 @@
 
  <!--画像表示するようにする-->
 
-  <div class="panel-body">
+  <div>
     <p class="text-center">
     <%= link_to user_path(user) do %>  <!--user＃showへ-->
-    <%= attachment_image_tag user, :icon, size: "170x170", fallback: "no_image.jpg",class: "img-circle"%>
+       <%= attachment_image_tag user, :icon, size: "170x170", fallback: "no_image.jpg",class: "img-circle"%>
     <% end %></p>
-     <table class="table">
-   	   <tbody>
-        <tr><th>name</th><td><%= user.name %></td></tr><!--railsなので％-->
-        <tr><th>introduction</th><td><%= user.introduction %></td></tr>
-       </tbody>
-     </table>
-     <!--フォローつける-->
+      <table class="table">
+   	    <p class="text-center">
+          <tbody>
+          <p class="text-center"><tr><th>name</th><td><%= user.name %></td></tr></p><!--railsなので％-->
+           <p class="text-center"><tr><th>introduction</th><td><%= user.introduction %></td></tr></p>
+        </tbody></p>
+      </table>
+      <!--フォローつける-->
       <p class="text-center">
         <%= link_to user.active_relationships.count, user_followers_path(user) %>フォロー
     　   <%= link_to user.passive_relationships.count, user_followers_path(user) %>フォロワー
       </p>
-    </tr>
-  </tbody>
-</table>
-</div>
+   </div>
 <div><!--フォローボタン,ログイン時のみ表示-->
     <% if user_signed_in? %><!-- ログインしているか -->
        <% if current_user != user %>
   　      <% if current_user.following?(user) %>
-         <p class="text-center">
-            <%= link_to 'フォロー外す', user_relationships_path(user_id: user.id),class: "btn btn-default", method: :delete %>
+            <p class="text-center"><%= link_to 'フォローを外す', user_relationships_path(user_id: user.id),class: "btn btn-default", method: :delete %></p>
   　      <% else %>
-  　　       <%= link_to 'フォローする', user_relationships_path(user_id: user.id),class: "btn btn-default", method: :post %>
+  　　       <p class="text-center"><%= link_to 'フォローする', user_relationships_path(user_id: user.id),class: "btn btn-warning", method: :post %></p>
           <% end %>
         </p>
         <% end %>
@@ -49,17 +46,17 @@
         <% if current_user.permitting?(user) %><!--申請していてステータス０-->
               <% if applying.status == "applying" %><!--レコードあり、ステータす０-->
                   <p>お世話パートナー申請中</p>
-                  <%= link_to "申請解除", user_animal_permits_path(user_id: user.id),class: "btn btn-default",method: :delete, data: {confirm: "本当に解除しますか？"} %>
+                  <p class="text-center"><%= link_to "申請解除", user_animal_permits_path(user_id: user.id),class: "btn btn-default",method: :delete, data: {confirm: "本当に解除しますか？"} %></p>
               <% elsif applying.status == "permit" %>
                 <p class="text-center">
-                  <%= link_to "お世話記録",user_animal_path(user.id),class: "btn btn-default" %>
-                  <%= link_to "パートナー解除",user_animal_permits_path(user_id: user.id),class: "btn btn-default",method: :delete, data: {confirm: "本当に解除しますか？"} %>
+                  <%= link_to "お世話記録",user_animal_path(user.id),class: "btn btn-warning" %><br>
+                  <p class="text-center"><%= link_to "パートナー解除",user_animal_permits_path(user_id: user.id),method: :delete, data: {confirm: "本当に解除しますか？"} %>
                 </p>
               <% end %>
         <% else %><!--申請していてステータス１-->
-                  <%= link_to "お世話パートナー申請", user_animal_permits_path(user_id: user.id),class: "btn btn-default",method: :post %>
+                  <p class="text-center"><%= link_to "お世話パートナー申請", user_animal_permits_path(user_id: user.id),class: "btn btn-default",method: :post %></p>
         <% end %>
      <% end %>
 <% end %>
   </div>
-  <div>
+  <div><br><br>
