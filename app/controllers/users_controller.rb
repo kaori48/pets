@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   def update
   	@user = current_user
   	@user.update(user_params)
-  	redirect_to users_mypage_path
+  	redirect_to edit_user_path(current_user.id)
   end
   def destroy#削除できない
     user = current_user
