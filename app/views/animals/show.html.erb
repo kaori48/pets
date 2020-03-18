@@ -10,32 +10,34 @@
     <div class="col-xs-6">
         <div class="row">
             <div class="col-xs-4">
-               <%= attachment_image_tag @animal, :animal_image, size: "190x190",fallback: "no_image.jpg" %><br>
+               <%= attachment_image_tag @animal, :animal_image, size: "150x150",fallback: "no_image.jpg" %><br>
             </div>
-        <div class="col-xs-4">
-            <table>
-              <tr>
-                 <th>名前</th><td><%= @animal.name %></td>
+        <div class="col-xs-8 table-responsive">
+            <table class="table table-bordered animaltable">
+                <tbody>
+              <tr class="something">
+                 <th class="warning">名前</th><td class="col-md-10"><%= @animal.name %></td>
               </tr>
               <tr>
-                 <th>birth</th><td><%= @animal.birth.strftime("%Y年%m月%d日") %></td><!--書き方考える-->
+                 <th class="warning">birth</th><td><%= @animal.birth.strftime("%Y年%m月%d日") %></td><!--書き方考える-->
               </tr>
               <tr>
-                 <th>food</th><td><%= @animal.food %></td>
+                 <th class="warning">food</th><td><%= @animal.food %></td>
               </tr>
               <tr>
-                 <th>toilet</th><td><%= @animal.toilet %></td>
+                 <th class="warning">toilet</th><td><%= @animal.toilet %></td>
               </tr>
               <tr>
-                 <th>water</th><td><%= @animal.water %></td>
+                 <th class="warning">water</th><td><%= @animal.water %></td>
               </tr>
               <tr>
-                 <th>hospital</th><td><%= @animal.hospital %></td>
+                 <th class="warning">hospital</th><td><%= @animal.hospital %></td>
               </tr>
               <tr>
-                 <th>other</th><td><%= @animal.other %></td>
+                 <th class="warning">other</th><td><%= @animal.other %></td>
               </tr>
-            </table>
+              </tbody>
+            </table><br>
         </div>
     </div>
 
@@ -76,14 +78,14 @@
         <h4>To Do List</h4>
         <%= form_for [@animal, @task] do |f| %>
         　　<%= f.text_field :content, placeholder:"例：おもちゃを買う" %>
-        　　<%= f.submit"投稿" %>
+        　　<%= f.submit"投稿",class: "btn btn-warning btn-xs" %>
         <% end %><br>
         <!--タスク一覧-->
         <% @animal.tasks.each do |task|%>
         <%= check_box_tag '', '', task.done, {'data-id' => task.id, 'animal_id' => task.animal_id} %><%= task.content %><!--id,value必要なし-->
-        <%= link_to animal_tasks_path(task.id),method: :delete do%>
-        　　<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-        <% end %>
+        <a class="no-line"><%= link_to animal_tasks_path(task.id),method: :delete do%>
+        　　<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: #82cddd;"></span>
+        <% end %></a>
         <br>
         <% end %>
     </div>
