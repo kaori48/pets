@@ -39,10 +39,10 @@
      <!--本人-->
      <% if current_user == user %><!--本人の場合-->
        <p class="text-center">
-         <%= link_to "お世話記録",user_animal_path(user.id),class: "btn btn-default" %><br>
+         <%= link_to "お世話記録",user_animal_path(user.id),class: "btn btn-warning" %><br>
        </p>
        <p class="text-center">
-         <%= link_to "マイページ",edit_user_path(current_user.id),class: "btn btn-default" %>
+         <%= link_to "マイページ",edit_user_path(current_user.id),class: "btn btn-warning" %>
        </p>
      <% end %><!--本人以外-->
      <% if current_user != user %>

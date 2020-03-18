@@ -1,7 +1,7 @@
-<p>お世話パートナー</p>
+<h4>お世話パートナー</h4>
 <% users.each do |user| %>
   <%= link_to user_path(user.permitter.id) do %>
-  <%= attachment_image_tag user.permitter , :icon, size: "120x120", fallback: "no_image.jpg" %><br>
+  <%= attachment_image_tag user.permitter , :icon, size: "100x100", fallback: "no_image.jpg" %>
   <%= user.permitter.name %>
   <% end %>
 <% end %>

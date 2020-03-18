@@ -29,8 +29,8 @@
             <% end %>
           <% end %><br>
           <%= blog.created_at.strftime("%Y/%m/%d") %>
-          <span class="glyphicon glyphicon-heart" aria-hidden="true"></span><%= blog.favorites.count %>
-          <span class="glyphicon glyphicon-comment" aria-hidden="true"></span><%= blog.blog_comments.count %><br>
+          <span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: #ef857d;"></span><%= blog.favorites.count %>
+          <span class="glyphicon glyphicon-comment" aria-hidden="true" style="color: #82cddd;"></span><%= blog.blog_comments.count %><br>
 
           <% if blog.user == current_user %><!--本人のみできる-->
           <p class="text-right"><%= link_to"edit", edit_blog_path(blog.id) %> /

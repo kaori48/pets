@@ -21,11 +21,19 @@
   height: 120px; /* 高さ120px */
   background-color: red; /* 背景赤色 */
 }
+a {
+  color:#333333;
+  text-decoration:underline;
+}
+a.no-line {
+	text-decoration:none
+}
 
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 1.42857143;
     color: #333333;
-    background-color: #fff;
+    background-image: url("b001.gif");
 }
+
