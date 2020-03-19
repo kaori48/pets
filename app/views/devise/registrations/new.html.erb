@@ -7,11 +7,11 @@
 
     <div class="field">
       <%= f.label :name %><br />
-      <%= f.text_field :name,:size=>"50x1" %>
+      <p class="text-center"><%= f.text_field :name,:size=>"40x1" %></p>
     </div><br>
     <div class="field">
       <%= f.label :email %><br />
-      <%= f.email_field :email,:size=>"50x1", autofocus: true, autocomplete: "email" %>
+      <p class="text-center"><%= f.email_field :email,:size=>"40x1", autofocus: true, autocomplete: "email" %></p>
     </div><br>
 
     <div class="field">
@@ -19,20 +19,20 @@
       <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> 字以上にしてください)</em>
       <% end %><br />
-      <%= f.password_field :password,:size=>"50x1", autocomplete: "new-password" %>
+      <p class="text-center"><%= f.password_field :password,:size=>"40x1", autocomplete: "new-password" %></p>
     </div><br>
 
     <div class="field">
       <%= f.label :password_confirmation %><br/>
-      <%= f.password_field :password_confirmation,:size=>"50x1", autocomplete: "new-password" %>
+      <p class="text-center"><%= f.password_field :password_confirmation,:size=>"40x1", autocomplete: "new-password" %></p>
     </div><br>
 
     <div class="actions">
-      <%= f.submit "登録",class: "btn btn-warning btn-block" %>
+      <p class="text-center"><%= f.submit "登録",class: "btn btn-warning" %></p>
     </div>
     <% end %>
 
-    <%= render "devise/shared/links" %>
+    <%= render "devise/shared/links" %><br>
   </div>
 </div>
 <br><br>

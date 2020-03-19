@@ -1,11 +1,11 @@
-<div>
+<div class="sidegenrebox">
   <div>
-	<p class="text-center"><span style="font-size:1.3em;">ジャンル検索</span></p><br>
+	<p class="text-center"><span style="font-size:1.4em;"><u>ジャンル検索</u></span></p>
   </div>
   <div>
 	<% genres.each do |genre| %><!--ジャンル一覧、ジャンルテーブルからとってくる-->
-	  <span style="font-size:1.1em;"><%= link_to blog_genre_path(genre.id) do %><!-- 投稿一覧リンク（ジャンルidに紐づいてる）-->
-		<%= genre.name %></span><!--ジャンル名-->
+	  &emsp;&emsp;&emsp;&emsp;<%= link_to blog_genre_path(genre.id) do %><!-- 投稿一覧リンク（ジャンルidに紐づいてる）-->
+		<span style="font-size:1.1em;"><%= genre.name %></span><!--ジャンル名-->
 		<% end %><br>
 	<% end %>
   </div>
