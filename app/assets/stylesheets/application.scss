@@ -14,8 +14,11 @@
  *= require_self
  */
 
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+@import "skippr";
 
 .header {
   width: 100%; /* 横幅いっぱい */
