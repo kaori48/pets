@@ -97,11 +97,6 @@
 
     <!-- jqueryの機能を使ってチェックボックスの制御を行う -->
     <script type="text/javascript">
-        $(function() {
-            $("input[type=checkbox]").click(function() {
-                $.post('/animals/'+$(this).data('animal_id')+'/tasks/'+$(this).data('id')+'/change')
-            })
-        })
     </script>
 </div>
 </div>

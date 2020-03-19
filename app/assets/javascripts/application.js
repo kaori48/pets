@@ -20,10 +20,20 @@
 //= require jquery
 //= require jquery_ujs
 
+ $(function() {
+            $("input[type=checkbox]").click(function() {
+                $.post('/animals/'+$(this).data('animal_id')+'/tasks/'+$(this).data('id')+'/change')
+            })
+        })
+
+
 //Skipprの初期化
 $("document").ready(function() {
     $(".theTarget").skippr();
 });
+
+
+
 
 // オプションを指定してSkipprの実行
 $(".theTarget").skippr({
