@@ -1,8 +1,11 @@
-
+<div class="sidebox">
 <p class="text-center"><span style="font-size:1.3em;">お世話パートナー</span></p>
 <% users.each do |user| %>
   <%= link_to user_path(user.permitter.id) do %>
-  <%= attachment_image_tag user.permitter , :icon, size: "100x100", fallback: "no_image.jpg" %>
-  <%= user.permitter.name %>
+      <%= attachment_image_tag user.permitter , :icon, size: "100x100", fallback: "no_image.jpg" %>
+  <% end %>
+   &nbsp;&nbsp;<%= link_to user_path(user.permitter.id) do %>
+      <%= user.permitter.name %>
   <% end %>
 <% end %>
+</div>
