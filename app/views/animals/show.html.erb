@@ -88,8 +88,8 @@
             <% @animal.tasks.each do |task|%>
             <span style="font-size:1.1em;"><%= check_box_tag '', '', task.done, {'data-id' => task.id, 'animal_id' => task.animal_id} %><%= task.content %></span><!--id,value必要なし-->
             <a class="no-line"><%= link_to animal_tasks_path(task.id),method: :delete do%>
-                　　<span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: #82cddd;"></span>
-                <% end %></a>
+            <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: #82cddd;"></span>
+            <% end %></a>
                 <br>
             <% end %>
         </div>
