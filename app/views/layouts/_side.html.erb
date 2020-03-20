@@ -51,6 +51,11 @@
                 <p class="text-center">
                   <%= link_to "お世話記録",user_animal_path(user.id),class: "btn btn-warning" %><br>
                   <p class="text-center"><%= link_to "パートナー解除",user_animal_permits_path(user_id: user.id),method: :delete, data: {confirm: "本当に解除しますか？"} %>
+                </p><br>
+                <p>
+                  <p class="text-center"><u>お世話共有申請とは</u></p>
+                  <span style="font-size:0.9em;">飼っているペットのお世話記録を共有します。</span><br>
+                  <span style="font-size:0.9em;">実際このユーザーとお世話をしている方のみ申請を行ってください</span></p>
                 </p>
               <% end %>
         <% else %><!--申請していてステータス１-->
