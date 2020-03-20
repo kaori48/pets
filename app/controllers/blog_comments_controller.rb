@@ -1,4 +1,5 @@
 class BlogCommentsController < ApplicationController
+	before_action :ensure_correct_user, only: [:edit, :destroy]#本人とadmin権限の人しかできないようにする
 	def create
 		@blog = Blog.find(params[:blog_id])#blogのidをとってくる
 		@comment = @blog.blog_comments.new(blog_comment_params)#
@@ -16,6 +17,14 @@ class BlogCommentsController < ApplicationController
 		redirect_to request.referer#ひとつ前のURLを返す
 
 	end
+
+	#編集制限
+    def ensure_correct_user
+      @comment = BlogComment.find(params[:blog_id])
+    if @comment.user_id != current_user.id && User.where(status:0)
+      redirect_to request.referrer#移動まえのURL
+    end
+  end
 	private
 	def blog_comment_params
 		 params.require(:blog_comment).permit(:comment)
