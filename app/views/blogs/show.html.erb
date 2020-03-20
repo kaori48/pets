@@ -18,7 +18,7 @@
         <% end %>
       <% end %><br><br>
       <p class="text-center"><%= attachment_image_tag @blog, :blog_image, size: "600x520",fallback: "no_image.jpg",class: "img-responsive" %></p><br>
-      <span style="font-size:1.2em;"><%= @blog.body %></span><br><br>
+      <span style="font-size:1.2em;"><%= simple_format(@blog.body) %></span><br><br>
 
       <% if user_signed_in? %><!-- ログインしている場合にいいねできる -->
       <!--いいね-->
@@ -48,7 +48,7 @@
       <!--コメント投稿-->
       <% if user_signed_in? %><!-- ログインしている場合のみコメントできる -->
         <%= form_for [@blog,@comment] do |f| %><!--後々マイページに飛ばす-->
-          <%= f.text_area :comment, :size=>"70x2",placeholder: "コメントを入力してください"%>
+          <%= f.text_area :comment, :size=>"70x1",placeholder: "コメントを入力してください"%>
           <%= f.submit"送信",class: "btn btn-warning btn-xs" %>
         <% end %>
       <% end %><br>
