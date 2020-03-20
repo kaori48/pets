@@ -51,25 +51,29 @@
 
     <!--コメント登録-->
     <%= form_for [@animal,@comment] do |f| %>
-    <%= render 'layouts/error', model: f.object %>
-    <%= f.text_area :comment, placeholder:"コメントを入力してください", :size=>"77x3" %><br>
-    <div class="col-xs-3 col-xs-offset-11">
-    <%= f.submit "送信",class: "btn btn-warning btn-xs" %>
+        <%= render 'layouts/error', model: f.object %>
+        <%= f.text_area :comment, placeholder:"コメントを入力してください", :size=>"77x3" %><br>
+        <div class="col-xs-3 col-xs-offset-11">
+            <%= f.submit "送信",class: "btn btn-warning btn-xs" %>
     <% end %><br>
     </div>
 
     <!--コメント一覧-->
+    <div class="row">
     <% @animal.animal_comments.each do |animal_comment| %>
-    <%= link_to user_path(animal_comment.user.id) do %><!--ユーザーのshowへ-->
-      <%= attachment_image_tag animal_comment.user , :icon, size: "60x60",fallback: "no_image.jpg" %>
+      <%= link_to user_path(animal_comment.user.id) do %><!--ユーザーのshowへ-->
+          <%= attachment_image_tag animal_comment.user , :icon, size: "50x50",fallback: "no_image.jpg" %>
+      <% end %>
+      <%= link_to user_path(animal_comment.user.id) do %>
+          <%= animal_comment.user.name %>
+      <% end %>
+      &emsp;<span style="font-size:1.2em;"><%= animal_comment.comment %></span><br>
+      <p class="text-right"><%= animal_comment.created_at.strftime("%Y-%m-%d %H:%M") %>
+      <% if animal_comment.user == current_user %>
+          <%= link_to "削除", animal_animal_comments_path(animal_comment.id),method: :delete, data: {confirm: "本当に消しますか？"}  %>
+          <% end %></p><br><br>
     <% end %>
-    &emsp;&emsp;<%= animal_comment.user.name %>
-    &emsp;<span style="font-size:1.2em;"><%= animal_comment.comment %></span><br>
-    <p class="text-right"><%= animal_comment.created_at.strftime("%Y-%m-%d %H:%M") %>
-    <% if animal_comment.user == current_user %>
-    <%= link_to "削除", animal_animal_comments_path(animal_comment.id),method: :delete, data: {confirm: "本当に消しますか？"}  %></p>
-    <% end %><br>
-    <% end %>
+  </div>
     <div class ="text-center">
       <%= paginate @comments %>
     </div>
@@ -100,7 +104,3 @@
     </script>
 </div>
 </div>
-
-
-    <h1>Animals#show</h1>
-    <p>Find me in app/views/animals/show.html.erb</p>
