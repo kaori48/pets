@@ -67,7 +67,7 @@
       <%= link_to user_path(animal_comment.user.id) do %>
           <%= animal_comment.user.name %>
       <% end %>
-      <p>&emsp;<span style="font-size:1.2em;"><%= animal_comment.comment %></span></p>
+      &emsp;<span style="font-size:1.2em;"><%= animal_comment.comment %></span>
       <p class="text-right"><%= animal_comment.created_at.strftime("%Y-%m-%d %H:%M") %>
       <% if animal_comment.user == current_user %>
           <%= link_to "削除", animal_animal_comments_path(animal_comment.id),method: :delete, data: {confirm: "本当に消しますか？"}  %>
