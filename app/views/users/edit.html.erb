@@ -17,12 +17,12 @@
          <%= f.attachment_field :icon %><!-- icon_idだがrefileの仕様でidなし --><!-- サイズについての表記を書く -->
          </div>
          <div class="col-xs-4">
-           <h4>name</h4>
-           <%= f.text_field :name,:size=>"30x1" %>
-           <h4>introduction</h4>
-           <%= f.text_area :introduction,:size=>"30x3" %>
+          <h4>name</h4>
+            <%= f.text_field :name,:size=>"30x1" %>
+          <h4>introduction</h4>
+             <%= f.text_area :introduction,:size=>"30x3" %>
            <div class="pull-right">
-             <%= f.submit '登録',class: "btn btn-warning btn-xs" %>
+             <%= f.submit '登録', class: "btn btn-warning" %>
            <% end %>
          </div>
        </div>
@@ -67,7 +67,3 @@
     </div>
  </div>
 </div>
-
-   <h1>Users#edit</h1>
-   <%= paginate @permitted_users %>
-   <p>Find me in app/views/users/edit.html.erb</p>

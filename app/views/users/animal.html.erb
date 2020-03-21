@@ -4,9 +4,25 @@
       <div class="row">
         <%= render 'layouts/side', user: @user,applying: @applying %>
         <!--ペット一覧閲覧許可ユーザー-->
-        <%= render 'layouts/sidepertners', users: @users %><br>
+        <div class="sidebox">
+           <p class="text-center"><span style="font-size:1.3em;">お世話パートナー</span></p>
+             <% @users.each do |user| %>
+    　           <%= link_to user_path(user.permitter.id) do %>
+      　            <p class="text-center"><%= attachment_image_tag user.permitter , :icon, size: "80x80", fallback: "no_image.jpg" %><br>
+                    <%= user.permitter.name %><br>
+                <% end %>
+
+            <!--削除、user投稿主のみ可能-->
+               <% if @user.id == current_user.id %>
+  　　              <%= link_to "パートナー解除", user_animal_permits_path(user_id: user.permitter.id),class: "btn btn-default btn-xs", method: :delete, data: {confirm: "本当にパートナー解除をしますか？"} %></p>
+               <% end %><br>
+           <% end %>
+        </div>
+
       </div>
     </div>
+
+
     <div class="col-xs-9">
     	<!--本人のみ投稿ボタン-->
     	<% if @user == current_user %><!--animalを投稿した人＝＝ログインしている人だが飛ばない。外部きーのとりかた-->
