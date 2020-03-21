@@ -31,6 +31,7 @@
         <% end %>
     <% end %>
 </div>
+
 <!--お世話記録、ログイン時のみ表示-->
 <% if user_signed_in? %><!-- ログインしているか -->
      <!--本人-->
@@ -49,7 +50,7 @@
                   <p class="text-center"><%= link_to "申請解除", user_animal_permits_path(user_id: user.id, flg: "own"),class: "btn btn-default",method: :delete, data: {confirm: "本当に解除しますか？"} %></p>
               <% elsif applying.status == "permit" %>
                   <p class="text-center"><%= link_to "お世話記録",user_animal_path(user.id),class: "btn btn-warning" %></p>
-                  <p class="text-center"><%= link_to "パートナー解除",user_animal_permits_path(user_id: user.id,flg: "other"),method: :delete, data: {confirm: "本当に解除しますか？"} %></p>
+                  <p class="text-center"><%= link_to "パートナー解除",user_animal_permits_path(user_id: user.id,flg: "own"),method: :delete, data: {confirm: "本当に解除しますか？"} %></p>
                   <p class="text-center"><u>お世話共有申請とは</u></p>
                   <p><span style="font-size:0.9em;">飼っているペットのお世話記録を共有します。</span></p>
                   <p><span style="font-size:0.9em;">実際にこのユーザーとお世話をしている方のみ申請を行ってください</span></p>

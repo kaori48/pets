@@ -10,7 +10,7 @@
   <!--削除、user投稿主のみ可能-->
   <% if animal.user_id == current_user.id %>
   　　<p class="text-center">
-  	   <%= link_to "パートナー解除", user_animal_permits_path(user_id: user.permitter.id,flg: "own"),class: "btn btn-default btn-xs", method: :delete, data: {confirm: "本当にパートナー解除をしますか？"} %></p>
+  	   <%= link_to "パートナー解除", user_animal_permits_path(user_id: user.permitter.id,flg: "other"),class: "btn btn-default btn-xs", method: :delete, data: {confirm: "本当にパートナー解除をしますか？"} %></p>
   <% end %>
 <% end %>
 </div>

@@ -48,7 +48,7 @@ has_many :animals, dependent: :destroy
   def permit(user_id)
     AnimalPermit.create(permitter_id: self.id, permitted_id: user_id)
   end
-  #許可申請、許可を外す
+  #許可申請、許可を外す,flgがownの場合自分からのフォローを消去、otherで他の人が自分をフォローした場合に消去
   def unpermit(user_id, flg)
     if flg == "own"
       AnimalPermit.find_by(permitter_id: self.id, permitted_id: user_id).destroy
