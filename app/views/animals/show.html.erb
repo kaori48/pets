@@ -3,7 +3,7 @@
     <div class="col-xs-3">
       <div class="row">
         <!--ペット一覧閲覧許可ユーザー-->
-        <%= render 'layouts/side', user: current_user, applying: @applying %>
+        <%= render 'layouts/side', user: @animaluser, applying: @applying %>
         <%= render 'layouts/sidepertners', users: @users, animal: @animal %><br>
       </div>
     </div>
