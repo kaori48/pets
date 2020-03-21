@@ -11,8 +11,9 @@ class AnimalsController < ApplicationController
   	@comment = AnimalComment.new#コメント機能新規
   	@comments = @animal.animal_comments.order(created_at: :asc).page(params[:page]).reverse_order#コメント一覧
     #サイドバー
-    @user = current_user
-    @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
+    @animaluser = @animal.user
+    @user = @animal.user
+    @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @animaluser.id )
     #お世話パートナーサイドバー
     @pertner = @animal.user.id
     @users = AnimalPermit.where(permitted_id: @pertner, status: 1)#お世話パートナーのサイドバー
@@ -75,8 +76,10 @@ class AnimalsController < ApplicationController
   end
 
     def ensure_animal_user
-    @user = Animal.find(params[:id])
-    if @user.user_id != current_user.id && AnimalPermit.find_by(permitter_id: @user.user_id,permitted_id: current_user.id, status: 1).nil?
+    @animal = Animal.find(params[:id])
+   # p @user.id != current_user.id
+    #p AnimalPermit.find_by(permitted_id: current_user.id, status: 1).nil?
+    if @animal.user_id != current_user.id && AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @animal.user_id, status: 1).nil?
       redirect_to blogs_path#一覧へ戻す
     end
   end
