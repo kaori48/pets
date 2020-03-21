@@ -44,6 +44,7 @@ class UsersController < ApplicationController
   end
   def animal
     @user = User.find(params[:id])
+     #サイドパートナー
     @users = AnimalPermit.where(permitted_id: @user, status: 1).order(created_at: :asc).page(params[:page]).reverse_order#お世話パートナーのサイドバー
     #@permit = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: user.id)
     #サイドバー
@@ -63,7 +64,7 @@ class UsersController < ApplicationController
     p @user.id != current_user.id
     p AnimalPermit.find_by(permitted_id: current_user.id, status: 1).nil?
     if @user != current_user && AnimalPermit.find_by(permitter_id: @user.id, permitted_id: current_user.id, status: 1).nil?
-      redirect_to action: :index#一覧へ戻す
+      redirect_to blogs_path#一覧へ戻す
     end
   end
 

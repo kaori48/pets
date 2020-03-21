@@ -15,14 +15,14 @@
          <%= link_to new_blog_path do %>
              <%= image_tag "new.png",size: "40x40"%>
           <% end %>
-      <% end %>
+      <% end %><br><br>
 
       <!--ブログ一覧、投稿順に並べる-->
       <div class="row">
         <% @blogs.each do |blog| %>
-        <div class="col-xs-3">
+        <div class="blog_index col-xs-3">
           <%= link_to blog_path(blog.id) do %>
-            <%= attachment_image_tag blog, :blog_image,fallback: "no_image.jpg",class: "img-responsive" %><br>
+            <%= attachment_image_tag blog, :blog_image,size: "180x180",fallback: "no_image.jpg" %><br>
             <h4><%= blog.title %></h4>
           <% end %>
           <% blog.genres.each do |genre|%><!--登録されているジャンル一覧-->
@@ -34,12 +34,6 @@
           <span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: #ef857d;"></span><%= blog.favorites.count %>
           <span class="glyphicon glyphicon-comment" aria-hidden="true" style="color: #82cddd;"></span><%= blog.blog_comments.count %><br>
 
-          <% if blog.user == current_user %><!--本人のみできる-->
-          <p class="text-right"><%= link_to"edit", edit_blog_path(blog.id) %> /
-          <% end %>
-          <% if blog.user == current_user || current_user.admin? %><!--本人と管理者が可能-->
-          <%= link_to"destroy", blog_path(blog.id),method: :delete, data: {confirm: "本当に消しますか？"} %></p>
-          <% end %><br>
         </div>
         <% end %>
       </div>
@@ -48,6 +42,3 @@
       </div>
     </div>
   </div>
-
-  <h1>Blogs#index</h1>
-  <p>Find me in app/views/blogs/index.html.erb</p>

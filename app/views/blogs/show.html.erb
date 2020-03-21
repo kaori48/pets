@@ -8,7 +8,7 @@
     </div>
 
 <!--ブログ詳細-->
-    <div class="col-xs-6 col-xs-offset-1">
+    <div class="col-xs-7 col-xs-offset-1">
       <h3><%= @blog.title %></h3>
       <p class="text-right"><%= @blog.created_at.strftime("%Y年%m月%d日") %></p><br>
       <!--登録されているジャンル一覧-->
@@ -18,7 +18,7 @@
         <% end %>
       <% end %><br><br>
       <p class="text-center"><%= attachment_image_tag @blog, :blog_image, size: "600x520",fallback: "no_image.jpg",class: "img-responsive" %></p><br>
-      <span style="font-size:1.2em;"><%= @blog.body %></span><br><br>
+      <span style="font-size:1.2em;"><%= simple_format(@blog.body) %></span><br><br>
 
       <% if user_signed_in? %><!-- ログインしている場合にいいねできる -->
       <!--いいね-->
@@ -48,23 +48,25 @@
       <!--コメント投稿-->
       <% if user_signed_in? %><!-- ログインしている場合のみコメントできる -->
         <%= form_for [@blog,@comment] do |f| %><!--後々マイページに飛ばす-->
-          <%= f.text_area :comment,placeholder: "コメントを入力してください", :size=>"30x1" %>
+          <%= f.text_area :comment, :size=>"70x1",placeholder: "コメントを入力してください"%>
           <%= f.submit"送信",class: "btn btn-warning btn-xs" %>
         <% end %>
       <% end %><br>
 
       <!--コメント一覧-->
-      <% @comments.each do |comment| %>
-        <%= link_to user_path(comment.user.id) do %>
-          <%= attachment_image_tag comment.user, :icon, size: "50x50", fallback: "no_image.jpg" %>
-          <%= comment.user.name %>
-      <% end %>
-      &emsp;<span style="font-size:1.2em;"><%= comment.comment %></span><br>
-      <p class="text-right"><%= comment.user.created_at.strftime("%Y.%m.%d.%H:%M") %>
-      <% if comment.user_id == current_user.id || current_user.admin? %><!--後々管理者も削除できるように-->
-        <%= link_to "削除", blog_blog_comments_path(comment.id), method: :delete, data: {confirm: "本当に消しますか？"} %></p>
-      <% end %><br>
-      <% end %>
+      <div class="blog_index">
+        <% @comments.each do |comment| %>
+          <%= link_to user_path(comment.user.id) do %>
+            <%= attachment_image_tag comment.user, :icon, size: "50x50", fallback: "no_image.jpg" %>
+            <%= comment.user.name %>
+          <% end %>
+          &emsp;<span style="font-size:1.2em;"><%= comment.comment %></span><br>
+          <p class="text-right"><%= comment.user.created_at.strftime("%Y.%m.%d.%H:%M") %>
+          <% if comment.user_id == current_user.id || current_user.admin? %>
+            <%= link_to "削除", blog_blog_comments_path(comment.id), method: :delete, data: {confirm: "本当に消しますか？"} %></p>
+          <% end %><br>
+        <% end %>
+     </div>
 
       <div class ="text-center">
         <%= paginate @comments %>
