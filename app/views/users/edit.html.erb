@@ -10,7 +10,7 @@
       <div class="row">
        <h3>プロフィール編集</h3>
        <!--削除ボタン-->
-       <div class="col-xs-3">
+       <div class="col-xs-4">
        <%= link_to "退会",user_path(current_user), method: :delete,class: "btn btn-warning btn-xs", data: {confirm: "本当に退会しますか？"} %><br>
        <%= form_for(@user) do |f|%>
          <%= attachment_image_tag @user, :icon, size: "150x150", fallback: "no_image.jpg" %><!-- サイズ後で -->
@@ -43,7 +43,7 @@
            <div class="pull-right">
              <%= link_to "申請許可", status_change_user_animal_permits_path(user.id),class: "btn btn-default btn-xs", method: :patch, data: {confirm: "本当にパートナーになりますか？"} %>
              <!--フォローを削除するボタン-->
-             <%= link_to "申請拒否", user_animal_permits_path(user_id: user.permitter.id),class: "btn btn-default btn-xs", method: :delete, data: {confirm: "本当に拒否しますか？"} %></div>
+             <%= link_to "申請拒否", user_animal_permits_path(user_id: user.permitter.id, own: "other"),class: "btn btn-default btn-xs", method: :delete, data: {confirm: "本当に拒否しますか？"} %></div>
          <% end %>
          <div class ="text-center">
            <%= paginate @users %>
