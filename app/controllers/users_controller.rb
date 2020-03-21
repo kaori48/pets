@@ -61,9 +61,9 @@ class UsersController < ApplicationController
 
   def ensure_animal_user
     @user = User.find(params[:id])
-    p @user.id != current_user.id
-    p AnimalPermit.find_by(permitted_id: current_user.id, status: 1).nil?
-    if @user != current_user && AnimalPermit.find_by(permitter_id: @user.id, permitted_id: current_user.id, status: 1).nil?
+   # p @user.id != current_user.id
+    #p AnimalPermit.find_by(permitted_id: current_user.id, status: 1).nil?
+    if @user != current_user && AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id, status: 1).nil?
       redirect_to blogs_path#一覧へ戻す
     end
   end
