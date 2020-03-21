@@ -29,8 +29,8 @@ a {
   color:#333333;
   text-decoration:underline;
 }
-a.no-line {
-	text-decoration:none
+.no-underline{
+  text-decoration:none !important;
 }
 
 body {
