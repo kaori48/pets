@@ -7,38 +7,38 @@
   <div class="row">
     <div class="col-xs-3">
       <div class="row">
-        <%= render 'layouts/side', user: current_user ,applying: @applying %><br>
-        <%= render 'layouts/sidegenre', genres: @genres %>
+        <p><%= render 'layouts/side', user: current_user ,applying: @applying %></p>
+        <p><%= render 'layouts/sidegenre', genres: @genres %></p>
       </div>
     </div>
 
     <!--新規投稿-->
     <div class="col-xs-9">
       <% if user_signed_in? %><!-- ログインしている場合に投稿できる -->
-         <%= link_to new_blog_path do %>
+         <p><%= link_to new_blog_path do %>
              <%= image_tag "new.png",size: "40x40"%>
-          <% end %>
-      <% end %><br><br>
+          <% end %></p>
+      <% end %>
 
       <!--ブログ一覧、投稿順に並べる-->
       <div class="row">
         <% @blogs.each do |blog| %>
-        <div class="col-xs-3">
-          <%= link_to user_path(blog.user.id) do %>
+        <div class="col-xs-3 blog_index">
+          <p><%= link_to user_path(blog.user.id) do %>
               <%= attachment_image_tag blog.user, :icon, size: "30x30", fallback: "no_image.jpg" %><%= blog.user.name %>
-            <% end %><br>
+            <% end %></p>
           <%= link_to blog_path(blog.id) do %>
             <%= attachment_image_tag blog, :blog_image,fallback: "no_image.jpg",class: "img-responsive" %><br>
             <h4><%= blog.title %></h4>
           <% end %>
-          <% blog.genres.each do |genre|%><!--登録されているジャンル一覧-->
+          <p><% blog.genres.each do |genre|%><!--登録されているジャンル一覧-->
             <%= link_to blog_genre_path(genre.id),class: "btn btn-default btn-xs" do %>
               <%= genre.name %>
             <% end %>
-          <% end %><br>
+          <% end %></p>
           <%= blog.created_at.strftime("%Y/%m/%d") %>
-            <span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: #ef857d;"></span><%= blog.favorites.count %>
-            <span class="glyphicon glyphicon-comment" aria-hidden="true" style="color: #82cddd;"></span><%= blog.blog_comments.count %><br>
+            <p><span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: #ef857d;"></span><%= blog.favorites.count %>
+            <span class="glyphicon glyphicon-comment" aria-hidden="true" style="color: #82cddd;"></span><%= blog.blog_comments.count %></p>
 
              <% if blog.user == current_user %><!--本人のみ-->
               <p class="text-right"><%= link_to"edit", edit_blog_path(blog.id) %>
