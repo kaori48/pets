@@ -24,6 +24,9 @@
       <div class="row">
         <% @blogs.each do |blog| %>
         <div class="col-xs-3">
+          <%= link_to user_path(blog.user.id) do %>
+              <%= attachment_image_tag blog.user, :icon, size: "30x30", fallback: "no_image.jpg" %><%= blog.user.name %>
+            <% end %><br>
           <%= link_to blog_path(blog.id) do %>
             <%= attachment_image_tag blog, :blog_image,fallback: "no_image.jpg",class: "img-responsive" %><br>
             <h4><%= blog.title %></h4>
@@ -37,6 +40,12 @@
             <span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: #ef857d;"></span><%= blog.favorites.count %>
             <span class="glyphicon glyphicon-comment" aria-hidden="true" style="color: #82cddd;"></span><%= blog.blog_comments.count %><br>
 
+             <% if blog.user == current_user %><!--本人のみ-->
+              <p class="text-right"><%= link_to"edit", edit_blog_path(blog.id) %>
+            <% end %>
+            <% if blog.user == current_user || current_user.admin? %><!--本人と管理者が可能-->
+              <%= link_to"destroy", blog_path(blog.id),method: :delete, data: {confirm: "本当に消しますか？"} %></p>
+            <% end %>
         </div>
         <% end %>
       </div>
