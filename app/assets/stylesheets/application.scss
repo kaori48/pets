@@ -89,9 +89,14 @@ a.headarea{
     margin-top: 50px;
 }
 .blog_index{
-  margin-top: 12px;
-  margin-bottom: 30px;
+  height: 400px;
 }
+
+img {
+max-width: 100%;
+height: auto;
+}
+
 .comment_index{
   margin-top: 12px;
   margin-bottom: 20px;
