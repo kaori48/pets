@@ -63,7 +63,7 @@ class UsersController < ApplicationController
     p @user.id != current_user.id
     p AnimalPermit.find_by(permitted_id: current_user.id, status: 1).nil?
     if @user != current_user && AnimalPermit.find_by(permitter_id: @user.id, permitted_id: current_user.id, status: 1).nil?
-      redirect_to action: :index#一覧へ戻す
+      redirect_to blogs_path#一覧へ戻す
     end
   end
 
