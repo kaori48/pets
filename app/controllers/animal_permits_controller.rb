@@ -12,7 +12,7 @@ class AnimalPermitsController < ApplicationController
   end
 
   def destroy
-  	current_user.unpermit(params[:user_id])#modelで定義
+  	current_user.unpermit(params[:user_id], params[:flg])#modelで定義
     redirect_to request.referer
   end
 end
