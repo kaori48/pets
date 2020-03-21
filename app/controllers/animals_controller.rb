@@ -70,7 +70,7 @@ class AnimalsController < ApplicationController
   def ensure_correct_user
     @animal = Animal.find(params[:id])
     if @animal.user_id != current_user.id
-      redirect_to action: :index#一覧へ戻す
+      redirect_to blogs_path#一覧へ戻す
     end
   end
 
