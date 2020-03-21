@@ -12,22 +12,20 @@
 //
 //= require rails-ujs
 //= require activestorage
-//= require turbolinks
-//= require bootstrap-sprockets
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap-sprockets
 //= require_tree .
 
 
-$(document).on('turbolinks:load', function() {
+
 $(function () {
     $("input[type=checkbox]").click(function () {
         $.post('/animals/' + $(this).data('animal_id') + '/tasks/' + $(this).data('id') + '/change')
     })
 })
-});
 
-$(document).on('turbolinks:load', function() {
+
 $(function () {
     $(".theTarget").skippr({
         // スライドショーの変化（"fade" or "slide"）
@@ -52,5 +50,5 @@ $(function () {
         hidePrevious: false
     });
 });
-});
+
 // オプションを指定してSkipprの実行

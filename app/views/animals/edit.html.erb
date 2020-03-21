@@ -10,7 +10,7 @@
               <%= form_for(@animal) do |f| %>
               <%= render 'layouts/error', model: f.object %>
               <div class="col-xs-4">
-                  <%= attachment_image_tag @animal, :animal_image, size: "230x230", fallback: "no_image.jpg" %><br>
+                  <p><%= attachment_image_tag @animal, :animal_image, size: "230x230", fallback: "no_image.jpg" %></p>
                   <%= f.attachment_field :animal_image %><!-- blog_image_idだがrefileの仕様でidなし --><!-- サイズについての表記を書く -->
                   <p class="text-danger">＊印は必ず入力してください</p>
               </div>
@@ -47,5 +47,3 @@
               <% end %>
         </div>
 </div>
-    <h1>Animals#edit</h1>
-    <p>Find me in app/views/animals/edit.html.erb</p>
