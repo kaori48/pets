@@ -84,7 +84,7 @@ before_action :ensure_correct_user, only: [:edit, :update, :destroy]#本人とad
   def ensure_correct_user
     @blog = Blog.find(params[:id])
     if @blog.user != current_user && User.where(status:0)
-      redirect_to request.referrer#移動まえのURL
+      redirect_to blogs_path#移動まえのURL
     end
   end
 
