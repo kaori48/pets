@@ -4,7 +4,7 @@
       <div class="row">
         <!--ペット一覧閲覧許可ユーザー-->
         <%= render 'layouts/side', user: current_user, applying: @applying %>
-        <%= render 'layouts/sidepertners', users: @users %><br>
+        <%= render 'layouts/sidepertners', users: @users, animal: @animal %><br>
       </div>
     </div>
 <!--ペット詳細-->
