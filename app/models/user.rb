@@ -50,7 +50,7 @@ class User < ApplicationRecord
   end
   #許可申請、許可を外す
   def unpermit(user_id)
-    AnimalPermit.find_by(permitter_id: self.id, permitted_id: user_id).destroy
+    AnimalPermit.find_by(permitter_id: user_id, permitted_id: self.id).destroy
   end
   #閲覧許可申請または閲覧許可していればtrue
   def permitting?(user)

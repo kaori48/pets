@@ -44,6 +44,7 @@ class UsersController < ApplicationController
   end
   def animal
     @user = User.find(params[:id])
+     #サイドパートナー
     @users = AnimalPermit.where(permitted_id: @user, status: 1).order(created_at: :asc).page(params[:page]).reverse_order#お世話パートナーのサイドバー
     #@permit = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: user.id)
     #サイドバー
