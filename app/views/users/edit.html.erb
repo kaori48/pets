@@ -43,7 +43,7 @@
            <div class="pull-right">
              <%= link_to "申請許可", status_change_user_animal_permits_path(user.id),class: "btn btn-default btn-xs", method: :patch, data: {confirm: "本当にパートナーになりますか？"} %>
              <!--フォローを削除するボタン-->
-             <%= link_to "申請拒否", user_animal_permits_path(user_id: user.permitter.id),class: "btn btn-default btn-xs", method: :delete, data: {confirm: "本当に拒否しますか？"} %></div>
+             <%= link_to "申請拒否", user_animal_permits_path(user_id: user.permitter.id, own: "other"),class: "btn btn-default btn-xs", method: :delete, data: {confirm: "本当に拒否しますか？"} %></div>
          <% end %>
          <div class ="text-center">
            <%= paginate @users %>

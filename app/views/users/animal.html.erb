@@ -7,14 +7,14 @@
         <div class="sidebox">
            <p class="text-center"><span style="font-size:1.3em;">お世話パートナー</span></p>
              <% @users.each do |user| %>
-    　           <%= link_to user_path(user.permitter.id) do %>
+    　           <%= link_to user_path(user.permitter.id),class:"no-underline" do %>
       　            <p class="text-center"><%= attachment_image_tag user.permitter , :icon, size: "80x80", fallback: "no_image.jpg" %><br>
                     <%= user.permitter.name %><br>
                 <% end %>
 
             <!--削除、user投稿主のみ可能-->
                <% if @user.id == current_user.id %>
-  　　              <%= link_to "パートナー解除", user_animal_permits_path(user_id: user.permitter.id),class: "btn btn-default btn-xs", method: :delete, data: {confirm: "本当にパートナー解除をしますか？"} %></p>
+  　　              <%= link_to "パートナー解除", user_animal_permits_path(user_id: user.permitter.id,flg: "other"),class: "btn btn-default btn-xs", method: :delete, data: {confirm: "本当にパートナー解除をしますか？"} %></p>
                <% end %><br>
            <% end %>
         </div>
