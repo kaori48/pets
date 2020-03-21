@@ -22,7 +22,7 @@ class BlogCommentsController < ApplicationController
     def ensure_correct_user
       @comment = BlogComment.find(params[:blog_id])
     if @comment.user_id != current_user.id && User.where(status:0)
-      redirect_to request.referrer#移動まえのURL
+      redirect_to blogs_path#移動まえのURL
     end
   end
 	private
