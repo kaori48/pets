@@ -2,9 +2,9 @@
 <p class="text-center"><span style="font-size:1.3em;">お世話パートナー</span></p>
 
 <% users.each do |user| %>
-  	　<p><%= link_to user_path(user.permitter.id),class:"no-underline" do %>
-      　 <%= attachment_image_tag user.permitter , :icon, size: "80x80", fallback: "no_image.jpg" %>
-         <%= user.permitter.name %></p>
+  	　<%= link_to user_path(user.permitter.id),class:"no-underline" do %>
+      　 <p class="text-center"><%= attachment_image_tag user.permitter , :icon, size: "80x80", fallback: "no_image.jpg" %></p>
+         <p class="text-center"><%= user.permitter.name %></p>
        <% end %>
 
   <!--削除、user投稿主のみ可能-->

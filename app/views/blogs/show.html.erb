@@ -48,24 +48,30 @@
       <!--コメント投稿-->
       <% if user_signed_in? %><!-- ログインしている場合のみコメントできる -->
         <p><%= form_for [@blog,@comment] do |f| %><!--後々マイページに飛ばす-->
-          <%= f.text_area :comment, :size=>"70x1",placeholder: "コメントを入力してください"%>
+          <%= f.text_area :comment, :size=>"77x3",placeholder: "コメントを入力してください"%>
           <%= f.submit"送信",class: "btn btn-warning btn-xs" %>
         <% end %></p>
       <% end %>
 
       <!--コメント一覧-->
       <div class="comment_index">
+        <div class="row">
         <% @comments.each do |comment| %>
+        <div class="col-xs-2">
           <%= link_to user_path(comment.user.id) do %>
             <%= attachment_image_tag comment.user, :icon, size: "50x50", fallback: "no_image.jpg" %>
             <%= comment.user.name %>
           <% end %>
-          &emsp;<span style="font-size:1.2em;"><%= comment.comment %></span>
+        </div>
+        <div class="col-xs-9">
+          &emsp;<span style="font-size:1.2em;"><%= simple_format(comment.comment) %></span>
           <p class="text-right"><%= comment.user.created_at.strftime("%Y.%m.%d.%H:%M") %></p>
           <% if comment.user_id == current_user.id || current_user.admin? %>
             <p class="text-right"><%= link_to "削除", blog_blog_comments_path(comment.id), method: :delete, data: {confirm: "本当に消しますか？"} %></p>
           <% end %>
+        </div>
         <% end %>
+      </div>
      </div>
 
       <div class ="text-center">

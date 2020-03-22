@@ -9,7 +9,7 @@ class AnimalsController < ApplicationController
   def show
   	@animal = Animal.find(params[:id])
   	@comment = AnimalComment.new#コメント機能新規
-  	@comments = @animal.animal_comments.order(created_at: :asc).page(params[:page]).reverse_order#コメント一覧
+  	@comments = @animal.animal_comments.order(:created_at).page(params[:page]).reverse_order#コメント一覧
     #サイドバー
     @animaluser = @animal.user
     @user = @animal.user
@@ -19,7 +19,7 @@ class AnimalsController < ApplicationController
     @users = AnimalPermit.where(permitted_id: @pertner, status: 1)#お世話パートナーのサイドバー
     #タスク
     @task = Task.new#タスク新規
-    @tasks = @animal.tasks.order(created_at: :asc)#タスク一覧
+    @tasks = @animal.tasks.order(:created_at)#タスク一覧
   end
 
   def new
