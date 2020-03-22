@@ -10,7 +10,7 @@
    	    <p class="text-center">
           <tbody>
           <p class="text-center"><tr><th>name</th><td><%= user.name %></td></tr></p><!--railsなので％-->
-           <p class="text-center"><tr><th>introduction</th><td><%= user.introduction %></td></tr></p>
+           <p class="text-center"><tr><th>introduction</th><td><%= simple_format(user.introduction) %></td></tr></p>
         </tbody></p>
       </table>
       <!--フォローつける-->
