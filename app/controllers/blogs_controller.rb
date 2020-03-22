@@ -83,7 +83,7 @@ before_action :ensure_correct_user, only: [:edit, :update, :destroy]#本人とad
   #編集制限
   def ensure_correct_user
     @blog = Blog.find(params[:id])
-    if @blog.user != current_user && User.where(status:0)
+    if @blog.user != current_user && current_user.admin == 0
       redirect_to blogs_path#移動まえのURL
     end
   end

@@ -31,13 +31,13 @@
       <div class="row">
         <div class="col-xs-5">
        <!--お世話申請一覧,自分をフォローしているpermitted_idの人を出す-->
-         <h4>お世話パートナー申請</h4>
+         <h4><p class="text-center">お世話パートナー申請</p></h4>
          <% @users.each do |user| %>
            <%= link_to user_path(user.permitter.id),class:"no-underline" do %>
-             <%= attachment_image_tag user.permitter , :icon, size: "100x100", fallback: "no_image.jpg" %>
+             <p class="text-center"><%= attachment_image_tag user.permitter , :icon, size: "100x100", fallback: "no_image.jpg" %></p>
            <% end %>
-           &emsp;<%= link_to user_path(user.permitter.id) do %>
-             <%= user.permitter.name %><br>
+           <%= link_to user_path(user.permitter.id) do %>
+             <p class="text-center"><%= user.permitter.name %></p><br>
            <% end %>
            <!--statusを１にするボタン-->
            <div class="pull-right">
@@ -51,13 +51,13 @@
        </div>
        <div class="col-xs-4">
          <!--自分がフォローして,statusが１のリンク,べつページに作る-->
-         <h4>お世話パートナー</h4>
+         <h4><p class="text-center">お世話パートナー</p></h4>
          <% @permitted_users.each do |user| %>
            <%= link_to user_path(user.permitted.id),class:"no-underline" do %>
-             <%= attachment_image_tag user.permitted , :icon, size: "100x100", fallback: "no_image.jpg" %>
+             <p class="text-center"><%= attachment_image_tag user.permitted , :icon, size: "100x100", fallback: "no_image.jpg" %></p>
             <% end %>
-            &emsp;<%= link_to user_path(user.permitted.id) do %>
-             <%= user.permitted.name %>
+            <%= link_to user_path(user.permitted.id) do %>
+             <p class="text-center"><%= user.permitted.name %></p>
              <% end %>
          <% end %>
          <div class ="text-center">

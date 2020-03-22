@@ -21,7 +21,7 @@ class BlogCommentsController < ApplicationController
 	#編集制限
     def ensure_correct_user
       @comment = BlogComment.find(params[:blog_id])
-    if @comment.user_id != current_user.id && User.where(status:0)
+    if @comment.user_id != current_user.id && current_user.admin == 0
       redirect_to blogs_path#移動まえのURL
     end
   end
