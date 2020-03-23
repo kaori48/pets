@@ -40,9 +40,9 @@ ActiveRecord::Schema.define(version: 2020_03_15_022832) do
     t.text "water"
     t.text "hospital"
     t.text "other"
+    t.date "birth"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.date "birth"
   end
 
   create_table "blog_comments", force: :cascade do |t|
