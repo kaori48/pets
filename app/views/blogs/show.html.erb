@@ -59,8 +59,8 @@
         <% @comments.each do |comment| %>
         <div class="col-xs-2">
           <%= link_to user_path(comment.user.id) do %>
-            <%= attachment_image_tag comment.user, :icon, size: "50x50", fallback: "no_image.jpg" %>
-            <%= comment.user.name %>
+            <p><%= attachment_image_tag comment.user, :icon, size: "50x50", fallback: "no_image.jpg" %></p>
+            <p><%= comment.user.name %></p>
           <% end %>
         </div>
         <div class="col-xs-9">

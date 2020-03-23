@@ -10,7 +10,7 @@
 		<table>
 			<tbody>
 				<% @follow_users.each do |user|%>
-				<tr>
+				<tr class="followtable">
 					<td><!--tdのそとにリンク書けないので中-->
 						<%= link_to user_path(user.followed.id) do %>
 						<%= attachment_image_tag user.followed, :icon, size: "200x200", fallback: "no_image.jpg" %>
