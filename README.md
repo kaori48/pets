@@ -1,24 +1,33 @@
-# README
+![logo ](https://user-images.githubusercontent.com/59257057/77410560-644b5200-6dfe-11ea-977c-84e615868c96.png)
+# pets
+このソフトは、
+登録しているユーザーがペットについてのブログを投稿して交流をしたり、
+お世話記録をつけて家族などとペットの世話の内容を共有することができます。
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Dependency
+Rails '~> 5.2.4', '>= 5.2.4.1'
 
-Things you may want to cover:
+# Setup
+セットアップ方法を書く。用意するハードウェアとソフトウェアをセットアップするためのコマンドを記載する
 
-* Ruby version
+# Usage
+・ブログ機能
+  プラスボタンから新規投稿が可能です。画像投稿やタイトル、本文が投稿できる他、
+  ジャンルを複数選択可能です。
+  ユーザーのアイコンをクリックするとそのユーザーのブログ投稿一覧が閲覧できます。
+  また、左下「ジャンル一覧」からジャンルごとの一覧を表示可能です。
+  ブログ詳細画面ではいいね、コメントが可能です。
+・検索機能
+  ヘッダーからユーザー、ブログのあいまい検索が可能です。該当しない場合一覧が表示されます。
 
-* System dependencies
+・フォロー機能
+　 左側のアイコン下の「フォローする」ボタンからフォローが可能です。
+ 　フォローを外す場合は左側アイコン下の「フォローを外す」ボタンから行うことができます。
+　 フォロー、フォロワー一覧はアイコン下のフォロー、フォロワー数から見ることができます。
 
-* Configuration
 
-* Database creation
+# License
+This software is released under the MIT License, see LICENSE.
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Authors
+Github:kaori48
