@@ -58,12 +58,14 @@ Rails '~> 5.2.4', '>= 5.2.4.1'
      お世話パートナーを解除する場合は   相手のアイコンをクリック＞画面左アイコン下の「パートナー解除」　から行うことができます  
      <img width="428" alt="申請" src="https://user-images.githubusercontent.com/59257057/77417962-88f8f700-6e09-11ea-9a79-a7859ed86d03.png">
 <img width="397" alt="申請中" src="https://user-images.githubusercontent.com/59257057/77417968-8a2a2400-6e09-11ea-987f-b24afde13ecc.png">
-<img width="360" alt="パートナー解除" src="https://user-images.githubusercontent.com/59257057/77417969-8b5b5100-6e09-11ea-8245-db4bdeab23d2.png">
+<img width="360" alt="パートナー解除" src="https://user-images.githubusercontent.com/59257057/77417969-8b5b5100-6e09-11ea-8245-db4bdeab23d2.png">  
     ❷パートナー申請を受ける側  
      申請は「マイページ」の「お世話パートナー申請」に表示されます。  
-     申請を許可する場合は「申請許可」、不可の場合は「申請拒否」ボタンから行うことができます。  
-     お世話パートナーを解除する場合は、ペットお世話記録＞パートナー一覧から解除可能です（お世話記録のペットを登録した本人のみ可能です。）  
-     <img width="1398" alt="パート申請受け" src="https://user-images.githubusercontent.com/59257057/77416894-d8d6be80-6e07-11ea-9c94-ab2f2d49dee4.png">  
+     申請を許可する場合は「申請許可」、不可の場合は「申請拒否」ボタンから行うことができます。     
+   <img width="1398" alt="パート申請受け" src="https://user-images.githubusercontent.com/59257057/77416894-d8d6be80-6e07-11ea-9c94-ab2f2d49dee4.png">  
+   お世話パートナーを解除する場合は、ペットお世話記録＞パートナー一覧から解除可能です（お世話記録のペットを登録した本人のみ可能です。） 
+   <img width="385" alt="ペット詳細" src="https://user-images.githubusercontent.com/59257057/77418693-982c7480-6e0a-11ea-931c-418304f0ee7b.png">  
+   
  
 # License
 This software is released under the MIT License, see LICENSE.
