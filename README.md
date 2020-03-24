@@ -64,6 +64,7 @@ Rails '~> 5.2.4', '>= 5.2.4.1'
      申請を許可する場合は「申請許可」、不可の場合は「申請拒否」ボタンから行うことができます。     
    <img width="1398" alt="パート申請受け" src="https://user-images.githubusercontent.com/59257057/77416894-d8d6be80-6e07-11ea-9c94-ab2f2d49dee4.png">  
    お世話パートナーを解除する場合は、ペットお世話記録＞パートナー一覧から解除可能です（お世話記録のペットを登録した本人のみ可能です。） 
+     
    <img width="385" alt="ペット詳細" src="https://user-images.githubusercontent.com/59257057/77418693-982c7480-6e0a-11ea-931c-418304f0ee7b.png">  
    
  
