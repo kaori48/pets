@@ -1,69 +1,70 @@
 <!-- サイドバー部分テンプレ -->
 <div class="row">
-    <div class="col-xs-3">
-      <div class="row">
-        <%= render 'layouts/side', user: current_user, applying: @applying %>
-        </div>
+  <div class="col-xs-3">
+    <div class="row">
+      <%= render 'layouts/side', user: current_user, applying: @applying %>
     </div>
-    <!--プロフィール編集-->
-    <div class="col-xs-8 col-xs-offset-1">
-      <div class="row">
-       <h3>プロフィール編集</h3>
+  </div>
+  <!--プロフィール編集-->
+  <div class="col-xs-8 col-xs-offset-1">
+    <div class="row">
+      <h3>プロフィール編集</h3>
        <!--削除ボタン-->
-       <div class="col-xs-4">
-       <%= link_to "退会",user_path(current_user), method: :delete,class: "btn btn-warning btn-xs", data: {confirm: "本当に退会しますか？"} %><br>
-       <%= form_for(@user) do |f|%>
-         <%= attachment_image_tag @user, :icon, size: "150x150", fallback: "no_image.jpg" %><!-- サイズ後で -->
-         <%= f.attachment_field :icon %><!-- icon_idだがrefileの仕様でidなし --><!-- サイズについての表記を書く -->
-         </div>
-         <div class="col-xs-4">
-          <h4>name</h4>
-            <%= f.text_field :name,:size=>"30x1" %>
-          <h4>introduction</h4>
-             <%= f.text_area :introduction,:size=>"30x3" %>
-           <div class="pull-right">
-             <%= f.submit '登録', class: "btn btn-warning" %>
-           <% end %>
-         </div>
-       </div>
-     </div><br>
+      <div class="col-xs-4">
+        <%= link_to "退会",user_path(current_user), method: :delete,class: "btn btn-warning btn-xs", data: {confirm: "本当に退会しますか？"} %><br>
+         <%= form_for(@user) do |f|%>
+          <%= attachment_image_tag @user, :icon, size: "150x150", fallback: "no_image.jpg" %><!-- サイズ後で -->
+          <%= f.attachment_field :icon %><!-- icon_idだがrefileの仕様でidなし --><!-- サイズについての表記を書く -->
+      </div>
+      <div class="col-xs-4">
+        <h4>name</h4>
+          <%= f.text_field :name,:size=>"30x1" %>
+        <h4>introduction</h4>
+          <%= f.text_area :introduction,:size=>"30x3" %>
+        <div class="pull-right">
+          <%= f.submit '登録', class: "btn btn-warning" %>
+        <% end %>
+        </div>
+      </div>
+    </div><br>
 
-      <div class="row">
-        <div class="col-xs-5">
-       <!--お世話申請一覧,自分をフォローしているpermitted_idの人を出す-->
-         <h4><p class="text-center">お世話パートナー申請</p></h4>
-         <% @users.each do |user| %>
-           <%= link_to user_path(user.permitter.id),class:"no-underline" do %>
-             <p class="text-center"><%= attachment_image_tag user.permitter , :icon, size: "100x100", fallback: "no_image.jpg" %></p>
-           <% end %>
-           <%= link_to user_path(user.permitter.id) do %>
-             <p class="text-center"><%= user.permitter.name %></p><br>
-           <% end %>
-           <!--statusを１にするボタン-->
-           <div class="pull-right">
-             <%= link_to "申請許可", status_change_user_animal_permits_path(user.id),class: "btn btn-default btn-xs", method: :patch, data: {confirm: "本当にパートナーになりますか？"} %>
-             <!--フォローを削除するボタン-->
-             <%= link_to "申請拒否", user_animal_permits_path(user_id: user.permitter.id, own: "other"),class: "btn btn-default btn-xs", method: :delete, data: {confirm: "本当に拒否しますか？"} %></div>
-         <% end %>
-         <div class ="text-center">
-           <%= paginate @users %>
-         </div>
-       </div>
-       <div class="col-xs-4">
-         <!--自分がフォローして,statusが１のリンク,べつページに作る-->
-         <h4><p class="text-center">お世話パートナー</p></h4>
-         <% @permitted_users.each do |user| %>
-           <%= link_to user_path(user.permitted.id),class:"no-underline" do %>
-             <p class="text-center"><%= attachment_image_tag user.permitted , :icon, size: "100x100", fallback: "no_image.jpg" %></p>
-            <% end %>
-            <%= link_to user_path(user.permitted.id) do %>
-             <p class="text-center"><%= user.permitted.name %></p>
-             <% end %>
-         <% end %>
-         <div class ="text-center">
-           <%= paginate @permitted_users %>
-         </div>
+    <div class="row">
+      <div class="col-xs-5">
+      <!--お世話申請一覧,自分をフォローしているpermitted_idの人を出す-->
+        <h4><p class="text-center">お世話パートナー申請</p></h4>
+        <% @users.each do |user| %>
+          <%= link_to user_path(user.permitter.id),class:"no-underline" do %>
+            <p class="text-center"><%= attachment_image_tag user.permitter , :icon, size: "100x100", fallback: "no_image.jpg" %></p>
+          <% end %>
+          <%= link_to user_path(user.permitter.id) do %>
+            <p class="text-center"><%= user.permitter.name %></p><br>
+          <% end %>
+          <!--statusを１にするボタン-->
+          <div class="pull-right">
+            <%= link_to "申請許可", status_change_user_animal_permits_path(user.id),class: "btn btn-default btn-xs", method: :patch, data: {confirm: "本当にパートナーになりますか？"} %>
+           <!--フォローを削除するボタン-->
+            <%= link_to "申請拒否", user_animal_permits_path(user_id: user.permitter.id, own: "other"),class: "btn btn-default btn-xs", method: :delete, data: {confirm: "本当に拒否しますか？"} %>
+          </div>
+        <% end %>
+        <div class ="text-center">
+          <%= paginate @users %>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <!--自分がフォローして,statusが１のリンク,べつページに作る-->
+        <h4><p class="text-center">お世話パートナー</p></h4>
+        <% @permitted_users.each do |user| %>
+          <%= link_to user_path(user.permitted.id),class:"no-underline" do %>
+            <p class="text-center"><%= attachment_image_tag user.permitted , :icon, size: "100x100", fallback: "no_image.jpg" %></p>
+          <% end %>
+          <%= link_to user_path(user.permitted.id) do %>
+            <p class="text-center"><%= user.permitted.name %></p>
+          <% end %>
+        <% end %>
+        <div class ="text-center">
+          <%= paginate @permitted_users %>
+        </div>
       </div>
     </div>
- </div>
+  </div>
 </div>

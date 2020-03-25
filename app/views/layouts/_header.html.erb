@@ -2,63 +2,63 @@
   <div class="container">
     <%if user_signed_in? %><!-- ログインしているか -->
       <div class="row">
-          <div class="center-block" style="width: 400px; text-align: center;">
-             <h1>
-               <%= link_to blogs_path do%>
-                 <%= image_tag 'logo.png' %>
-               <% end %>
-             </h1>
-          </div>
+        <div class="center-block" style="width: 400px; text-align: center;">
+          <h1>
+             <%= link_to blogs_path do%>
+               <%= image_tag 'logo.png' %>
+             <% end %>
+          </h1>
+        </div>
       </div>
       <div class="headarea">
-      <nav class="navbar">
-      <div class="row">
-        <div class="center-block" style="width: 360px; text-align: center;">
-          <ul class="nav navbar-nav">
-            <li><%= link_to"マイページ", edit_user_path(current_user.id) %></li>
-            <li><%= link_to"ブログ", blogs_path %></li>
-            <li><%= link_to"アバウト", home_about_path %></li>
-            <li><%= link_to"ログアウト", destroy_user_session_path, :method => :delete %></li>
-          </ul>
-        </div>
-      </div>
-      </div>
-       <div class="search-form">
-          <div class="row">
-            <div class="col-xs-5 col-xs-offset-10">
-              <%= form_tag(search_path, method: "get") do %>
-                <%= text_field_tag :search %><!--カラム指定？２つある-->
-                  <div class="btn-group">
-                <%= select_tag(:option, options_for_select([["User","1"],["Blog","2"]])) %>
-              </div>
-                <%= submit_tag "検索",class: "btn btn-warning btn-xs" %><!--検索結果表示リンク-->
-              <% end %>
-            </div><br><br>
+        <nav class="navbar">
+        <div class="row">
+          <div class="center-block" style="width: 360px; text-align: center;">
+            <ul class="nav navbar-nav">
+              <li><%= link_to"マイページ", edit_user_path(current_user.id) %></li>
+              <li><%= link_to"ブログ", blogs_path %></li>
+              <li><%= link_to"アバウト", home_about_path %></li>
+              <li><%= link_to"ログアウト", destroy_user_session_path, :method => :delete %></li>
+            </ul>
           </div>
         </div>
-      </nav>
+      </div>
+         <div class="search-form">
+            <div class="row">
+              <div class="col-xs-5 col-xs-offset-10">
+                <%= form_tag(search_path, method: "get") do %>
+                  <%= text_field_tag :search %><!--カラム指定？２つある-->
+                  <div class="btn-group">
+                    <%= select_tag(:option, options_for_select([["User","1"],["Blog","2"]])) %>
+                  </div>
+                  <%= submit_tag "検索",class: "btn btn-warning btn-xs" %><!--検索結果表示リンク-->
+                <% end %>
+              </div><br><br>
+            </div>
+          </div>
+        </nav>
 
     <% else %>
         <div class="row">
           <div class="center-block" style="width: 400px; text-align: center;">
-             <h1>
-               <%= link_to root_path do%>
-                 <%= image_tag 'logo.png' %>
-               <% end %>
-             </h1>
+            <h1>
+              <%= link_to root_path do%>
+                <%= image_tag 'logo.png' %>
+              <% end %>
+            </h1>
           </div>
         </div>
         <nav class="navbar">
         <div class="row">
           <div class="center-block" style="width: 258px; text-align: center;">
-          <ul class="nav navbar-nav">
-            <li><%= link_to"アバウト", home_about_path %></li>
-            <li><%= link_to"ログイン", new_user_session_path %></li>
-            <li><%= link_to"新規登録", new_user_registration_path %></li>
-          </ul>
-        </div>
+            <ul class="nav navbar-nav">
+              <li><%= link_to"アバウト", home_about_path %></li>
+              <li><%= link_to"ログイン", new_user_session_path %></li>
+              <li><%= link_to"新規登録", new_user_registration_path %></li>
+            </ul>
+          </div>
     <% end %>
+        </div>
+        </nav><br>
   </div>
-</nav>
-<br>
 </header>

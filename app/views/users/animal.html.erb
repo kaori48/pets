@@ -1,49 +1,49 @@
 <!--ペット一覧のユーザー-->
 <div class="row">
-    <div class="col-xs-3">
-      <div class="row">
-        <%= render 'layouts/side', user: @user,applying: @applying %>
-        <!--ペット一覧閲覧許可ユーザー-->
-        <div class="sidebox">
-           <p class="text-center"><span style="font-size:1.3em;">お世話パートナー</span></p>
-             <% @users.each do |user| %>
-    　           <%= link_to user_path(user.permitter.id),class:"no-underline" do %>
-      　            <p class="text-center"><%= attachment_image_tag user.permitter , :icon, size: "80x80", fallback: "no_image.jpg" %></p>
-                    <p class="text-center"><%= user.permitter.name %></p>
-                <% end %>
-
-            <!--削除、user投稿主のみ可能-->
-               <% if @user.id == current_user.id %>
-  　　              <p class="text-center"><%= link_to "パートナー解除", user_animal_permits_path(user_id: user.permitter.id,flg: "other"),class: "btn btn-default btn-xs", method: :delete, data: {confirm: "本当にパートナー解除をしますか？"} %></p>
-               <% end %><br>
-           <% end %>
-        </div>
-
-      </div>
-    </div>
-
-
-    <div class="col-xs-9">
-    	<!--本人のみ投稿ボタン-->
-    	<% if @user == current_user %><!--animalを投稿した人＝＝ログインしている人だが飛ばない。外部きーのとりかた-->
-    	  <%= link_to new_animal_path do %>
-             <%= image_tag "new.png",size: "40x40"%>
+  <div class="col-xs-3">
+    <div class="row">
+      <%= render 'layouts/side', user: @user,applying: @applying %>
+      <!--ペット一覧閲覧許可ユーザー-->
+      <div class="sidebox">
+        <p class="text-center"><span style="font-size:1.3em;">お世話パートナー</span></p>
+        <% @users.each do |user| %>
+    　    <%= link_to user_path(user.permitter.id),class:"no-underline" do %>
+      　    <p class="text-center"><%= attachment_image_tag user.permitter , :icon, size: "80x80", fallback: "no_image.jpg" %></p>
+            <p class="text-center"><%= user.permitter.name %></p>
           <% end %>
-          <br>
-    	<% end %>
-    	<div class="row">
-    	<!--ユーザー一人のペット一覧-->
-    	  <% @user.animals.each do |animal| %>
-    	    <div class="col-xs-3">
-    	      <%= link_to animal_path(animal.id) do %>
-    	        <%= attachment_image_tag animal, :animal_image, size: "200x200",fallback: "no_image.jpg",class: "img-circle" %><br><br>
-    	        <p class="text-center"><span class="btn btn-warning"><%= animal.name %></span></p><br>
-    	      <% end %>
-    	    </div>
-    	  <% end %>
-    	  <div class ="text-center">
-    		<%= paginate @users %>
-    	  </div>
-        </div>
+
+          <!--削除、user投稿主のみ可能-->
+          <% if @user.id == current_user.id %>
+    　　     <p class="text-center">
+              <%= link_to "パートナー解除", user_animal_permits_path(user_id: user.permitter.id,flg: "other"),class: "btn btn-default btn-xs", method: :delete, data: {confirm: "本当にパートナー解除をしますか？"} %>
+            </p>
+          <% end %><br>
+        <% end %>
+      </div>
+
     </div>
+  </div>
+
+  <div class="col-xs-9">
+  	<!--本人のみ投稿ボタン-->
+  	<% if @user == current_user %><!--animalを投稿した人＝＝ログインしている人だが飛ばない。外部きーのとりかた-->
+  	  <%= link_to new_animal_path do %>
+        <%= image_tag "new.png",size: "40x40"%>
+      <% end %><br>
+  	<% end %>
+  	<div class="row">
+  	  <!--ユーザー一人のペット一覧-->
+  	  <% @user.animals.each do |animal| %>
+  	    <div class="col-xs-3">
+  	      <%= link_to animal_path(animal.id) do %>
+  	        <%= attachment_image_tag animal, :animal_image, size: "200x200",fallback: "no_image.jpg",class: "img-circle" %><br><br>
+  	        <p class="text-center"><span class="btn btn-warning"><%= animal.name %></span></p><br>
+  	      <% end %>
+  	    </div>
+  	  <% end %>
+  	  <div class ="text-center">
+  		  <%= paginate @users %>
+  	  </div>
+    </div>
+  </div>
 </div>

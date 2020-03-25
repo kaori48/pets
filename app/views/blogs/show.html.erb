@@ -1,81 +1,81 @@
-<!--部分テンプレいれる-->
+
 <div class="row">
-    <div class="col-xs-3">
+  <div class="col-xs-3">
+    <div class="row">
+      <%= render 'layouts/side', user: @user ,applying: @applying %>
+      <%= render 'layouts/sidegenre', genres: @genres %>
+    </div>
+  </div>
+
+  <!--ブログ詳細-->
+  <div class="col-xs-7 col-xs-offset-1">
+    <h3><%= @blog.title %></h3>
+      <p class="text-right"><%= @blog.created_at.strftime("%Y年%m月%d日") %></p>
+    <!--登録されているジャンル一覧-->
+    <p><% @blog.genres.each do |genre|%>
+      <%= link_to blog_genre_path(genre.id),class: "btn btn-warning" do %>
+        <%= genre.name %>
+      <% end %>
+    <% end %></p>
+    <p class="text-center"><%= attachment_image_tag @blog, :blog_image, size: "600x520",fallback: "no_image.jpg",class: "img-responsive" %></p>
+    <p><span style="font-size:1.2em;"><%= simple_format(@blog.body) %></span></p>
+
+    <% if user_signed_in? %><!-- ログインしている場合にいいねできる -->
+    <!--いいね-->
+      <% if @blog.favorited_by?(current_user) %>
+        <!--いいねあり、削除リンク-->
+        <%= link_to blog_favorites_path(@blog), method: :delete do %>
+          <span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: #ef857d;"></span><%= @blog.favorites.count %><!--いいねボタン、いいね数-->
+        <% end %>
+      <% else %>
+        <!--いいねなし、追加リンク-->
+        <%= link_to blog_favorites_path(@blog), method: :post do %>
+          <p><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span><%= @blog.favorites.count %><!--いいねボタン、いいね数-->
+        <% end %>
+      <% end %>
+      <span class="glyphicon glyphicon-comment" aria-hidden="true" style="color: #82cddd;"></span><%= @blog.blog_comments.count %><!--コメント数--></p>
+    <% end %>
+
+
+    <!--ブログ削除、編集,後で成功、確認メッセとかもいれる-->
+    <% if @blog.user == current_user %><!--後々管理者もできるようにする-->
+      <p class="text-right"><%= link_to"edit", edit_blog_path(@blog.id) %> /
+    <% end %>
+    <% if @blog.user == current_user || current_user.admin? %><!--本人と管理者が可能-->
+      <%= link_to"delete", blog_path(@blog.id),method: :delete, data: {confirm: "本当に消しますか？"} %></p>
+    <% end %>
+
+    <!--コメント投稿-->
+    <% if user_signed_in? %><!-- ログインしている場合のみコメントできる -->
+      <p><%= form_for [@blog,@comment] do |f| %><!--後々マイページに飛ばす-->
+        <%= f.text_area :comment, :size=>"77x3",placeholder: "コメントを入力してください"%>
+        <%= f.submit"送信",class: "btn btn-warning btn-xs" %>
+      <% end %></p>
+    <% end %>
+
+    <!--コメント一覧-->
+    <div class="comment_index">
       <div class="row">
-        <%= render 'layouts/side', user: @user ,applying: @applying %>
-        <%= render 'layouts/sidegenre', genres: @genres %>
+        <% @comments.each do |comment| %>
+          <div class="col-xs-2">
+            <%= link_to user_path(comment.user.id) do %>
+              <p><%= attachment_image_tag comment.user, :icon, size: "50x50", fallback: "no_image.jpg" %></p>
+              <p><%= comment.user.name %></p>
+            <% end %>
+          </div>
+          <div class="col-xs-9">
+            &emsp;<span style="font-size:1.2em;"><%= simple_format(comment.comment) %></span>
+            <p class="text-right"><%= comment.user.created_at.strftime("%Y.%m.%d.%H:%M") %></p>
+            <% if comment.user_id == current_user.id || current_user.admin? %>
+              <p class="text-right"><%= link_to "削除", blog_blog_comments_path(comment.id), method: :delete, data: {confirm: "本当に消しますか？"} %></p>
+            <% end %>
+          </div>
+        <% end %>
       </div>
     </div>
 
-<!--ブログ詳細-->
-    <div class="col-xs-7 col-xs-offset-1">
-      <h3><%= @blog.title %></h3>
-      <p class="text-right"><%= @blog.created_at.strftime("%Y年%m月%d日") %></p>
-      <!--登録されているジャンル一覧-->
-      <p><% @blog.genres.each do |genre|%>
-        <%= link_to blog_genre_path(genre.id),class: "btn btn-warning" do %>
-          <%= genre.name %>
-        <% end %>
-      <% end %></p>
-      <p class="text-center"><%= attachment_image_tag @blog, :blog_image, size: "600x520",fallback: "no_image.jpg",class: "img-responsive" %></p>
-      <p><span style="font-size:1.2em;"><%= simple_format(@blog.body) %></span></p>
-
-      <% if user_signed_in? %><!-- ログインしている場合にいいねできる -->
-      <!--いいね-->
-        <% if @blog.favorited_by?(current_user) %>
-        <!--いいねあり、削除リンク-->
-          <%= link_to blog_favorites_path(@blog), method: :delete do %>
-            <span class="glyphicon glyphicon-heart" aria-hidden="true" style="color: #ef857d;"></span><%= @blog.favorites.count %><!--いいねボタン、いいね数-->
-          <% end %>
-        <% else %>
-          <!--いいねなし、追加リンク-->
-          <%= link_to blog_favorites_path(@blog), method: :post do %>
-            <p><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span><%= @blog.favorites.count %><!--いいねボタン、いいね数-->
-          <% end %>
-        <% end %>
-        <span class="glyphicon glyphicon-comment" aria-hidden="true" style="color: #82cddd;"></span><%= @blog.blog_comments.count %><!--コメント数--></p>
-      <% end %>
-
-
-      <!--ブログ削除、編集,後で成功、確認メッセとかもいれる-->
-      <% if @blog.user == current_user %><!--後々管理者もできるようにする-->
-        <p class="text-right"><%= link_to"edit", edit_blog_path(@blog.id) %> /
-      <% end %>
-      <% if @blog.user == current_user || current_user.admin? %><!--本人と管理者が可能-->
-        <%= link_to"delete", blog_path(@blog.id),method: :delete, data: {confirm: "本当に消しますか？"} %></p>
-      <% end %>
-
-      <!--コメント投稿-->
-      <% if user_signed_in? %><!-- ログインしている場合のみコメントできる -->
-        <p><%= form_for [@blog,@comment] do |f| %><!--後々マイページに飛ばす-->
-          <%= f.text_area :comment, :size=>"77x3",placeholder: "コメントを入力してください"%>
-          <%= f.submit"送信",class: "btn btn-warning btn-xs" %>
-        <% end %></p>
-      <% end %>
-
-      <!--コメント一覧-->
-      <div class="comment_index">
-        <div class="row">
-        <% @comments.each do |comment| %>
-        <div class="col-xs-2">
-          <%= link_to user_path(comment.user.id) do %>
-            <p><%= attachment_image_tag comment.user, :icon, size: "50x50", fallback: "no_image.jpg" %></p>
-            <p><%= comment.user.name %></p>
-          <% end %>
-        </div>
-        <div class="col-xs-9">
-          &emsp;<span style="font-size:1.2em;"><%= simple_format(comment.comment) %></span>
-          <p class="text-right"><%= comment.user.created_at.strftime("%Y.%m.%d.%H:%M") %></p>
-          <% if comment.user_id == current_user.id || current_user.admin? %>
-            <p class="text-right"><%= link_to "削除", blog_blog_comments_path(comment.id), method: :delete, data: {confirm: "本当に消しますか？"} %></p>
-          <% end %>
-        </div>
-        <% end %>
-      </div>
-     </div>
-
-      <div class ="text-center">
-        <%= paginate @comments %>
-      </div>
-</div>
+    <div class ="text-center">
+      <%= paginate @comments %>
+    </div>
+  </div>
 </div>

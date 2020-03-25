@@ -1,57 +1,58 @@
 <div class="row">
-	<div class="col-xs-3">
-		<div class="row">
-			<%= render 'layouts/side', user: current_user, applying: @applying %>
-		</div>
+  <div class="col-xs-3">
+    <div class="row">
+	  <%= render 'layouts/side', user: current_user, applying: @applying %>
 	</div>
+  </div>
 
-	<div class="col-xs-4">
-		<h4>follow</h4>
-		<table>
-			<tbody>
-				<% @follow_users.each do |user|%>
-				<tr class="followtable">
-					<td><!--tdのそとにリンク書けないので中-->
-						<%= link_to user_path(user.followed.id) do %>
-						<%= attachment_image_tag user.followed, :icon, size: "200x200", fallback: "no_image.jpg" %>
-						<% end %>
-					</td>
-					<td>
-						&emsp;&emsp;<%= link_to user_path(user.followed.id) do %>
-						<%= user.followed.name %>
-						<% end %>
-					</td>
-				</tr>
-				<% end %>
-			</tbody>
-		</table>
-		<div class ="text-center">
-		   <%= paginate @follow_users %>
-		</div>
-	</div>
+  <div class="col-xs-4">
+    <h4>follow</h4>
+	<table>
+	  <tbody>
+	    <% @follow_users.each do |user|%>
+	      <tr class="followtable">
+	        <td><!--tdのそとにリンク書けないので中-->
+		      <%= link_to user_path(user.followed.id) do %>
+		        <%= attachment_image_tag user.followed, :icon, size: "200x200", fallback: "no_image.jpg" %>
+		      <% end %>
+		    </td>
+		    <td>
+		      &emsp;&emsp;<%= link_to user_path(user.followed.id) do %>
+		        <%= user.followed.name %>
+		      <% end %>
+		    </td>
+		  </tr>
+        <% end %>
+	  </tbody>
+	</table>
+	  <div class ="text-center">
+	    <%= paginate @follow_users %>
+	  </div>
+  </div>
 
-	<div class="col-xs-4">
-		<h4>follower</h4>
-		<table>
-			<tbody>
-				<% @follower_users.each do |user|%>
-				<tr class="followtable">
-					<td><!--tdのそとにリンク書けないので中-->
-						<%= link_to user_path(user.follower.id) do %>
-						<%= attachment_image_tag user.follower, :icon, size: "200x200", fallback: "no_image.jpg" %>
-						<% end %>
-					</td>
-					<td>
-						&emsp;&emsp;<%= link_to user_path(user.follower.id) do %>
-						<%= user.follower.name %>
-						<% end %><br><br>
-					</td>
-				</tr>
-				<% end %>
-			</tbody>
-		</table>
-		<div class ="text-center">
-		   <%= paginate @follower_users %>
-	    </div>
+  <div class="col-xs-4">
+    <h4>follower</h4>
+	<table>
+	  <tbody>
+	    <% @follower_users.each do |user|%>
+		  <tr class="followtable">
+		    <td><!--tdのそとにリンク書けないので中-->
+			  <%= link_to user_path(user.follower.id) do %>
+			    <%= attachment_image_tag user.follower, :icon, size: "200x200", fallback: "no_image.jpg" %>
+			  <% end %>
+		    </td>
+		    <td>
+			  &emsp;&emsp;<%= link_to user_path(user.follower.id) do %>
+			    <%= user.follower.name %>
+			   <% end %><br><br>
+			</td>
+          </tr>
+        <% end %>
+	  </tbody>
+	</table>
+	<div class ="text-center">
+	  <%= paginate @follower_users %>
 	</div>
+  </div>
+</div>
 

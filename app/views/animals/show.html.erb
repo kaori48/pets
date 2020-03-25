@@ -1,111 +1,111 @@
-
 <div class="row">
-    <div class="col-xs-3">
-      <div class="row">
-        <!--ペット一覧閲覧許可ユーザー-->
-        <p><%= render 'layouts/side', user: @animaluser, applying: @applying %></p>
-        <p><%= render 'layouts/sidepertners', users: @users, animal: @animal %></p>
-      </div>
+  <div class="col-xs-3">
+    <div class="row">
+      <!--ペット一覧閲覧許可ユーザー-->
+      <p><%= render 'layouts/side', user: @animaluser, applying: @applying %></p>
+      <p><%= render 'layouts/sidepertners', users: @users, animal: @animal %></p>
     </div>
-<!--ペット詳細-->
-    <div class="col-xs-6">
-        <div class="row">
-            <div class="col-xs-4">
-               <p><%= attachment_image_tag @animal, :animal_image, size: "150x150",fallback: "no_image.jpg" %></p>
-            </div>
-            <div class="col-xs-8 table-responsive">
-                <table class="table table-bordered animaltable">
-                  <tbody>
-                      <tr class="something">
-                        <th class="warning">名前</th><td class="col-md-10"><%= @animal.name %></td>
-                      </tr>
-                      <tr>
-                         <th class="warning">birth</th><td><%= @animal.birth.strftime("%Y年%m月%d日") %></td>
-                      </tr>
-                      <tr>
-                         <th class="warning">food</th><td><%= simple_format(@animal.food) %></td>
-                      </tr>
-                      <tr>
-                          <th class="warning">toilet</th><td><%= simple_format(@animal.toilet) %></td>
-                      </tr>
-                      <tr>
-                           <th class="warning">water</th><td><%= simple_format(@animal.water) %></td>
-                      </tr>
-                      <tr>
-                            <th class="warning">hospital</th><td><%= simple_format(@animal.hospital) %></td>
-                      </tr>
-                      <tr>
-                            <th class="warning">other</th><td><%= simple_format(@animal.other) %></td>
-                      </tr>
-                  </tbody>
-                </table><br>
-            </div>
+  </div>
+  <!--ペット詳細-->
+  <div class="col-xs-6">
+    <div class="row">
+      <div class="col-xs-4">
+        <p><%= attachment_image_tag @animal, :animal_image, size: "150x150",fallback: "no_image.jpg" %></p>
+      </div>
+      <div class="col-xs-8 table-responsive">
+        <table class="table table-bordered animaltable">
+          <tbody>
+            <tr class="something">
+              <th class="warning">名前</th>
+              <td class="col-md-10"><%= @animal.name %></td>
+            </tr>
+            <tr>
+               <th class="warning">birth</th>
+               <td><%= @animal.birth.strftime("%Y年%m月%d日") %></td>
+            </tr>
+            <tr>
+               <th class="warning">food</th>
+               <td><%= simple_format(@animal.food) %></td>
+            </tr>
+            <tr>
+              <th class="warning">toilet</th>
+              <td><%= simple_format(@animal.toilet) %></td>
+            </tr>
+            <tr>
+              <th class="warning">water</th>
+              <td><%= simple_format(@animal.water) %></td>
+            </tr>
+            <tr>
+              <th class="warning">hospital</th>
+              <td><%= simple_format(@animal.hospital) %></td>
+            </tr>
+            <tr>
+              <th class="warning">other</th><td><%= simple_format(@animal.other) %></td>
+            </tr>
+          </tbody>
+        </table><br>
+      </div>
 
-    <% if @animal.user == current_user %>
-      <p class="text-right">
-        <%= link_to "編集", edit_animal_path(@animal.id) %> /
-        <%= link_to "削除", animal_path(@animal.id),method: :delete, data: {confirm: "本当に消しますか？"}  %>
-      </p>
-    <% end %>
+      <% if @animal.user == current_user %>
+        <p class="text-right">
+          <%= link_to "編集", edit_animal_path(@animal.id) %> /
+          <%= link_to "削除", animal_path(@animal.id),method: :delete, data: {confirm: "本当に消しますか？"}  %>
+        </p>
+      <% end %>
 
-  <!--コメント登録-->
-    <%= form_for [@animal,@comment] do |f| %>
+      <!--コメント登録-->
+      <%= form_for [@animal,@comment] do |f| %>
         <%= render 'layouts/error', model: f.object %>
         <p><%= f.text_area :comment, placeholder:"コメントを入力してください", :size=>"77x3" %></p>
         <div class="col-xs-3 col-xs-offset-11">
             <p><%= f.submit "送信",class: "btn btn-warning btn-xs" %></p>
-    <% end %>
-    </div>
+        </div>
+      <% end %>
 
-  <!--コメント一覧-->
-    <div class="row">
-    <% @animal.animal_comments.each do |animal_comment| %>
-      <div class="col-xs-3">
-      <%= link_to user_path(animal_comment.user.id) do %><!--ユーザーのshowへ-->
-          <%= attachment_image_tag animal_comment.user , :icon, size: "50x50",fallback: "no_image.jpg" %>
-      <% end %>
-      <%= link_to user_path(animal_comment.user.id) do %>
-          <%= animal_comment.user.name %>
-      <% end %>
+      <!--コメント一覧-->
+      <div class="row">
+        <% @animal.animal_comments.each do |animal_comment| %>
+          <div class="col-xs-3">
+          <%= link_to user_path(animal_comment.user.id) do %><!--ユーザーのshowへ-->
+              <%= attachment_image_tag animal_comment.user , :icon, size: "50x50",fallback: "no_image.jpg" %>
+          <% end %>
+          <%= link_to user_path(animal_comment.user.id) do %>
+              <%= animal_comment.user.name %>
+          <% end %>
+          </div>
+          <div class="col-xs-9">
+          &emsp;<span style="font-size:1.2em;"><%= simple_format(animal_comment.comment) %></span>
+          <p class="text-right"><%= animal_comment.created_at.strftime("%Y-%m-%d %H:%M") %>
+          <% if animal_comment.user == current_user %>
+              <%= link_to "削除", animal_animal_comments_path(animal_comment.id),method: :delete, data: {confirm: "本当に消しますか？"}  %>
+              <% end %></p>
+          </div>
+        <% end %>
       </div>
-      <div class="col-xs-9">
-      &emsp;<span style="font-size:1.2em;"><%= simple_format(animal_comment.comment) %></span>
-      <p class="text-right"><%= animal_comment.created_at.strftime("%Y-%m-%d %H:%M") %>
-      <% if animal_comment.user == current_user %>
-          <%= link_to "削除", animal_animal_comments_path(animal_comment.id),method: :delete, data: {confirm: "本当に消しますか？"}  %>
-          <% end %></p>
-      </div>
-    <% end %>
-     </div>
-  </div>
+    </div>
     <div class ="text-center">
       <%= paginate @comments %>
     </div>
-    </div>
+  </div>
 
-
-    <!--タスク一覧-->
-    <div class="col-xs-3">
-        <div class="todobox">
-            <p class="text-center"><span style="font-size:1.3em;">To Do List</span></p>
-            <p><%= form_for [@animal, @task] do |f| %>
-              <p><%= f.text_field :content, placeholder:"例：おもちゃを買う" %>
-              <%= f.submit"投稿",class: "btn btn-warning btn-xs" %></p>
-            <% end %></p>
-            <!--タスク一覧-->
-            <% @animal.tasks.each do |task|%>
-            <span style="font-size:1.1em;"><%= check_box_tag '', '', task.done, {'data-id' => task.id, 'animal_id' => task.animal_id} %><%= task.content %></span><!--id,value必要なし-->
-            <a class="no-line"><%= link_to animal_tasks_path(task.id),method: :delete do%>
-            <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: #82cddd;"></span>
-            <% end %></a>
-                <br>
-            <% end %>
-        </div>
+  <!--タスク-->
+  <div class="col-xs-3">
+    <div class="todobox">
+      <p class="text-center"><span style="font-size:1.3em;">To Do List</span></p>
+      <p><%= form_for [@animal, @task] do |f| %>
+        <p><%= f.text_field :content, placeholder:"例：おもちゃを買う" %>
+        <%= f.submit"投稿",class: "btn btn-warning btn-xs" %></p>
+      <% end %></p>
+      <!--タスク一覧-->
+      <% @animal.tasks.each do |task|%>
+        <span style="font-size:1.1em;"><%= check_box_tag '', '', task.done, {'data-id' => task.id, 'animal_id' => task.animal_id} %><%= task.content %></span><!--id,value必要なし-->
+        <a class="no-line"><%= link_to animal_tasks_path(task.id),method: :delete do%>
+          <span class="glyphicon glyphicon-remove" aria-hidden="true" style="color: #82cddd;"></span>
+        <% end %></a><br>
+      <% end %>
     </div>
+  </div>
 
-    <!-- jqueryの機能を使ってチェックボックスの制御を行う -->
-    <script type="text/javascript">
-    </script>
-    </div>
-</div>
+  <!-- jqueryの機能を使ってチェックボックスの制御を行う -->
+  <script type="text/javascript"></script>
 </div>

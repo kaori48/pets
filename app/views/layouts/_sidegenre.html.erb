@@ -5,8 +5,8 @@
   <div>
 	<% genres.each do |genre| %><!--ジャンル一覧、ジャンルテーブルからとってくる-->
 	  &emsp;&emsp;&emsp;&emsp;<%= link_to blog_genre_path(genre.id) do %><!-- 投稿一覧リンク（ジャンルidに紐づいてる）-->
-		<span style="font-size:1.1em;"><%= genre.name %></span><br><!--ジャンル名-->
-		<% end %>
+	    <span style="font-size:1.1em;"><%= genre.name %></span><br><!--ジャンル名-->
+	  <% end %>
 	<% end %>
   </div>
 </div>
