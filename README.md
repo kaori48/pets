@@ -8,10 +8,10 @@
 Rails '~> 5.2.4', '>= 5.2.4.1'
 
 # Setup
-$ git clone https://github.com/kaori48/pets.git
-$ bundle install
-$ rails g devise:install
-$ rails db:migrate
+$ git clone https://github.com/kaori48/pets.git  
+$ bundle install  
+$ rails g devise:install  
+$ rails db:migrate  
 
 
 # Usage
