@@ -1,6 +1,6 @@
 ![logo ](https://user-images.githubusercontent.com/59257057/77410560-644b5200-6dfe-11ea-977c-84e615868c96.png)
 # pets
-このソフトは、
+このアプリケーションは、
 登録しているユーザーがペットについてのブログを投稿して交流をしたり、
 お世話記録をつけて家族などとペットの世話の内容を共有することができます。
 
@@ -8,7 +8,11 @@
 Rails '~> 5.2.4', '>= 5.2.4.1'
 
 # Setup
-セットアップ方法を書く。用意するハードウェアとソフトウェアをセットアップするためのコマンドを記載する
+$ git clone https://github.com/kaori48/pets.git
+$ bundle install
+$ rails g devise:install
+$ rails db:migrate
+
 
 # Usage
 [マイページ]  
