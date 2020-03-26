@@ -41,12 +41,15 @@ before_action :ensure_correct_user, only: [:edit, :update, :destroy]#本人とad
   end
 
   def update
-    blog = Blog.find(params[:id])
-    if blog.update(blog_params)
+    @blog = Blog.find(params[:id])
+    if @blog.update(blog_params)
        flash[:notice] = "更新しました！"#成功メッセ
-       redirect_to blog_path(blog.id)
+       redirect_to blog_path(@blog.id)
     else
-      redirect_to edit_blog_path(blog.id)
+      @user = current_user
+      @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
+      @genres =  Genre.all
+      render :edit
     end
   end
 

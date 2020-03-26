@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :blog_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   attachment :icon#icon_idだがrefileの仕様でidなし
-  validates :name, presence: true #空欄NG
+  validates :name,length: {maximum: 10}, presence: true #空欄NG10文字まで
 
 #フォロー機能
   #ユーザーとフォローする人の関連づけ。Relationshipモデルのfollower_idにuser_idを格納

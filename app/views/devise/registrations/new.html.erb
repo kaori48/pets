@@ -6,7 +6,8 @@
     <%= render "devise/shared/error_messages", resource: resource %>
 
     <div class="field">
-      <%= f.label :name %><br />
+      <%= f.label :name %>
+      <em>(１文字以上１０字以下にしてください)</em><br />
       <p class="text-center"><%= f.text_field :name,:size=>"40x1" %></p>
     </div><br>
     <div class="field">

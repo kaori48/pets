@@ -5,8 +5,6 @@ class UsersController < ApplicationController
   before_action :ensure_animal_user, only: [:animal]#ページを（animalページの場合、URLにIDが入っており、そのIDとcurrent_userが同じ場合に表示）
 
 
-
-
   def index
     @users = User.all.order(created_at: :asc).page(params[:page]).reverse_order
     #サイドバー
@@ -29,15 +27,21 @@ class UsersController < ApplicationController
     @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
   end
 
-  def mypage#使うか不明
-    @user = current_user
-  end
   def update
   	@user = current_user
-  	@user.update(user_params)
-  	redirect_to edit_user_path(current_user.id)
+  	if @user.update(user_params)
+      flash[:notice] = "更新しました！"#成功メッセ
+  	  redirect_to edit_user_path(current_user.id)
+    else
+      #サイドバー
+      @user = current_user
+      @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
+      @users = AnimalPermit.where(permitted_id: current_user.id, status: 0).order(created_at: :asc).page(params[:page]).reverse_order#申請した人（０）
+    @permitted_users = AnimalPermit.where(permitter_id: current_user.id, status: 1).order(created_at: :asc).page(params[:page]).reverse_order#自分をお世話パートナーにしている人
+      render :edit
+    end
   end
-  def destroy#削除できない
+  def destroy
     user = current_user
     user.destroy
     redirect_to root_path
@@ -46,8 +50,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
      #サイドパートナー
     @users = AnimalPermit.where(permitted_id: @user, status: 1).order(created_at: :asc).page(params[:page]).reverse_order#お世話パートナーのサイドバー
-    #@permit = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: user.id)
-    #サイドバー
     @applying = AnimalPermit.find_by(permitter_id: current_user.id, permitted_id: @user.id )
   end
 

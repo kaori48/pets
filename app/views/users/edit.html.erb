@@ -12,12 +12,21 @@
        <!--削除ボタン-->
       <div class="col-xs-4">
         <%= link_to "退会",user_path(current_user), method: :delete,class: "btn btn-warning btn-xs", data: {confirm: "本当に退会しますか？"} %><br>
-         <%= form_for(@user) do |f|%>
-          <%= attachment_image_tag @user, :icon, size: "150x150", fallback: "no_image.jpg" %><!-- サイズ後で -->
-          <%= f.attachment_field :icon %><!-- icon_idだがrefileの仕様でidなし --><!-- サイズについての表記を書く -->
+      </div>
+    </div>
+    <div class="row">
+       <%= form_for(@user) do |f|%>
+        <div class="row">
+          <div class="col-xs-12">
+            <%= render 'layouts/error', model: f.object %>
+          </div>
+        </div>
+      <div class="col-xs-4">
+        <%= attachment_image_tag @user, :icon, size: "150x150", fallback: "no_image.jpg" %>
+        <%= f.attachment_field :icon %><!-- icon_idだがrefileの仕様でidなし -->
       </div>
       <div class="col-xs-4">
-        <h4>name</h4>
+        <h4>name(10文字以内)</h4>
           <%= f.text_field :name,:size=>"30x1" %>
         <h4>introduction</h4>
           <%= f.text_area :introduction,:size=>"30x3" %>
@@ -26,7 +35,7 @@
         <% end %>
         </div>
       </div>
-    </div><br>
+    </div>
 
     <div class="row">
       <div class="col-xs-5">
